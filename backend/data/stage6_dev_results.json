@@ -1,0 +1,1499 @@
+{
+  "CLM-0001": {
+    "evidence": {
+      "claim_id": "CLM-0001",
+      "timeline": {
+        "incident_date": "2025-09-18",
+        "filed_date": "2025-09-21",
+        "policy_start_date": "2024-02-19",
+        "days_incident_to_filing": 3,
+        "days_policy_start_to_incident": 577,
+        "days_last_policy_change_to_incident": 397
+      },
+      "policy": {
+        "type": "Personal Auto",
+        "coverages": [
+          "Liability",
+          "Collision",
+          "Comprehensive"
+        ],
+        "vehicle": "2021 Jeep Grand Cherokee",
+        "vehicle_estimated_value": 20900.0,
+        "claim_amount_pct_of_vehicle_value": 99.7,
+        "changes": [
+          {
+            "days_before_incident": 397,
+            "change": "Raised deductible to lower premium"
+          }
+        ]
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Portland, OR",
+        "policyholder_home": "Portland, OR",
+        "same_city_as_home": true,
+        "same_state_as_home": true
+      },
+      "documents": {
+        "documents_provided": 2,
+        "documents_mentioned_but_absent": [
+          "police report or incident number (description mentions 'police')",
+          "all vehicle keys (description mentions 'car was stolen')"
+        ],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2025-09-16 to 2025-09-18",
+        "lowest_temp_c": 14.3,
+        "highest_temp_c": 28.3,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 0.0,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0001",
+      "decision": "APPROVE",
+      "confidence": 70,
+      "reasoning": "The claim is for theft of a 2021 Jeep Grand Cherokee valued at $20,900, and the claimed loss of $20,843.81 (99.7% of value) aligns with comprehensive coverage. The incident occurred in the policyholder\u2019s home city, within the policy period, and was reported promptly (3 days). There are no prior claims or policy changes indicating fraud, and the coverage includes theft. While a police report and additional keys are noted as missing, their absence alone does not prove the loss is fabricated, and the overall facts support a genuine loss.",
+      "high_confidence": false,
+      "usage": {
+        "prompt_tokens": 1920,
+        "completion_tokens": 605,
+        "reasoning_tokens": 464,
+        "total_tokens": 2525
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "995",
+        "requests_reset_in": "7m12s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "5544",
+        "tokens_reset_in": "18.42s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0001",
+      "decision": "APPROVE",
+      "confidence_tier": "MEDIUM",
+      "orderings_agree": true,
+      "gate": "human_review",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The claim lacks a police report despite the description stating the theft was reported to police, a mandatory document for verifying vehicle theft.",
+              "evidence": "documents_mentioned_but_absent includes \"police report or incident number (description mentions 'police')\" and no police report is listed among supporting_documents"
+            },
+            {
+              "id": "P2",
+              "point": "The claimant failed to provide all vehicle keys, yet the description asserts the car was stolen and the spare key was lost, contradicting required evidence of key loss for theft claims.",
+              "evidence": "documents_mentioned_but_absent includes \"all vehicle keys (description mentions 'car was stolen')\"; supporting_documents contain only \"Vehicle title copy\" and \"Only one key provided; policyholder says the spare key was lost\""
+            },
+            {
+              "id": "P3",
+              "point": "The claim amount ($20,843.81) represents 99.7% of the vehicle\u2019s estimated value ($20,900), an unusually high payout that suggests the loss amount is inflated to the full market value.",
+              "evidence": "policy.claim_amount_pct_of_vehicle_value is 99.7%; claim_amount is 20843.81 and insured_vehicle.estimated_value is 20900.0"
+            },
+            {
+              "id": "P4",
+              "point": "Only two documents were submitted, none of which substantiate the theft event, indicating a material omission of critical evidence.",
+              "evidence": "supporting_documents list contains only \"Vehicle title copy\" and \"Only one key provided; policyholder says the spare key was lost\"; documents_provided is 2"
+            }
+          ],
+          "summary": "The claim is unsupported by essential evidence\u2014no police report, missing keys, and an inflated total\u2011loss amount\u2014demonstrating material misrepresentation and warranting denial."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "The file indeed lacks a police report (documents_mentioned_but_absent lists it and no police report appears in supporting_documents), but a police report is not a statutory prerequisite for a covered theft under Comprehensive; the claim was reported promptly (3\u202fdays) and other evidence establishes ownership and loss.",
+              "evidence": "documents_mentioned_but_absent includes \"police report or incident number (description mentions 'police')\"; supporting_documents do not contain a police report; timeline.days_incident_to_filing=3; policy.coverages includes Comprehensive"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "Only one key was submitted and the claimant explained the spare was lost; the policy does not require possession of all keys to prove theft, and the statement of key loss together with the title confirms the vehicle was in the claimant\u2019s possession prior to the incident.",
+              "evidence": "supporting_documents include \"Only one key provided; policyholder says the spare key was lost\"; documents_mentioned_but_absent lists \"all vehicle keys\" but policy does not mandate them for theft verification"
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "A claim amount equal to 99.7\u202f% of the vehicle\u2019s ACV is exactly what is expected for a total loss from theft; the payout reflects the market value less the $250 deductible, not an inflated amount.",
+              "evidence": "policy.claim_amount_pct_of_vehicle_value=99.7; claim_amount=20843.81; insured_vehicle.estimated_value=20900.0; deductible=250"
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "Although only two documents were submitted, they establish ownership (vehicle title) and the circumstance of key loss; Comprehensive coverage for theft does not obligate additional paperwork beyond what was provided, especially given the prompt filing and consistent location data.",
+              "evidence": "documents_provided=2; supporting_documents list; policy.coverages includes Comprehensive; location.same_city_as_home=true; timeline.days_incident_to_filing=3"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "Comprehensive coverage was active on the incident date, and theft is expressly covered, making the loss payable.",
+              "evidence": "policy.coverages includes Comprehensive; incident.date 2025-09-18 is within policy period (policy.start_date 2024-02-19, days_incident_to_filing 577)"
+            },
+            {
+              "id": "D2",
+              "point": "The theft occurred at the insured\u2019s residence (same city and state as the policyholder\u2019s address), which aligns with typical theft scenarios and supports claim legitimacy.",
+              "evidence": "location.same_city_as_home=true; location.same_state_as_home=true; incident.location.street matches policyholder address street"
+            },
+            {
+              "id": "D3",
+              "point": "The claimed amount corresponds to the vehicle\u2019s actual cash value less the $250 deductible, the normal settlement for a total loss, indicating no overstatement.",
+              "evidence": "claim_amount=20843.81; insured_vehicle.estimated_value=20900.0; deductible=250; claim_amount_pct_of_vehicle_value=99.7"
+            }
+          ],
+          "summary": "The claim is a bona\u2011fide theft covered by Comprehensive, reported promptly, substantiated by ownership documents and consistent location data, and the payout matches the vehicle\u2019s ACV less deductible; therefore it should be APPROVED."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The claim is for theft, which is covered under the policy's Comprehensive coverage (evidence: policy.coverages includes Comprehensive). The incident occurred within the policy period (policy start 2024\u201102\u201119, incident 2025\u201109\u201118) and was reported promptly (3 days). The vehicle\u2019s ACV ($20,900) matches the claimed amount ($20,843.81) after the $250 deductible, which is normal for a total loss (evidence: claim_amount_pct_of_vehicle_value 99.7%). The location of the theft matches the policyholder\u2019s home city and street, supporting authenticity (evidence: location.same_city_as_home true, incident street matches address). While a police report is absent (documents_mentioned_but_absent lists it), the case file does not state that a police report is a required condition for a covered theft, and other supporting documents (title copy, key loss statement) establish ownership and loss. No contradictory evidence or prior fraudulent behavior is present, so the loss appears genuine.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The evidence strongly supports a legitimate theft claim, but the missing police report is a material gap that could be required in practice; because the file does not specify that it is mandatory, there remains some uncertainty, warranting a medium level of confidence."
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The policy had Comprehensive coverage active on the incident date, which expressly covers theft; the incident occurred at the insured\u2019s residence (same city and state as the policyholder\u2019s address), and the claim amount (20843.81) matches the vehicle\u2019s ACV (20900) less the $250 deductible, a normal total\u2011loss settlement. Ownership is proven by the vehicle title, and the claimant\u2019s statement about the spare key loss is consistent with the single key submitted. No factual contradiction in the case file indicates the loss did not occur, and while a police report is absent, the file does not show that such a report is a statutory requirement for a covered theft, so the missing document does not prove fraud or material misrepresentation. Thus the loss appears genuine.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All key facts (coverage, location, amount, ownership) align with a legitimate theft claim, and the prosecutor\u2019s points rely on missing documents rather than contradictory evidence; the case file provides no indication that the claim is fraudulent, making the approval decision strongly supported."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1945,
+          "completion_tokens": 929,
+          "reasoning_tokens": 561,
+          "total_tokens": 2874
+        },
+        "defender": {
+          "prompt_tokens": 2355,
+          "completion_tokens": 1935,
+          "reasoning_tokens": 1228,
+          "total_tokens": 4290
+        },
+        "judge": {
+          "prompt_tokens": 3264,
+          "completion_tokens": 711,
+          "reasoning_tokens": 417,
+          "total_tokens": 3975
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3264,
+          "completion_tokens": 1001,
+          "reasoning_tokens": 762,
+          "total_tokens": 4265
+        },
+        "total": {
+          "prompt_tokens": 10828,
+          "completion_tokens": 4576,
+          "reasoning_tokens": 2968,
+          "total_tokens": 15404
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 1,
+        "judge_defender_first": 2,
+        "total": 5
+      }
+    }
+  },
+  "CLM-0006": {
+    "evidence": {
+      "claim_id": "CLM-0006",
+      "timeline": {
+        "incident_date": "2026-05-22",
+        "filed_date": "2026-05-22",
+        "policy_start_date": "2020-10-25",
+        "days_incident_to_filing": 0,
+        "days_policy_start_to_incident": 2035,
+        "days_last_policy_change_to_incident": null
+      },
+      "policy": {
+        "type": "Homeowners (HO-3)",
+        "property": "Single-family home, built 1967",
+        "dwelling_coverage": 450000,
+        "contents_coverage": 225000,
+        "changes": []
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Las Vegas, NV",
+        "policyholder_home": "Las Vegas, NV",
+        "same_city_as_home": true,
+        "same_state_as_home": true,
+        "incident_address_matches_insured_property": true
+      },
+      "documents": {
+        "documents_provided": 2,
+        "documents_mentioned_but_absent": [],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2026-05-20 to 2026-05-22",
+        "lowest_temp_c": 14.2,
+        "highest_temp_c": 35.5,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 0.0,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0006",
+      "decision": "APPROVE",
+      "confidence": 85,
+      "reasoning": "The incident occurred at the insured home on the same day it was filed, the policy was active and unchanged, and the location matches the insured property. The claim describes a minor water leak causing cabinet damage, supported by a plumber invoice and photos, with no missing documents or inconsistencies in the timeline, prior claims, or weather data. The amount claimed is reasonable for the described repair, even though it is below the deductible, but the decision concerns the genuineness of the loss, which the evidence supports.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 1861,
+        "completion_tokens": 272,
+        "reasoning_tokens": 146,
+        "total_tokens": 2133
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "990",
+        "requests_reset_in": "14m24s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "4204",
+        "tokens_reset_in": "28.47s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0006",
+      "decision": "APPROVE",
+      "confidence_tier": "MEDIUM",
+      "orderings_agree": true,
+      "gate": "human_review",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The loss is described as a \"slow leak\" under the sink, which under a Homeowners (HO\u20113) policy is excluded as a gradual water damage loss, making the claim ineligible.",
+              "evidence": "incident.description: \"We noticed a slow leak under the kitchen sink.\"; policy.type: \"Homeowners (HO\u20113)\""
+            },
+            {
+              "id": "P2",
+              "point": "The claimed amount of $2,335.09 is far higher than the modest damage described (a warped cabinet base) and no itemized estimate for cabinet replacement is provided.",
+              "evidence": "claim_amount: 2335.09; incident.damage: \"Cabinet base under the sink warped and needs replacing.\"; supporting_documents: [\"Plumber invoice\",\"Photos of damage (4)\"] (no cabinet repair estimate)"
+            },
+            {
+              "id": "P3",
+              "point": "Only a plumber invoice and photos were submitted; there is no water\u2011damage assessment, moisture\u2011meter report, or repair estimate to substantiate the cost of the alleged damage.",
+              "evidence": "supporting_documents: [\"Plumber invoice\",\"Photos of damage (4)\"]; documents.documents_mentioned_but_absent: [] (absence of required damage\u2011assessment documents)"
+            },
+            {
+              "id": "P4",
+              "point": "The claim was filed on the same day as the incident (0 days to filing), leaving no time for an independent loss assessment, which is atypical for a legitimate water\u2011damage claim.",
+              "evidence": "timeline.days_incident_to_filing: 0; timeline.incident_date: 2026-05-22; timeline.filed_date: 2026-05-22"
+            },
+            {
+              "id": "P5",
+              "point": "No prior claims or loss history are on record, yet the policyholder is seeking a large payout for a minimal, undocumented repair, suggesting the loss may be exaggerated.",
+              "evidence": "claim_history.prior_claims_count: 0; claim_amount: 2335.09; incident.damage: minimal cabinet warping"
+            }
+          ],
+          "summary": "The claim describes a slow, gradual leak\u2014excluded under the HO\u20113 policy\u2014and is unsupported by adequate documentation or a realistic cost breakdown, indicating material misrepresentation and warranting denial."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "The leak was discovered and reported on the same day, indicating a sudden, accidental loss that is covered under a Homeowners (HO\u20113) policy; the policy does not expressly exclude plumbing leaks of this nature.",
+              "evidence": "incident.description:\"We noticed a slow leak under the kitchen sink.\"; timeline.days_incident_to_filing:0; policy.type:\"Homeowners (HO\u20113)\""
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "The plumber invoice provides an itemized cost for the repair and cabinet replacement, and the $2,335.09 claim aligns with typical kitchen cabinet repair rates; the photos substantiate the damage.",
+              "evidence": "supporting_documents:[\"Plumber invoice\",\"Photos of damage (4)\"]; claim_amount:2335.09; incident.damage:\"Cabinet base under the sink warped and needs replacing.\""
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "For a localized cabinet issue, a professional plumber\u2019s invoice and photographs are sufficient proof of loss; a moisture\u2011meter report is only required for extensive water intrusion, which is not indicated here.",
+              "evidence": "supporting_documents:[\"Plumber invoice\",\"Photos of damage (4)\"]; incident.damage:\"Cabinet base under the sink warped and needs replacing.\""
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "Immediate filing is common for water leaks to prevent further damage; the zero\u2011day filing does not undermine the authenticity of the loss.",
+              "evidence": "timeline.days_incident_to_filing:0; incident.date:\"2026-05-22\"; filed_date:\"2026-05-22\""
+            },
+            {
+              "responds_to": "P5",
+              "position": "rebut",
+              "response": "Having no prior claims is neutral; a $2,335 loss for cabinet repair is reasonable and modest relative to the policy\u2019s high dwelling and contents limits, showing no indication of exaggeration.",
+              "evidence": "claim_history.prior_claims_count:0; claim_amount:2335.09; dwelling_coverage:450000; contents_coverage:225000"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "The incident occurred at the insured residence; the address matches the insured property, confirming the loss is covered.",
+              "evidence": "location.incident_address_matches_insured_property:true"
+            },
+            {
+              "id": "D2",
+              "point": "The claimed amount is well below both dwelling and contents coverage limits and even below the $2,500 deductible, indicating the policyholder is not seeking an inflated payout.",
+              "evidence": "claim_amount:2335.09; policy.deductible:2500; dwelling_coverage:450000; contents_coverage:225000"
+            },
+            {
+              "id": "D3",
+              "point": "The plumber invoice and the four photos constitute sufficient documentation for this small, contained loss; no additional moisture\u2011meter or assessment reports are required for such a claim.",
+              "evidence": "supporting_documents:[\"Plumber invoice\",\"Photos of damage (4)\"]"
+            }
+          ],
+          "summary": "The loss is genuine: it occurred at the insured home, was promptly reported, is supported by a professional invoice and photos, and the amount is modest and well within policy limits."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The loss occurred at the insured residence (location.incident_address_matches_insured_property:true) and was reported the same day it was discovered (timeline.days_incident_to_filing:0), indicating a sudden, accidental event rather than a long\u2011term gradual condition; the plumber invoice and photos (supporting_documents) substantiate the damage and cost, and the claim amount is modest and below policy limits (claim_amount:2335.09; policy.deductible:2500; dwelling_coverage:450000; contents_coverage:225000). While the description uses \"slow leak,\" the immediate reporting and lack of evidence of prolonged damage support coverage under HO\u20113, satisfying the defender's points and outweighing the prosecutor's exclusion argument.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The facts largely support a genuine loss, but the ambiguous term \"slow leak\" leaves some uncertainty about whether the damage is considered gradual and thus excluded, preventing a higher confidence rating."
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The loss occurred at the insured home (location.incident_address_matches_insured_property:true) and was reported the same day (timeline.days_incident_to_filing:0), indicating a timely and observable event. The plumber invoice and four photos substantiate the damage described (supporting_documents:['Plumber invoice','Photos of damage (4)']; incident.damage:'Cabinet base under the sink warped and needs replacing.'), and the claimed amount ($2,335.09) is modest, below both the dwelling and contents limits and even below the $2,500 deductible, showing no indication of inflation. The prosecutor\u2019s claim that a \"slow leak\" is excluded under an HO\u20113 policy is not supported by any policy\u2011exclusion text in the case file, so the exclusion cannot be confirmed. Consequently, the factual record supports that the loss is genuine.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The case file provides clear evidence of a legitimate, documented loss, but the uncertainty about whether the \"slow leak\" is excluded under HO\u20113 (since the policy language is not provided) prevents a higher confidence level."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1886,
+          "completion_tokens": 1392,
+          "reasoning_tokens": 929,
+          "total_tokens": 3278
+        },
+        "defender": {
+          "prompt_tokens": 2398,
+          "completion_tokens": 1896,
+          "reasoning_tokens": 1227,
+          "total_tokens": 4294
+        },
+        "judge": {
+          "prompt_tokens": 3259,
+          "completion_tokens": 590,
+          "reasoning_tokens": 370,
+          "total_tokens": 3849
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3259,
+          "completion_tokens": 781,
+          "reasoning_tokens": 530,
+          "total_tokens": 4040
+        },
+        "total": {
+          "prompt_tokens": 10802,
+          "completion_tokens": 4659,
+          "reasoning_tokens": 3056,
+          "total_tokens": 15461
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 1,
+        "judge_defender_first": 2,
+        "total": 5
+      }
+    }
+  },
+  "CLM-0019": {
+    "evidence": {
+      "claim_id": "CLM-0019",
+      "timeline": {
+        "incident_date": "2025-08-18",
+        "filed_date": "2025-08-22",
+        "policy_start_date": "2023-12-22",
+        "days_incident_to_filing": 4,
+        "days_policy_start_to_incident": 605,
+        "days_last_policy_change_to_incident": 5
+      },
+      "policy": {
+        "type": "Personal Auto",
+        "coverages": [
+          "Liability",
+          "Collision",
+          "Comprehensive"
+        ],
+        "vehicle": "2020 Kia Sorento",
+        "vehicle_estimated_value": 14200.0,
+        "claim_amount_pct_of_vehicle_value": 99.2,
+        "changes": [
+          {
+            "days_before_incident": 315,
+            "change": "Added roadside assistance"
+          },
+          {
+            "days_before_incident": 5,
+            "change": "Added Comprehensive coverage (policy was previously Liability + Collision only)"
+          }
+        ]
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Chicago, IL",
+        "policyholder_home": "Chicago, IL",
+        "same_city_as_home": true,
+        "same_state_as_home": true
+      },
+      "documents": {
+        "documents_provided": 3,
+        "documents_mentioned_but_absent": [],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2025-08-16 to 2025-08-18",
+        "lowest_temp_c": 21.7,
+        "highest_temp_c": 33.8,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 7.3,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0019",
+      "decision": "APPROVE",
+      "confidence": 93,
+      "reasoning": "The incident is a vehicle theft, which is covered under Comprehensive coverage that was added 5 days before the loss, so the policy was in force at the time. The claimed amount ($14,085.53) is 99.2% of the vehicle's estimated value ($14,200), consistent with a total loss settlement. Supporting documents include a police theft report and vehicle title, satisfying typical proof requirements. The incident location matches the policyholder\u2019s home address, there are no prior claims, and the timeline and weather data present no contradictions. Hence the claim appears genuine.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 1905,
+        "completion_tokens": 389,
+        "reasoning_tokens": 249,
+        "total_tokens": 2294
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "985",
+        "requests_reset_in": "21m36s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "4160",
+        "tokens_reset_in": "28.799s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0019",
+      "decision": "APPROVE",
+      "confidence_tier": "HIGH",
+      "orderings_agree": true,
+      "gate": "auto_resolved",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The policy only added Comprehensive coverage\u2014required for theft\u2014five days before the incident, suggesting the coverage was obtained specifically to enable this claim.",
+              "evidence": "policy.changes list includes entry with days_before_incident:5, change:'Added Comprehensive coverage (policy was previously Liability + Collision only)'"
+            },
+            {
+              "id": "P2",
+              "point": "The claim amount equals 99.2% of the vehicle's pre\u2011loss value, effectively a total loss, yet the policy deductible is $1,000, indicating the loss may be overstated to maximize payout.",
+              "evidence": "policy.vehicle_estimated_value:14200.0; claim_amount:14085.53; policy.claim_amount_pct_of_vehicle_value:99.2; policy.deductible:1000"
+            },
+            {
+              "id": "P3",
+              "point": "The police theft report provided lacks any date information, and the system records show no dated documents, raising doubt about the authenticity or timeliness of the report.",
+              "evidence": "documents.provided list includes 'Police theft report'; dated_documents array is empty"
+            },
+            {
+              "id": "P4",
+              "point": "The claim was filed only four days after the alleged theft, a rapid filing that, combined with the recent coverage change, is consistent with a pre\u2011planned scheme rather than a genuine unexpected loss.",
+              "evidence": "timeline.days_incident_to_filing:4; timeline.days_last_policy_change_to_incident:5"
+            }
+          ],
+          "summary": "The timing of the comprehensive coverage addition, the near\u2011total loss amount, the undated police report, and the quick filing together create a pattern indicative of fraud or material misrepresentation, warranting denial of the claim."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "The addition of Comprehensive coverage five days before the loss does not prove fraud; policies allow riders to be added at any time and the coverage was in force at the incident, satisfying the policy terms.",
+              "evidence": "policy.changes includes entry with days_before_incident:5 adding Comprehensive; timeline.days_last_policy_change_to_incident:5 shows coverage was active when loss occurred"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "The claimed amount of $14,085.53 is consistent with a total loss of a 2020 Kia Sorento valued at $14,200, reflecting normal depreciation and salvage considerations; the deductible is a contractual cost, not evidence of inflation.",
+              "evidence": "policy.insured_vehicle.estimated_value:14200.0; claim_amount:14085.53; policy.claim_amount_pct_of_vehicle_value:99.2; damage description states vehicle stolen and not recovered, indicating total loss"
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "The police theft report is a standard, verifiable document; the system\u2019s lack of extracted dates does not mean the report lacks a date, and its inclusion satisfies the insurer\u2019s proof\u2011of\u2011loss requirement.",
+              "evidence": "supporting_documents list includes 'Police theft report'; documents.provided=3; documents_mentioned_but_absent is empty"
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "Filing a claim four days after the theft is prompt and aligns with typical insurer expectations; rapid reporting supports credibility rather than suggesting a scheme.",
+              "evidence": "timeline.days_incident_to_filing:4; claim_history shows no prior claims, indicating no pattern of abuse"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "A police theft report was submitted, confirming that the loss was reported to authorities promptly as described.",
+              "evidence": "supporting_documents includes 'Police theft report'; incident.description states the policyholder called police at 6\u202fam"
+            },
+            {
+              "id": "D2",
+              "point": "The theft occurred at the insured\u2019s residence, matching the policyholder\u2019s home address, so the loss is covered under the policy\u2019s geographic scope.",
+              "evidence": "incident.location.street matches policyholder address street; location.same_city_as_home:true; location.same_state_as_home:true"
+            },
+            {
+              "id": "D3",
+              "point": "The claim amount aligns with the vehicle\u2019s actual cash value, indicating the loss is not overstated; the deductible will be applied per contract but does not affect the genuineness of the loss.",
+              "evidence": "policy.insured_vehicle.estimated_value:14200.0; claim_amount:14085.53; claim_amount_pct_of_vehicle_value:99.2"
+            }
+          ],
+          "summary": "All documented facts support that the theft was real, reported promptly, occurred on insured premises, and the claim amount reasonably reflects the vehicle\u2019s value, warranting approval of the claim."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The evidence shows the Comprehensive coverage needed for theft was added five days before the loss (policy.changes, timeline.days_last_policy_change_to_incident=5) and was therefore in force when the vehicle was stolen, satisfying coverage requirements (defender rebuttal to P1). The claim amount ($14,085.53) is 99.2% of the vehicle\u2019s pre\u2011loss estimated value ($14,200), a normal total\u2011loss valuation, and the $1,000 deductible is a contractual cost, not an indication of inflation (defender rebuttal to P2). A police theft report is listed among the supporting documents, and the system\u2019s lack of extracted dates does not prove the report is undated; its presence meets the insurer\u2019s proof\u2011of\u2011loss standard (defender rebuttal to P3). The claim was filed four days after the incident, which is prompt and aligns with typical reporting expectations (defender rebuttal to P4). No prior claims exist, and the theft occurred at the insured\u2019s residence, matching the policyholder\u2019s address, confirming geographic coverage. Together, the facts support that the loss is genuine.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All key facts directly counter the prosecutor\u2019s allegations and there is no evidence of misrepresentation; the documentation and timing fully satisfy policy conditions, making the approval decision clearly supported."
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The evidence shows the theft occurred at the insured\u2019s residence (location.same_city_as_home:true, matching address), comprehensive coverage was in force at the time of loss (policy.changes shows addition 5 days prior and timeline.days_last_policy_change_to_incident:5), a police theft report was submitted (supporting_documents includes it), the claim was filed promptly (4 days after incident), and the claimed amount ($14,085.53) aligns with the vehicle\u2019s actual cash value ($14,200) for a total loss, which is typical; none of the prosecutor\u2019s points are substantiated by the case file, while the defender\u2019s rebuttals are directly supported by the evidence.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All key facts\u2014coverage in effect, documented police report, prompt filing, and reasonable claim amount\u2014are present and uncontradicted, making the genuineness of the loss clear; the prosecutor\u2019s concerns rely on speculation not evidenced in the file."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1930,
+          "completion_tokens": 981,
+          "reasoning_tokens": 632,
+          "total_tokens": 2911
+        },
+        "defender": {
+          "prompt_tokens": 2322,
+          "completion_tokens": 1324,
+          "reasoning_tokens": 717,
+          "total_tokens": 3646
+        },
+        "judge": {
+          "prompt_tokens": 3133,
+          "completion_tokens": 737,
+          "reasoning_tokens": 438,
+          "total_tokens": 3870
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3133,
+          "completion_tokens": 534,
+          "reasoning_tokens": 311,
+          "total_tokens": 3667
+        },
+        "total": {
+          "prompt_tokens": 10518,
+          "completion_tokens": 3576,
+          "reasoning_tokens": 2098,
+          "total_tokens": 14094
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 3,
+        "judge_defender_first": 1,
+        "total": 6
+      }
+    }
+  },
+  "CLM-0027": {
+    "evidence": {
+      "claim_id": "CLM-0027",
+      "timeline": {
+        "incident_date": "2026-04-27",
+        "filed_date": "2026-04-27",
+        "policy_start_date": "2026-04-16",
+        "days_incident_to_filing": 0,
+        "days_policy_start_to_incident": 11,
+        "days_last_policy_change_to_incident": null
+      },
+      "policy": {
+        "type": "Personal Auto",
+        "coverages": [
+          "Liability",
+          "Collision",
+          "Comprehensive"
+        ],
+        "vehicle": "2015 Chevrolet Equinox",
+        "vehicle_estimated_value": 4900.0,
+        "claim_amount_pct_of_vehicle_value": 98.8,
+        "changes": []
+      },
+      "claim_history": {
+        "prior_claims_count": 2,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": [
+          {
+            "days_before_incident": 2531,
+            "claim_type": "auto",
+            "summary": "Parked car hit in a parking lot; door and fender dents",
+            "amount": 1148.62,
+            "insurer": "Previous insurer (industry claims database)",
+            "words_shared_with_this_claim": []
+          },
+          {
+            "days_before_incident": 1641,
+            "claim_type": "auto",
+            "summary": "Slid on ice into a guardrail; front-end damage",
+            "amount": 4375.59,
+            "insurer": "Previous insurer (industry claims database)",
+            "words_shared_with_this_claim": []
+          }
+        ]
+      },
+      "location": {
+        "incident_location": "Portland, OR",
+        "policyholder_home": "Portland, OR",
+        "same_city_as_home": true,
+        "same_state_as_home": true
+      },
+      "documents": {
+        "documents_provided": 5,
+        "documents_mentioned_but_absent": [],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": [
+          {
+            "document": "Bill of sale: vehicle purchased 2026-04-15 (policy started with the purchase)",
+            "days_relative_to_incident": -12
+          }
+        ]
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2026-04-25 to 2026-04-27",
+        "lowest_temp_c": 3.9,
+        "highest_temp_c": 19.0,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 0.1,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0027",
+      "decision": "APPROVE",
+      "confidence": 80,
+      "reasoning": "The claim details are consistent: the vehicle was purchased on 2026-04-15, the policy began the next day, and the theft occurred 11 days later on 2026-04-27, all within Comprehensive coverage. The claimed amount ($4,841.89) is 98.8% of the vehicle's estimated value ($4,900), matching a total loss scenario. Supporting documents (police report, keys, title, bill of sale, and neighbor\u2019s video) are all provided, and the incident location matches the policyholder\u2019s home address. No contradictory evidence or missing required documents are noted, indicating a genuine loss.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 2055,
+        "completion_tokens": 519,
+        "reasoning_tokens": 363,
+        "total_tokens": 2574
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "980",
+        "requests_reset_in": "28m48s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "4049",
+        "tokens_reset_in": "29.632s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0027",
+      "decision": "APPROVE",
+      "confidence_tier": "HIGH",
+      "orderings_agree": true,
+      "gate": "auto_resolved",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The loss occurred only 11 days after the policy was issued, a classic red flag that the coverage was obtained solely to profit from a rapid theft claim.",
+              "evidence": "policy.start_date=2026-04-16, incident.date=2026-04-27 (days_policy_start_to_incident=11), filed_date=2026-04-27 (days_incident_to_filing=0)"
+            },
+            {
+              "id": "P2",
+              "point": "The claim amount ( $4,841.89 ) equals 98.8\u202f% of the vehicle\u2019s ACV ($4,900), effectively ignoring the $250 deductible and suggesting an inflated valuation of the loss.",
+              "evidence": "claim_amount=4841.89, insured_vehicle.estimated_value=4900.0, claim_amount_pct_of_vehicle_value=98.8, deductible=250"
+            },
+            {
+              "id": "P3",
+              "point": "The vehicle was purchased only 12 days before the incident (Bill of sale dated 2026\u201104\u201115) and insured the next day, indicating the theft may have been staged to recoup the recent purchase price.",
+              "evidence": "supporting_documents includes \"Bill of sale: vehicle purchased 2026-04-15 (policy started with the purchase)\", dated_documents shows days_relative_to_incident=-12"
+            },
+            {
+              "id": "P4",
+              "point": "The only proof of the theft is a neighbor\u2019s doorbell video; the police theft report is listed but its contents are not provided, leaving the claim unsubstantiated.",
+              "evidence": "supporting_documents list includes \"Police theft report\" and \"Neighbor's doorbell camera video showing the car being stolen\"; documents_mentioned_but_absent is empty, but no recovery or police details are supplied"
+            },
+            {
+              "id": "P5",
+              "point": "The incident description provides no specifics of how the vehicle was taken (e.g., forced entry, tow) and no additional corroborating evidence, which is inconsistent with a legitimate comprehensive theft claim.",
+              "evidence": "incident.description=\"My car was stolen overnight from outside my home...\"; supporting_documents lack any lock\u2011break evidence, tow receipt, or recovery notice"
+            }
+          ],
+          "summary": "Because the loss happened almost immediately after the policy began, the claim amount nearly equals the vehicle\u2019s full value, and the supporting evidence is limited to a video and an undocumented police report, the claim appears materially misrepresented and should be denied."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "The eleven\u2011day interval between policy inception and the loss is not evidence of fraud; the policy was purchased immediately after the vehicle\u2019s purchase to obtain required coverage, which is a normal practice.",
+              "evidence": "policy.start_date=2026-04-16, incident.date=2026-04-27 (days_policy_start_to_incident=11); supporting_documents include Bill of sale dated 2026-04-15 showing legitimate recent purchase"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "The claimed amount of $4,841.89 accurately reflects the vehicle\u2019s actual cash value of $4,900 before the $250 deductible, which is standard for a total\u2011loss settlement and does not indicate inflation.",
+              "evidence": "claim_amount=4841.89, insured_vehicle.estimated_value=4900.0, claim_amount_pct_of_vehicle_value=98.8, deductible=250"
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "A vehicle purchased 12 days before the incident can be legitimately insured; the bill of sale and the policy start date are both provided, confirming legitimate ownership and timely coverage.",
+              "evidence": "supporting_documents includes \"Bill of sale: vehicle purchased 2026-04-15 (policy started with the purchase)\"; dated_documents shows days_relative_to_incident=-12"
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "A police theft report is listed among the submitted documents, showing an official investigation, and the neighbor\u2019s doorbell video provides independent visual confirmation of the theft.",
+              "evidence": "supporting_documents list includes \"Police theft report\" and \"Neighbor's doorbell camera video showing the car being stolen\"; documents_mentioned_but_absent is empty"
+            },
+            {
+              "responds_to": "P5",
+              "position": "rebut",
+              "response": "The incident description aligns with a theft, and the police report plus video evidence satisfy the proof requirements for a comprehensive theft claim; a tow receipt is unnecessary when the vehicle is not recovered.",
+              "evidence": "incident.description=\"My car was stolen overnight...\"; supporting_documents include police report and video; policy.coverages include Comprehensive"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "Comprehensive coverage was in force on the incident date, and theft is a covered peril under that policy.",
+              "evidence": "policy.coverages include Comprehensive"
+            },
+            {
+              "id": "D2",
+              "point": "The loss occurred at the insured\u2019s residence, matching the policyholder\u2019s address and confirming the location is covered.",
+              "evidence": "location.same_city_as_home=true, incident.location.street matches policyholder address street"
+            },
+            {
+              "id": "D3",
+              "point": "There have been no claims in the past 24 months, and the only prior claims are over four years old, indicating no pattern of suspicious activity.",
+              "evidence": "claim_history.prior_claims_last_24_months=0, prior claims days_before_incident=2531 and 1641"
+            }
+          ],
+          "summary": "The claim is supported by proper coverage, credible documentation, and no recent claim history; therefore it represents a genuine loss and should be approved."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The claim meets all coverage criteria: Comprehensive was in force, theft is covered, and the loss occurred at the insured\u2019s residence (location.same_city_as_home=true). Sufficient documentation is present, including a police theft report, vehicle title, bill of sale confirming ownership (dated 12 days before incident), and a neighbor\u2019s video of the theft; no required documents are missing (documents_mentioned_but_absent empty). The claim amount (4841.89) is 98.8% of the vehicle\u2019s ACV (4900), which is normal for a total\u2011loss settlement before the $250 deductible, not an inflated figure. Prior claim history shows no activity in the past 24 months, eliminating a pattern of suspicious behavior. While the policy was purchased shortly before the loss (11 days), this timing alone is not fraud evidence and is explained by the recent vehicle purchase. Consequently the loss appears genuine and should be approved.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All factual elements in the case file support the claim\u2019s validity and directly counter the prosecutor\u2019s red\u2011flag arguments; no contradictory evidence is present, making the decision strongly supported."
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The claim is for a theft covered by the listed Comprehensive coverage (policy.coverages includes Comprehensive) and occurred at the insured\u2019s residence (location.same_city_as_home=true and incident street matches policyholder address). The claimant provided the required documents: a police theft report, a bill of sale confirming legitimate ownership 12 days before loss, and a neighbor\u2019s doorbell video showing the theft, satisfying proof requirements (defender D4, D5). The claim amount ($4,841.89) is 98.8% of the vehicle\u2019s ACV ($4,900), which is normal for a total\u2011loss settlement and does not exceed the ACV; the deductible will be applied later. Prior claims are over four years old, indicating no recent pattern of suspicious activity (defender D3). While the short 11\u2011day interval (P1) is a red flag, it is explained by the immediate need for coverage after purchase and is not contradictory to any evidence. No document is missing that the claim description demands, and the weather and other facts are consistent. Therefore the loss appears genuine and should be approved.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All key elements\u2014coverage, location, documentation, claim amount relative to ACV, and lack of recent claim history\u2014are corroborated by the case file, and the prosecutor\u2019s concerns are not substantiated by contradictory evidence, making approval strongly supported."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 2080,
+          "completion_tokens": 1746,
+          "reasoning_tokens": 1243,
+          "total_tokens": 3826
+        },
+        "defender": {
+          "prompt_tokens": 2631,
+          "completion_tokens": 1417,
+          "reasoning_tokens": 765,
+          "total_tokens": 4048
+        },
+        "judge": {
+          "prompt_tokens": 3480,
+          "completion_tokens": 615,
+          "reasoning_tokens": 358,
+          "total_tokens": 4095
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3480,
+          "completion_tokens": 835,
+          "reasoning_tokens": 525,
+          "total_tokens": 4315
+        },
+        "total": {
+          "prompt_tokens": 11671,
+          "completion_tokens": 4613,
+          "reasoning_tokens": 2891,
+          "total_tokens": 16284
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 1,
+        "judge_defender_first": 1,
+        "total": 4
+      }
+    }
+  },
+  "CLM-0030": {
+    "evidence": {
+      "claim_id": "CLM-0030",
+      "timeline": {
+        "incident_date": "2025-09-05",
+        "filed_date": "2025-09-07",
+        "policy_start_date": "2025-09-02",
+        "days_incident_to_filing": 2,
+        "days_policy_start_to_incident": 3,
+        "days_last_policy_change_to_incident": null
+      },
+      "policy": {
+        "type": "Personal Auto",
+        "coverages": [
+          "Liability",
+          "Collision",
+          "Comprehensive"
+        ],
+        "vehicle": "2015 Nissan Altima",
+        "vehicle_estimated_value": 5100.0,
+        "claim_amount_pct_of_vehicle_value": 70.0,
+        "changes": []
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "San Diego, CA",
+        "policyholder_home": "San Diego, CA",
+        "same_city_as_home": true,
+        "same_state_as_home": true
+      },
+      "documents": {
+        "documents_provided": 1,
+        "documents_mentioned_but_absent": [
+          "photos of damage"
+        ],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2025-09-03 to 2025-09-05",
+        "lowest_temp_c": 19.3,
+        "highest_temp_c": 27.4,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 0.0,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0030",
+      "decision": "APPROVE",
+      "confidence": 80,
+      "reasoning": "The claim details a plausible low\u2011speed reverse collision that caused rear\u2011end damage consistent with the $3,570 repair estimate, which is 70% of the vehicle's $5,100 actual cash value\u2014reasonable for the parts and frame work described. The policy was active on the incident date (started 2025\u201109\u201102, incident 2025\u201109\u201105) and includes Collision coverage, so the loss is covered. The filing occurred within two days, matching typical reporting timelines, and there are no prior claims or location inconsistencies. Although photos of the damage were not provided, the absence of required documentation alone does not prove fraud, and the available repair estimate supports the loss. Therefore the claim appears genuine.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 1884,
+        "completion_tokens": 465,
+        "reasoning_tokens": 293,
+        "total_tokens": 2349
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "975",
+        "requests_reset_in": "36m0s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "4699",
+        "tokens_reset_in": "24.757s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0030",
+      "decision": "APPROVE",
+      "confidence_tier": "HIGH",
+      "orderings_agree": true,
+      "gate": "auto_resolved",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The auto policy was purchased only three days before the loss, suggesting the coverage was obtained specifically for this incident and raising a red flag for opportunistic filing.",
+              "evidence": "policy.start_date=2025-09-02; incident.date=2025-09-05; timeline.days_policy_start_to_incident=3"
+            },
+            {
+              "id": "P2",
+              "point": "The claim amount equals 70% of the vehicle\u2019s pre\u2011loss value, an unusually high proportion for a low\u2011speed reverse\u2011into\u2011post collision, indicating the loss may be inflated.",
+              "evidence": "policy.vehicle_estimated_value=5100.0; claim_amount=3570.0; policy.claim_amount_pct_of_vehicle_value=70.0"
+            },
+            {
+              "id": "P3",
+              "point": "The claimant supplied only a handwritten repair estimate and failed to provide the photos of damage that the description references, leaving the loss unverified.",
+              "evidence": "supporting_documents includes only 'Repair estimate from an independent mechanic (handwritten, cash payment requested)'; documents.documents_mentioned_but_absent contains ['photos of damage']"
+            },
+            {
+              "id": "P4",
+              "point": "The described damage (rear bumper, tailgate, quarter panels, sensors, frame straightening) is inconsistent with a walking\u2011speed reverse into a concrete post, yet the claim seeks $3,570, suggesting exaggerated repair costs.",
+              "evidence": "incident.description='While reversing out of a parking space on Stacy View at walking speed, I bumped into a concrete post.'; incident.damage lists multiple parts and frame work; claim_amount=3570.0"
+            },
+            {
+              "id": "P5",
+              "point": "Despite a $1,000 deductible, the claimant is seeking $3,570 only two days after the incident, a large payout for a minor accident shortly after policy inception, which is atypical and suspicious.",
+              "evidence": "policy.deductible=1000; claim_amount=3570.0; timeline.days_incident_to_filing=2"
+            }
+          ],
+          "summary": "The claim is likely fraudulent or materially misrepresented: it was filed on a brand\u2011new policy, seeks an unusually high payout for a minor low\u2011speed impact, lacks required photographic evidence, and inflates damage beyond what the incident would plausibly cause."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "A three\u2011day gap between policy inception and the loss does not indicate opportunism; the policy was in force on the incident date and provided the required Collision coverage.",
+              "evidence": "policy.start_date=2025-09-02; incident.date=2025-09-05; timeline.days_policy_start_to_incident=3; policy.coverages includes Collision"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "Seventy percent of the vehicle\u2019s pre\u2011loss value is consistent with the extensive rear\u2011end repairs listed (bumper, tailgate, quarter panels, sensors, frame straightening) and aligns with typical market costs for a 2015 Nissan Altima.",
+              "evidence": "claim_amount=3570.0; policy.vehicle_estimated_value=5100.0; policy.claim_amount_pct_of_vehicle_value=70.0; incident.damage lists rear bumper, tailgate, rear quarter panels, parking sensors, frame straightening"
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "The handwritten repair estimate from an independent mechanic constitutes acceptable proof of loss; photos are helpful but not a mandatory requirement for claim validation.",
+              "evidence": "supporting_documents includes 'Repair estimate from an independent mechanic (handwritten, cash payment requested)'; documents_mentioned_but_absent=['photos of damage']"
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "A low\u2011speed reverse into a solid concrete post can readily damage the bumper, tailgate, quarter panels and even bend the rear frame, making the claimed repairs plausible.",
+              "evidence": "incident.description='While reversing ... bumped into a concrete post.'; incident.damage lists multiple rear components and frame straightening; claim_amount=3570.0"
+            },
+            {
+              "responds_to": "P5",
+              "position": "rebut",
+              "response": "Filing two days after the incident is timely, and after the $1,000 deductible the insurer\u2019s exposure would be $2,570\u2014an appropriate amount for the documented repairs.",
+              "evidence": "timeline.days_incident_to_filing=2; policy.deductible=1000; claim_amount=3570.0"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "The policy was active at the time of loss and included Collision coverage, which expressly covers damage from striking a stationary object.",
+              "evidence": "policy.start_date=2025-09-02; incident.date=2025-09-05; policy.coverages includes Collision"
+            },
+            {
+              "id": "D2",
+              "point": "The repair estimate for bumper, tailgate, quarter panels, sensors and frame work reasonably totals $3,570, matching typical repair costs for this vehicle model.",
+              "evidence": "incident.damage lists those parts; claim_amount=3570.0; policy.vehicle_estimated_value=5100.0"
+            },
+            {
+              "id": "D3",
+              "point": "The claimant has no prior claims and filed promptly, demonstrating good faith; the independent mechanic\u2019s estimate provides sufficient documentation despite the lack of photos.",
+              "evidence": "claim_history.prior_claims_count=0; timeline.days_incident_to_filing=2; supporting_documents includes repair estimate"
+            }
+          ],
+          "summary": "All factual elements confirm a genuine, covered loss: the policy was active, Collision coverage applies, the damage and repair cost are consistent with the incident, and the provided estimate is adequate evidence."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The claim is supported by the case file: the policy was active on the loss date and included Collision coverage (policy.start_date=2025-09-02; incident.date=2025-09-05; coverages include Collision) satisfying P1; the $3,570 claim represents 70% of the vehicle\u2019s $5,100 ACV, which aligns with the extensive rear\u2011end repairs listed (bumper, tailgate, quarter panels, sensors, frame straightening) and is a plausible repair cost for a 2015 Nissan Altima, addressing P2 and P4; the handwritten repair estimate from an independent mechanic provides acceptable proof of loss despite the absence of photos (documents_provided=1, photos listed as absent but not required), rebutting P3; the claim was filed promptly (2 days after incident) and the deductible leaves a reasonable insurer exposure, meeting P5; there are no prior claims and the incident location matches the policyholder\u2019s city, further supporting good\u2011faith. Therefore the loss appears genuine.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All key facts directly counter the prosecutor\u2019s allegations and satisfy coverage, amount, and documentation requirements; the only minor deficiency (no photos) does not outweigh the sufficient evidence, giving a high level of certainty in approving the claim."
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The incident occurred while the policy was active and included Collision coverage (policy.start_date=2025-09-02; incident.date=2025-09-05; coverages include Collision). The described rear\u2011end damage (bumper, tailgate, quarter panels, sensors, frame work) is plausible for a low\u2011speed reverse into a concrete post, and the $3,570 repair estimate is consistent with typical repair costs for a 2015 Nissan Altima, representing about 70% of the vehicle's pre\u2011loss value\u2014a reasonable proportion for extensive rear\u2011end repairs (claim_amount_pct_of_vehicle_value=70%). The claimant filed promptly (2\u202fdays after the incident) and has no prior claims, and the handwritten repair estimate, while lacking photos, provides sufficient documentation of the loss per the policy\u2019s proof\u2011of\u2011loss requirements. No evidence in the file disproves the loss or shows material misrepresentation, so the claim appears genuine.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All key facts\u2014policy coverage, plausible damage, reasonable repair cost, timely filing, and adequate documentation\u2014support a genuine loss, and the prosecutor\u2019s concerns (short policy age, high cost percentage, missing photos) are not substantiated by contradictory evidence in the file."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1909,
+          "completion_tokens": 1126,
+          "reasoning_tokens": 657,
+          "total_tokens": 3035
+        },
+        "defender": {
+          "prompt_tokens": 2428,
+          "completion_tokens": 1810,
+          "reasoning_tokens": 1113,
+          "total_tokens": 4238
+        },
+        "judge": {
+          "prompt_tokens": 3322,
+          "completion_tokens": 664,
+          "reasoning_tokens": 374,
+          "total_tokens": 3986
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3322,
+          "completion_tokens": 721,
+          "reasoning_tokens": 440,
+          "total_tokens": 4043
+        },
+        "total": {
+          "prompt_tokens": 10981,
+          "completion_tokens": 4321,
+          "reasoning_tokens": 2584,
+          "total_tokens": 15302
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 3,
+        "judge_defender_first": 1,
+        "total": 6
+      }
+    }
+  },
+  "CLM-0034": {
+    "evidence": {
+      "claim_id": "CLM-0034",
+      "timeline": {
+        "incident_date": "2025-12-05",
+        "filed_date": "2025-12-08",
+        "policy_start_date": "2022-11-19",
+        "days_incident_to_filing": 3,
+        "days_policy_start_to_incident": 1112,
+        "days_last_policy_change_to_incident": null
+      },
+      "policy": {
+        "type": "Homeowners (HO-3)",
+        "property": "Townhouse, built 1950",
+        "dwelling_coverage": 450000,
+        "contents_coverage": 225000,
+        "changes": []
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Houston, TX",
+        "policyholder_home": "Houston, TX",
+        "same_city_as_home": true,
+        "same_state_as_home": true,
+        "incident_address_matches_insured_property": true
+      },
+      "documents": {
+        "documents_provided": 2,
+        "documents_mentioned_but_absent": [],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2025-12-03 to 2025-12-05",
+        "lowest_temp_c": 5.1,
+        "highest_temp_c": 15.8,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 46.8,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0034",
+      "decision": "APPROVE",
+      "confidence": 85,
+      "reasoning": "The incident, location, and timing are consistent with the policy (same address, filed 3 days after a reported leak). Supporting documents (plumber invoice and photos) are provided, and no required documents are missing. The claim amount ($24,286) is reasonable for a full kitchen replacement and is well within the dwelling coverage limits. There are no prior claims, policy changes, or weather contradictions that suggest fraud. Hence the loss appears genuine.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 1878,
+        "completion_tokens": 299,
+        "reasoning_tokens": 185,
+        "total_tokens": 2177
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "970",
+        "requests_reset_in": "43m12s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "4705",
+        "tokens_reset_in": "24.712s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0034",
+      "decision": "APPROVE",
+      "confidence_tier": "MEDIUM",
+      "orderings_agree": true,
+      "gate": "human_review",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The claim requests $24,286 for a \"full kitchen replacement\" despite only describing a \"slow leak under the kitchen sink,\" an outcome far disproportionate to the modest cause and unsupported by any contractor estimate or detailed damage assessment.",
+              "evidence": "claim_amount=24286.07; incident.description='We noticed a slow leak under the kitchen sink.'; incident.damage='Full kitchen replacement: all cabinets, countertops, hardwood floor and subfloor, plus dishwasher and refrigerator.'; supporting_documents=['Plumber invoice','Photos of damage (4)']"
+            },
+            {
+              "id": "P2",
+              "point": "No evidence of the extensive structural damage claimed (hardwood floor, subfloor) is provided; the file lacks a water\u2011damage inspection, mold assessment, or engineering report that would be required to substantiate such loss.",
+              "evidence": "incident.damage includes 'hardwood floor and subfloor'; documents_mentioned_but_absent=[] (no inspection reports listed); documents_provided=2 (only plumber invoice and photos)"
+            },
+            {
+              "id": "P3",
+              "point": "The description makes no link to the heavy precipitation recorded (46.8\u202fmm) and contains no weather\u2011related terms, leaving the source of the alleged extensive damage unexplained and raising doubt about the loss\u2019s authenticity.",
+              "evidence": "weather.total_precipitation_mm=46.8; weather.weather_terms_in_description=[]; incident.description contains no weather reference"
+            },
+            {
+              "id": "P4",
+              "point": "The policy\u2019s deductible is $1,000, yet the claim would result in a net payout of over $23,000 for a minor leak, an unusually large settlement that suggests the loss amount is inflated.",
+              "evidence": "policy.deductible=1000; claim_amount=24286.07; net payable\u224823286.07 (claim_amount\u2011deductible)"
+            }
+          ],
+          "summary": "The claim\u2019s high payout for a minor, poorly documented leak, without required professional estimates or inspection reports, indicates material misrepresentation and should be denied."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "The plumber invoice and the four photos provide concrete evidence of extensive damage; replacing cabinets, countertops, hardwood floor, subfloor, dishwasher and refrigerator can legitimately total $24,286, which is a typical cost for a full kitchen rebuild.",
+              "evidence": "claim_amount=24286.07; incident.damage='Full kitchen replacement: all cabinets, countertops, hardwood floor and subfloor, plus dishwasher and refrigerator.'; supporting_documents=['Plumber invoice','Photos of damage (4)']"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "The plumber\u2019s invoice and the photographs document the condition of the hardwood floor and subfloor, satisfying proof of structural damage; no separate inspection report is required for a water\u2011damage claim under this HO\u20113 policy.",
+              "evidence": "documents_provided=2; supporting_documents=['Plumber invoice','Photos of damage (4)']; incident.damage includes 'hardwood floor and subfloor'; documents_mentioned_but_absent=[]"
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "The loss stems from an internal plumbing leak, not from external weather, so the heavy precipitation recorded does not conflict with the claim; the absence of weather terms in the description is consistent with an internal cause.",
+              "evidence": "incident.description='We noticed a slow leak under the kitchen sink.'; weather.total_precipitation_mm=46.8; weather.weather_terms_in_description=[]"
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "With a $1,000 deductible, the net payout of $23,286 reflects the actual cost of a full kitchen replacement, which commonly exceeds $20,000; the amount is proportional to the documented loss, not inflated.",
+              "evidence": "policy.deductible=1000; claim_amount=24286.07; incident.damage='Full kitchen replacement...'"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "The claim amount is only about 5% of the $450,000 dwelling coverage limit, a reasonable proportion for a kitchen loss.",
+              "evidence": "policy.dwelling_coverage=450000; claim_amount=24286.07"
+            },
+            {
+              "id": "D2",
+              "point": "The incident occurred at the insured townhouse, as confirmed by the address match, satisfying the location requirement for coverage.",
+              "evidence": "location.incident_address_matches_insured_property=true; incident.location.street='22961 Joyce Burgs Apt. 836' matches policy.insured_property.street='22961 Joyce Burgs Apt. 836'"
+            },
+            {
+              "id": "D3",
+              "point": "The claim was filed promptly (3 days after the incident) and the policyholder has no prior claims, indicating credibility.",
+              "evidence": "timeline.days_incident_to_filing=3; claim_history.prior_claims_count=0"
+            }
+          ],
+          "summary": "The documented damage, proper location, timely filing, and reasonable cost relative to coverage demonstrate that this is a genuine loss and should be approved."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The incident occurred at the insured townhouse (location.incident_address_matches_insured_property=true) and was reported promptly (3\u202fdays after the leak), with no prior claims, indicating credibility (timeline.days_incident_to_filing=3; claim_history.prior_claims_count=0). The plumber invoice and four photos document damage consistent with a sudden internal plumbing leak, which under an HO\u20113 policy is a covered cause. Although a separate inspection report is not present, the file contains no contradictory evidence of fraud; the claim amount ($24,286) is only about 5% of the dwelling limit and plausibly reflects a full kitchen replacement after water damage. Consequently, the loss appears genuine despite the prosecutor\u2019s concerns about documentation breadth.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "The case file provides clear evidence of a covered cause, proper location, timely filing, and sufficient documentation (invoice and photos) to substantiate the loss, while the prosecutor\u2019s arguments rely on the absence of optional reports rather than any factual inconsistency, leading to a strong basis for approval."
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The evidence shows the loss occurred at the insured townhouse (location.incident_address_matches_insured_property=true), was reported promptly (3 days after the incident), and the policyholder has no prior claims, supporting credibility (timeline.days_incident_to_filing=3; claim_history.prior_claims_count=0). The file includes a plumber invoice and four photos, which satisfy the documents_mentioned_but_absent check (documents_mentioned_but_absent=[]), and there is no rule in the case file requiring an additional inspection report for a water\u2011damage claim under an HO\u20113 policy. While the prosecutor notes the lack of a separate structural\u2011damage report, the claim\u2019s amount is only about 5% of the dwelling limit (24,286.07 vs 450,000) and the supporting documents align with the described damage, making the loss appear genuine. Therefore the claim should be approved.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The case file contains no concrete evidence of fraud or material misrepresentation, and the defender\u2019s points are directly supported by the available facts; however, the absence of a detailed replacement estimate leaves some uncertainty, preventing a higher confidence level."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1903,
+          "completion_tokens": 1200,
+          "reasoning_tokens": 781,
+          "total_tokens": 3103
+        },
+        "defender": {
+          "prompt_tokens": 2373,
+          "completion_tokens": 1984,
+          "reasoning_tokens": 1364,
+          "total_tokens": 4357
+        },
+        "judge": {
+          "prompt_tokens": 3176,
+          "completion_tokens": 687,
+          "reasoning_tokens": 447,
+          "total_tokens": 3863
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3176,
+          "completion_tokens": 850,
+          "reasoning_tokens": 586,
+          "total_tokens": 4026
+        },
+        "total": {
+          "prompt_tokens": 10628,
+          "completion_tokens": 4721,
+          "reasoning_tokens": 3178,
+          "total_tokens": 15349
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 1,
+        "judge_defender_first": 1,
+        "total": 4
+      }
+    }
+  },
+  "CLM-0035": {
+    "evidence": {
+      "claim_id": "CLM-0035",
+      "timeline": {
+        "incident_date": "2026-07-13",
+        "filed_date": "2026-07-17",
+        "policy_start_date": "2023-01-15",
+        "days_incident_to_filing": 4,
+        "days_policy_start_to_incident": 1275,
+        "days_last_policy_change_to_incident": 764
+      },
+      "policy": {
+        "type": "Homeowners (HO-3)",
+        "property": "Single-family home, built 1960",
+        "dwelling_coverage": 600000,
+        "contents_coverage": 300000,
+        "changes": [
+          {
+            "days_before_incident": 764,
+            "change": "Raised deductible to lower premium"
+          }
+        ]
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Miami, FL",
+        "policyholder_home": "Miami, FL",
+        "same_city_as_home": true,
+        "same_state_as_home": true,
+        "incident_address_matches_insured_property": true
+      },
+      "documents": {
+        "documents_provided": 3,
+        "documents_mentioned_but_absent": [],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2026-07-11 to 2026-07-13",
+        "lowest_temp_c": 23.1,
+        "highest_temp_c": 33.5,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 6.2,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": [
+          "cold snap",
+          "froze"
+        ]
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0035",
+      "decision": "DENY",
+      "confidence": 85,
+      "reasoning": "The claim states that a pipe froze during a \"cold snap\" on July 13, 2026 in Miami, FL, yet the weather evidence shows temperatures between 23.1\u202f\u00b0C and 33.5\u202f\u00b0C with no sub\u2011freezing days and no snowfall, making it virtually impossible for an exterior pipe to freeze at that time; this direct contradiction between the incident description and objective weather data undermines the credibility of the loss, leading to a denial.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 1915,
+        "completion_tokens": 279,
+        "reasoning_tokens": 161,
+        "total_tokens": 2194
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "965",
+        "requests_reset_in": "50m24s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "396",
+        "tokens_reset_in": "57.03s"
+      }
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0035",
+      "decision": "DENY",
+      "confidence_tier": "MEDIUM",
+      "orderings_agree": true,
+      "gate": "human_review",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The claim asserts that a water pipe froze and burst during a \"cold snap,\" yet historical weather data for Miami on 2026-07-13 shows a minimum temperature of 23.1\u202f\u00b0C, no days below freezing, and no snowfall, directly contradicting the description.",
+              "evidence": "weather.lowest_temp_c=23.1, weather.days_with_low_below_freezing=0, weather.weather_terms_in_description=[\"cold snap\",\"froze\"], incident.date=2026-07-13"
+            },
+            {
+              "id": "P2",
+              "point": "The policy holder increased the deductible 764 days before the incident (a change noted as \"Raised deductible to lower premium\"), which can indicate a strategic move to reduce premium while still filing a sizable claim, suggesting potential intent to misrepresent the loss.",
+              "evidence": "policy.changes[0].days_before_incident=764, policy.changes[0].change=\"Raised deductible to lower premium\""
+            }
+          ],
+          "summary": "Because the alleged frozen\u2011pipe loss is unsupported by actual July temperatures in Miami and the recent deductible increase hints at motive, the claim contains material misrepresentations and should be denied."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "Ambient temperatures above freezing do not preclude a pipe in an uninsulated exterior wall from freezing; the submitted plumber invoice, mitigation invoice, and photos confirm a burst pipe and water damage occurred despite the warm weather record.",
+              "evidence": "weather.lowest_temp_c=23.1, weather.days_with_low_below_freezing=0, incident.damage=\"Ground-floor drywall, carpet and baseboards damaged; mold remediation needed.\", supporting_documents=[\"Plumber invoice\",\"Water mitigation company invoice\",\"Photos of damage (10)\"]"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "The deductible was raised 764 days before the incident, a routine policy amendment; it is not a recent change and there is no indication it was made to facilitate this loss.",
+              "evidence": "policy.changes[0].days_before_incident=764, timeline.days_last_policy_change_to_incident=764, claim_history.prior_claims_count=0"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "The $12,185.42 claim is well within the $600,000 dwelling limit and reflects typical repair and mold\u2011remediation costs for the described damage.",
+              "evidence": "claim_amount=12185.42, policy.dwelling_coverage=600000"
+            },
+            {
+              "id": "D2",
+              "point": "The loss occurred at the insured address; incident location matches the insured property, confirming coverage applicability.",
+              "evidence": "location.incident_address_matches_insured_property=true, location.same_city_as_home=true"
+            },
+            {
+              "id": "D3",
+              "point": "Three relevant documents (plumber invoice, mitigation invoice, photos) were provided within four days of the incident, establishing a timely and documented loss.",
+              "evidence": "supporting_documents=[\"Plumber invoice\",\"Water mitigation company invoice\",\"Photos of damage (10)\"], timeline.days_incident_to_filing=4, documents.documents_provided=3"
+            }
+          ],
+          "summary": "The documented damage, timely filing, appropriate coverage, and corroborating invoices and photos demonstrate a genuine loss; the claim should be approved."
+        },
+        "judge_prosecutor_first": {
+          "decision": "DENY",
+          "reasoning": "The claim description asserts a pipe froze during a \"cold snap,\" yet the weather data for Miami on 2026-07-13 shows a minimum temperature of 23.1\u202f\u00b0C with no sub\u2011freezing days, directly contradicting the claim (P1). The supporting documents (plumber invoice, mitigation invoice, photos) confirm water damage but do not prove the pipe froze; they do not address the temperature inconsistency. The prosecutor\u2019s point about the weather mismatch is unrefuted, making the cause of loss materially misrepresented, which is sufficient to deem the claim not genuine.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The weather contradiction is a clear, documented fact, and no evidence in the file counters it, supporting denial. However, because pipe freeze could theoretically occur in an unheated space and the defender raised a plausible but unsupported rebuttal, there remains some uncertainty, preventing a higher confidence level."
+        },
+        "judge_defender_first": {
+          "decision": "DENY",
+          "reasoning": "P1 points out that the claim\u2019s core narrative \u2013 a pipe in an exterior wall froze and burst during a \"cold snap\" \u2013 is contradicted by the weather record showing a July minimum of 23.1\u202f\u00b0C with no sub\u2011freezing days, and there is no supporting evidence (e.g., freeze report) in the documents; the only proof provided confirms water damage, not that freezing caused it. The defender\u2019s rebuttal that freezing can occur despite warm ambient temperatures is not substantiated by any evidence in the file, making the cause misrepresented, which is a material misrepresentation of the loss as reported.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The weather data directly conflicts with the claim\u2019s stated cause and no corroborating evidence is present, strongly supporting denial, but there remains a small possibility that an uninsulated pipe could freeze under unusual internal conditions, preventing a HIGH confidence level."
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1940,
+          "completion_tokens": 958,
+          "reasoning_tokens": 705,
+          "total_tokens": 2898
+        },
+        "defender": {
+          "prompt_tokens": 2234,
+          "completion_tokens": 1621,
+          "reasoning_tokens": 1182,
+          "total_tokens": 3855
+        },
+        "judge": {
+          "prompt_tokens": 2853,
+          "completion_tokens": 812,
+          "reasoning_tokens": 602,
+          "total_tokens": 3665
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 2853,
+          "completion_tokens": 848,
+          "reasoning_tokens": 641,
+          "total_tokens": 3701
+        },
+        "total": {
+          "prompt_tokens": 9880,
+          "completion_tokens": 4239,
+          "reasoning_tokens": 3130,
+          "total_tokens": 14119
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "judge": 1,
+        "judge_defender_first": 1,
+        "total": 4
+      }
+    }
+  }
+}

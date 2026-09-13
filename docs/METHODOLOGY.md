@@ -201,3 +201,186 @@ legitimate claims, so it does not reveal labels, but it is noise: the Prosecutor
 CLM-0027 (the Judge dismissed it). Fixing it changes the benchmark data, so it is left unchanged
 pending a decision. If it is fixed, the affected claims' Stage 4 and Stage 5 results must be
 re-run and the change logged here.
+
+### 2026-09-13 — Evaluation protocol adopted: development set and held-out set (start of Stage 6)
+
+Following PROJECT_PLAN.md Part 5b:
+
+- **Development set (7):** CLM-0001, CLM-0006, CLM-0019, CLM-0027, CLM-0030, CLM-0034, CLM-0035.
+  All prompt iteration, debugging and design changes happen on these only.
+- **Held-out set (33):** every other claim. Not inspected, run or tuned against until Stage 11.
+  Headline accuracy and confidently-wrong figures will come from these 33.
+- The list lives in `backend/app/synthetic/eval_split.py`; development scripts call
+  `require_dev_set()` and stop if a held-out claim is requested.
+- Test for every prompt change: would someone who had never seen the dev claims have written it?
+
+**Disclosure: held-out claims seen before the split existed.** Recorded now, before any Stage 11
+run, so it is not reconstructed later.
+
+- By design, the generator source defines every claim's label through its scenario table, and
+  while checking the dataset at Stage 2 a per-claim listing of all 40 claims (ID, label,
+  difficulty, signals, amount) was printed.
+- Stage 2: **CLM-0025 and CLM-0032** (now held-out) drove a generator fix — legitimate car repair
+  amounts were capped below the car's value.
+- Stage 3: an evidence scan of all 40 claims was printed. **CLM-0014, CLM-0024, CLM-0033 and
+  CLM-0036** (now held-out) drove an evidence-rule fix — plumber and electrician rules were limited
+  to property claims.
+- Stage 5: an address check printed CLM-0002, CLM-0007, CLM-0011 and CLM-0015 (now held-out) with
+  their labels. No change was made to those claims because of it.
+
+No model had been run on any held-out claim, and no prompt had been changed because of one.
+Part 5b says a held-out claim that drove a change moves to the development set. Whether that
+applies to the six claims above (which drove data and evidence-rule fixes, not prompt changes) is
+an **open decision**, to be settled before Stage 11 and recorded here.
+
+From this point on, any check that has to span all 40 claims prints only pass/fail results or
+counts per field name, never per-claim content; per-claim details are printed for dev claims only.
+
+### 2026-09-13 — Benchmark data fixes, then data frozen (Stage 6)
+
+**Bug class.** A value was drawn at random where a value consistent with the rest of the claim was
+intended. All templates and modifiers in `generate_claims.py` were swept once; every instance
+found was fixed in one pass:
+
+| # | Where | Problem | Fix |
+|---|---|---|---|
+| 1 | Car theft story | "stolen … from outside my home on {street}" used a random street, not the home street | Incident street is now the policyholder's home street ("outside my home at …") |
+| 2 | Burglary story | "while we were away for the weekend" could be dated on a weekday | Date moved forward to the Sunday of that week |
+| 3 | Frozen pipe story | "while we were at work" could be dated on a weekend | Date moved forward to the following Monday |
+| 4 | Severity-mismatch car claims | The random $14,000–21,000 bill could exceed the car's value, breaking the generator's own rule that only `amount_exceeds_value` claims do so, and adding a second, unplanned clue | Capped at 70% of the car's value, like every other repair claim |
+| 5 | Receipt-dated burglary claims | The random claimed amount could be lower than the itemised receipts ($4,398) | If below receipts + $1,000, the receipts total is added |
+| 6 | Policyholder date of birth | Minimum age 22 could make the policyholder a minor at policy start or at a prior claim | Drawn exactly as before, then moved back 8 years if under 30 (this field is never shown to any agent) |
+| 7 | Vehicle estimated value (related, not random) | Depreciated to 2026 rather than to the incident date, contradicting the guide's "actual cash value just before the loss" | Depreciated to the incident year |
+
+Checked and deliberately unchanged: random streets for other car incidents (they happen elsewhere
+in the city); the random other city or street in `location_mismatch` (that is the designed signal);
+dates, amounts and cities chosen for the designed signals.
+
+**How.** Every random draw still happens in the same order (streets are still drawn; dates are
+shifted deterministically), so nothing else about any claim should change. New `validate()` rules
+in the generator check each fix on every claim.
+
+**Verification (field-by-field comparison of the old and new data files).** Claim IDs, ground
+truth, and every policyholder name, email, phone and address are identical for all 40 claims.
+23 claims changed, only in the intended fields (number of changes across all 40 claims):
+vehicle estimated value 16, claim amount 9, incident description 3, incident street 3, incident
+date 3, filed date 3, policy start date 3, date of birth 3, supporting documents 1, prior-claim
+amount 1. Of the dev claims, CLM-0001, CLM-0019 and CLM-0027 changed (theft street; for 0001 and
+0019 also vehicle value and the value-based amount), CLM-0030 changed (vehicle value; the
+severity-mismatch bill was capped from $14,758.82 to $3,570.00; date of birth), CLM-0035 changed
+(date of birth only), and CLM-0034 is unchanged. Only counts per field were printed for held-out
+claims.
+
+**A first attempt was wrong and was replaced before anything used the data.** Fix 6 was first made
+by raising faker's minimum age to 30. That changed how many random numbers faker consumed, so
+names, emails, phones, addresses, street names and shop names changed on about 11 claims from
+CLM-0030 onwards. The comparison caught it; the fix was redone as described above, and the
+comparison then showed no unintended changes.
+
+**Known side effect, not changed.** A capped repair bill equals exactly 70% of the vehicle's
+value, so `claim_amount_pct_of_vehicle_value` reads exactly 70.0 on capped claims. This already
+applied to legitimate repair claims capped at Stage 2 and now also to capped severity-mismatch
+claims, so it does not separate fraud from legitimate claims; it is noted here because the data is
+now frozen.
+
+**Frozen.** After this regeneration, `backend/data/synthetic_claims.json` is final. Results files
+from Stages 4 and 5 predate this version of the data and are kept only as history. The whole dev
+set is re-run once, after all fixes, for both the baseline and the full pipeline.
+
+### 2026-09-13 — Case-file guide: meaning of an empty `documents_mentioned_but_absent` (Stage 6)
+
+**Observed.** In the Stage 5 CLM-0019 debate the Prosecutor wrote "documents_mentioned_but_absent is
+empty, indicating expected documents are missing" — the opposite of the field's meaning.
+
+**Changed.** The guide now says: "documents_mentioned_but_absent lists document types that the
+claim's own description calls for (for example, it mentions police) but that no listed document
+matches. An empty list means these checks found no such gap; it does not mean that documents are
+missing. The checks cover common document types only, so an empty list also does not prove the
+file is complete."
+
+**Part 5b test.** It explains what a field means and says nothing about any claim; anyone
+documenting this field would write it. It reaches every agent, baseline included.
+
+### 2026-09-13 — Judge rubric: rebuttals must engage the specific facts (Stage 6)
+
+**Observed.** On CLM-0019 the Judge accepted "policy changes are permitted" as an answer to a point
+about the circumstances of a particular change. The response did not engage the facts the point
+relied on.
+
+**Changed** (Judge prompt only; the Prosecutor, Defender and baseline prompts are unchanged):
+
+1. New rule: "A response answers a point only if it engages the specific facts that point relies
+   on. Saying that something is permitted, common or normal does not answer a point about whether
+   it fits the particular facts of this claim; treat a point answered only in that way as
+   unanswered."
+2. "A point one side raised and the other failed to answer" became "… did not actually answer".
+3. HIGH now requires the other side's strongest point to be "actually answered by facts in the case
+   file, not merely by an assertion".
+
+**Part 5b test.** Each sentence is a general principle of evaluating arguments — the standard for
+what counts as a rebuttal — and names no fact, field or fraud pattern. Someone who had never seen
+the dev claims could have written each of them. A test fails if the Judge rubric ever mentions
+case-pattern words (theft, weather, coverage, policy, timing, amounts, documents and similar).
+
+**Fairness note.** This changes the Judge only, so it is part of the ClaimLens architecture rather
+than a shared input; the baseline keeps its own unchanged instructions. Its effect is measured on
+the dev set here and on the held-out set at Stage 11.
+
+### 2026-09-13 — Stage 6 rules, fixed before any Stage 6 output
+
+- **Order swap.** The Judge rules twice on the same Prosecutor and Defender arguments: Prosecutor's
+  argument first, then Defender's first. The system prompt, case file and argument text are
+  identical; only their order in the message differs.
+- **Tier.** HIGH if both orderings agree and both say HIGH; MEDIUM if they agree with either
+  saying MEDIUM or LOW; LOW if they disagree.
+- **Gate.** Auto-resolve only a HIGH-tier APPROVE; every DENY and every non-HIGH case goes to a
+  human.
+- **Recommendation.** ClaimLens's decision is the Prosecutor-first Judge's decision. The swap
+  feeds only the confidence tier: using it to pick decisions would let presentation order change
+  accuracy. A split verdict keeps that decision but is LOW, so a human decides.
+- **For Stage 11.** A ClaimLens answer counts as high-confidence for the confidently-wrong rate
+  when its final tier is HIGH (the baseline's band stays confidence >= 80).
+- **Not built.** The optional `FULL_DOUBLE_DEBATE` mode (re-running the whole debate instead of
+  only the Judge).
+
+### 2026-09-13 — Stage 6 development-set results (dev set only; this is the set the system was tuned on)
+
+All 7 dev claims, run once after the data fixes, the guide fix and the Judge rubric change. Same
+model and settings for everything. Results and full transcripts:
+`backend/data/stage6_dev_results.json`. No held-out claim was loaded or run.
+
+| Claim | Is fraud | Baseline | Judge, Prosecutor first | Judge, Defender first | Tier | Gate | Baseline | ClaimLens |
+|---|---|---|---|---|---|---|---|---|
+| CLM-0001 | yes | APPROVE (70) | APPROVE / MEDIUM | APPROVE / HIGH | MEDIUM | human review | wrong | wrong |
+| CLM-0006 | no | APPROVE (85) | APPROVE / MEDIUM | APPROVE / MEDIUM | MEDIUM | human review | right | right |
+| CLM-0019 | yes | APPROVE (93) | APPROVE / HIGH | APPROVE / HIGH | HIGH | **auto-resolved** | wrong | wrong |
+| CLM-0027 | no | APPROVE (80) | APPROVE / HIGH | APPROVE / HIGH | HIGH | auto-resolved | right | right |
+| CLM-0030 | yes | APPROVE (80) | APPROVE / HIGH | APPROVE / HIGH | HIGH | **auto-resolved** | wrong | wrong |
+| CLM-0034 | yes | APPROVE (85) | APPROVE / HIGH | APPROVE / MEDIUM | MEDIUM | human review | wrong | wrong |
+| CLM-0035 | yes | DENY (85) | DENY / MEDIUM | DENY / MEDIUM | MEDIUM | human review | right | right |
+
+**What this shows, stated plainly (7 dev claims — far too few for conclusions about the design):**
+
+- Accuracy is 3 of 7 for both systems; they reached the same decision on every claim.
+- The order swap flipped **no** decision. It changed the verbalized confidence on two claims
+  (CLM-0001, CLM-0034), which lowered their tier to MEDIUM.
+- High-confidence answers: baseline 6 (3 wrong: CLM-0019, CLM-0030, CLM-0034); ClaimLens tier HIGH
+  3 (2 wrong: CLM-0019, CLM-0030).
+- The gate auto-resolved 3 claims, **2 of which are fraud** (CLM-0019, CLM-0030).
+- **The Judge rubric change did not fix CLM-0019.** The Defender again answered the point about the
+  coverage change with "policies allow riders to be added at any time … the coverage was in force",
+  and both Judge orderings accepted it with HIGH confidence.
+- On CLM-0030 the Prosecutor raised the mismatch between a walking-speed bump and the listed frame
+  damage; the Defender asserted it was plausible, and both Judges accepted the assertion.
+- Across claims, both systems repeatedly reason that a missing document or an unexplained
+  inconsistency "does not prove fraud", and approve.
+
+**Nothing was changed in response to these results.** Any further change to prompts or rules must
+be logged here first, with its Part 5b justification, and re-run on the dev set.
+
+**Tokens (measured).** Per claim on average: baseline 2,321; Prosecutor 3,132, Defender 4,104,
+Judge (Prosecutor first) 3,900, Judge (Defender first) 4,008 — pipeline 15,145. The second Judge
+call is now measured rather than estimated. Stage 11 projection: 40 × (2,321 + 15,145) = 698,623
+tokens and 200 accepted requests, at least 87 minutes at 8,000 tokens per minute. This run used 35
+accepted requests and 122,259 tokens; 6 further requests were rejected with HTTP 429 (tokens per
+minute) and retried, and did not reduce the daily request count.

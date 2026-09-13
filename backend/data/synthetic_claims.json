@@ -35,22 +35,22 @@
         "make": "Jeep",
         "model": "Grand Cherokee",
         "license_plate": "863-TARG",
-        "estimated_value": 17700.0
+        "estimated_value": 20900.0
       }
     },
     "incident": {
       "date": "2025-09-18",
       "location": {
-        "street": "Clayton Fort",
+        "street": "43321 Brittany Bypass",
         "city": "Portland",
         "state": "OR",
         "latitude": 45.5152,
         "longitude": -122.6784
       },
-      "description": "My car was stolen overnight from outside my home on Clayton Fort. I noticed it was gone at 6am and called the police.",
+      "description": "My car was stolen overnight from outside my home at 43321 Brittany Bypass. I noticed it was gone at 6am and called the police.",
       "damage": "Vehicle stolen and not recovered."
     },
-    "claim_amount": 17652.41,
+    "claim_amount": 20843.81,
     "supporting_documents": [
       "Vehicle title copy",
       "Only one key provided; policyholder says the spare key was lost"
@@ -67,7 +67,7 @@
   {
     "claim_id": "CLM-0002",
     "claim_type": "property",
-    "filed_date": "2025-04-18",
+    "filed_date": "2025-04-23",
     "policyholder": {
       "name": "Jamie Chavez",
       "date_of_birth": "1975-07-11",
@@ -81,7 +81,7 @@
     },
     "policy": {
       "policy_number": "HO-2166941",
-      "start_date": "2023-09-06",
+      "start_date": "2023-09-11",
       "coverage_history": [],
       "policy_type": "Homeowners (HO-3)",
       "insured_property": {
@@ -96,7 +96,7 @@
       "deductible": 500
     },
     "incident": {
-      "date": "2025-04-15",
+      "date": "2025-04-20",
       "location": {
         "street": "503 Linda Locks",
         "city": "Las Vegas",
@@ -192,7 +192,7 @@
   {
     "claim_id": "CLM-0004",
     "claim_type": "property",
-    "filed_date": "2025-02-02",
+    "filed_date": "2025-02-04",
     "policyholder": {
       "name": "Jonathan White",
       "date_of_birth": "1957-12-09",
@@ -206,7 +206,7 @@
     },
     "policy": {
       "policy_number": "HO-6440561",
-      "start_date": "2025-01-08",
+      "start_date": "2025-01-10",
       "coverage_history": [],
       "policy_type": "Homeowners (HO-3)",
       "insured_property": {
@@ -221,7 +221,7 @@
       "deductible": 1000
     },
     "incident": {
-      "date": "2025-02-01",
+      "date": "2025-02-03",
       "location": {
         "street": "018 Mack Junctions Apt. 462",
         "city": "Denver",
@@ -237,7 +237,7 @@
       "Plumber invoice",
       "Water mitigation company invoice",
       "Photos of damage (10)",
-      "Home purchase closing documents dated 2025-01-08",
+      "Home purchase closing documents dated 2025-01-10",
       "Pre-purchase home inspection report"
     ],
     "prior_claims": [],
@@ -281,7 +281,7 @@
         "make": "Jeep",
         "model": "Grand Cherokee",
         "license_plate": "FIQ-9638",
-        "estimated_value": 6700.0
+        "estimated_value": 7900.0
       }
     },
     "incident": {
@@ -461,7 +461,7 @@
         "make": "Subaru",
         "model": "Outback",
         "license_plate": "90S 9169",
-        "estimated_value": 4400.0
+        "estimated_value": 6100.0
       }
     },
     "incident": {
@@ -551,7 +551,7 @@
       "description": "While reversing out of a parking space on Joseph Coves at walking speed, I bumped into a concrete post.",
       "damage": "Rear bumper, tailgate, both rear quarter panels and parking sensors replaced; rear frame straightening required."
     },
-    "claim_amount": 18262.79,
+    "claim_amount": 10290.0,
     "supporting_documents": [
       "Photos of damage (4)",
       "Repair estimate from Robbins Auto Body"
@@ -561,7 +561,7 @@
         "date": "2025-12-18",
         "claim_type": "auto",
         "summary": "Low-speed bump while reversing; rear bumper",
-        "amount": 17802.25,
+        "amount": 10030.51,
         "status": "Paid",
         "insurer": "This policy"
       }
@@ -645,7 +645,7 @@
   {
     "claim_id": "CLM-0011",
     "claim_type": "property",
-    "filed_date": "2025-02-07",
+    "filed_date": "2025-02-10",
     "policyholder": {
       "name": "Martin Ross",
       "date_of_birth": "1987-03-10",
@@ -659,7 +659,7 @@
     },
     "policy": {
       "policy_number": "HO-3154051",
-      "start_date": "2018-09-05",
+      "start_date": "2018-09-08",
       "coverage_history": [],
       "policy_type": "Homeowners (HO-3)",
       "insured_property": {
@@ -674,7 +674,7 @@
       "deductible": 2500
     },
     "incident": {
-      "date": "2025-02-06",
+      "date": "2025-02-09",
       "location": {
         "street": "5433 Donna Locks",
         "city": "San Diego",
@@ -1046,7 +1046,7 @@
         "make": "Hyundai",
         "model": "Elantra",
         "license_plate": "52-99124",
-        "estimated_value": 7900.0
+        "estimated_value": 11000.0
       }
     },
     "incident": {
@@ -1177,22 +1177,22 @@
         "make": "Kia",
         "model": "Sorento",
         "license_plate": "014-POZ",
-        "estimated_value": 12100.0
+        "estimated_value": 14200.0
       }
     },
     "incident": {
       "date": "2025-08-18",
       "location": {
-        "street": "Hannah Rue",
+        "street": "313 Freeman Trace",
         "city": "Chicago",
         "state": "IL",
         "latitude": 41.8781,
         "longitude": -87.6298
       },
-      "description": "My car was stolen overnight from outside my home on Hannah Rue. I noticed it was gone at 6am and called the police.",
+      "description": "My car was stolen overnight from outside my home at 313 Freeman Trace. I noticed it was gone at 6am and called the police.",
       "damage": "Vehicle stolen and not recovered."
     },
-    "claim_amount": 12002.46,
+    "claim_amount": 14085.53,
     "supporting_documents": [
       "Police theft report",
       "Both sets of keys handed to adjuster",
@@ -1299,7 +1299,7 @@
         "make": "Nissan",
         "model": "Altima",
         "license_plate": "R99 9YN",
-        "estimated_value": 8300.0
+        "estimated_value": 9800.0
       }
     },
     "incident": {
@@ -1357,7 +1357,7 @@
         "make": "Tesla",
         "model": "Model 3",
         "license_plate": "CB 2499",
-        "estimated_value": 8300.0
+        "estimated_value": 9700.0
       }
     },
     "incident": {
@@ -1423,7 +1423,7 @@
         "make": "Jeep",
         "model": "Grand Cherokee",
         "license_plate": "7NU 175",
-        "estimated_value": 17700.0
+        "estimated_value": 20900.0
       }
     },
     "incident": {
@@ -1502,7 +1502,7 @@
         "make": "Kia",
         "model": "Sorento",
         "license_plate": "4W 8086F",
-        "estimated_value": 6300.0
+        "estimated_value": 7400.0
       }
     },
     "incident": {
@@ -1585,7 +1585,7 @@
         "make": "Honda",
         "model": "Civic",
         "license_plate": "MWH 963",
-        "estimated_value": 3400.0
+        "estimated_value": 4000.0
       }
     },
     "incident": {
@@ -1600,7 +1600,7 @@
       "description": "I was stopped at a red light on Gibson Islands when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details.",
       "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
     },
-    "claim_amount": 2380.0,
+    "claim_amount": 2800.0,
     "supporting_documents": [
       "Police report",
       "Photos of damage (8)",
@@ -1645,7 +1645,7 @@
         "make": "Subaru",
         "model": "Outback",
         "license_plate": "VJH-1611",
-        "estimated_value": 3700.0
+        "estimated_value": 4400.0
       }
     },
     "incident": {
@@ -1660,7 +1660,7 @@
       "description": "I was stopped at a red light on Christina Freeway when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details.",
       "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
     },
-    "claim_amount": 2590.0,
+    "claim_amount": 3080.0,
     "supporting_documents": [
       "Police report",
       "Photos of damage (8)",
@@ -1711,13 +1711,13 @@
     "incident": {
       "date": "2026-04-27",
       "location": {
-        "street": "Landry Radial",
+        "street": "474 Rachel Mountain Suite 821",
         "city": "Portland",
         "state": "OR",
         "latitude": 45.5152,
         "longitude": -122.6784
       },
-      "description": "My car was stolen overnight from outside my home on Landry Radial. I noticed it was gone at 6am and called the police.",
+      "description": "My car was stolen overnight from outside my home at 474 Rachel Mountain Suite 821. I noticed it was gone at 6am and called the police.",
       "damage": "Vehicle stolen and not recovered."
     },
     "claim_amount": 4841.89,
@@ -1853,7 +1853,7 @@
         "make": "Honda",
         "model": "Civic",
         "license_plate": "NDE 004",
-        "estimated_value": 5600.0
+        "estimated_value": 6500.0
       }
     },
     "incident": {
@@ -1868,7 +1868,7 @@
       "description": "My car slid on black ice on Blankenship Hollow after freezing overnight temperatures and hit a guardrail.",
       "damage": "Front bumper, right headlight and right front quarter panel damaged."
     },
-    "claim_amount": 3920.0,
+    "claim_amount": 4550.0,
     "supporting_documents": [
       "Photos of damage (7)",
       "Repair estimate from Ferrell Auto Body",
@@ -1890,7 +1890,7 @@
     "filed_date": "2025-09-07",
     "policyholder": {
       "name": "Justin Jones",
-      "date_of_birth": "2002-10-08",
+      "date_of_birth": "1994-10-08",
       "phone": "+1-639-433-5290",
       "email": "amberlindsey@example.org",
       "address": {
@@ -1915,7 +1915,7 @@
         "make": "Nissan",
         "model": "Altima",
         "license_plate": "39C\u2022005",
-        "estimated_value": 4400.0
+        "estimated_value": 5100.0
       }
     },
     "incident": {
@@ -1930,7 +1930,7 @@
       "description": "While reversing out of a parking space on Stacy View at walking speed, I bumped into a concrete post.",
       "damage": "Rear bumper, tailgate, both rear quarter panels and parking sensors replaced; rear frame straightening required."
     },
-    "claim_amount": 14758.82,
+    "claim_amount": 3570.0,
     "supporting_documents": [
       "Repair estimate from an independent mechanic (handwritten, cash payment requested)"
     ],
@@ -2102,7 +2102,7 @@
         "make": "Hyundai",
         "model": "Elantra",
         "license_plate": "604 VY9",
-        "estimated_value": 5700.0
+        "estimated_value": 6700.0
       }
     },
     "incident": {
@@ -2117,7 +2117,7 @@
       "description": "I hit a deer that ran onto Santiago Loop around dusk. I pulled over and called the police non-emergency line.",
       "damage": "Front grille, hood and driver-side headlight damaged; radiator leaking."
     },
-    "claim_amount": 3990.0,
+    "claim_amount": 4690.0,
     "supporting_documents": [
       "Photos of damage (6)",
       "Repair estimate from Edwards Auto Body",
@@ -2195,7 +2195,7 @@
     "filed_date": "2026-07-17",
     "policyholder": {
       "name": "Tony Saunders",
-      "date_of_birth": "2002-09-13",
+      "date_of_birth": "1994-09-13",
       "phone": "745-310-7622x683",
       "email": "chensley@example.com",
       "address": {
@@ -2283,7 +2283,7 @@
         "make": "Toyota",
         "model": "Camry",
         "license_plate": "9751 FZ",
-        "estimated_value": 5300.0
+        "estimated_value": 6300.0
       }
     },
     "incident": {
@@ -2298,7 +2298,7 @@
       "description": "I hit a deer that ran onto Wilson Brooks around dusk. I pulled over and called the police non-emergency line.",
       "damage": "Front grille, hood and driver-side headlight damaged; radiator leaking."
     },
-    "claim_amount": 7758.43,
+    "claim_amount": 9222.28,
     "supporting_documents": [
       "Photos of damage (6)",
       "Repair estimate from Kim Auto Body",
@@ -2402,7 +2402,7 @@
         "make": "Toyota",
         "model": "Camry",
         "license_plate": "89-Q255",
-        "estimated_value": 12000.0
+        "estimated_value": 14100.0
       }
     },
     "incident": {
@@ -2504,7 +2504,7 @@
     "filed_date": "2026-03-19",
     "policyholder": {
       "name": "Stephanie Lee",
-      "date_of_birth": "1996-11-09",
+      "date_of_birth": "1988-11-09",
       "phone": "001-577-446-8862",
       "email": "brett75@example.net",
       "address": {

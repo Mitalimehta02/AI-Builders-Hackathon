@@ -16,7 +16,8 @@ the same CASE_FILE_GUIDE, DECISION_DEFINITIONS and REVIEW_GUIDANCE, and goes thr
 llm_client with the same settings. The Judge's HIGH level is defined with the baseline's
 pre-registered threshold, so "high confidence" means the same thing for both systems.
 
-Not here (Stage 6): the order-swapped second Judge call and combining the two into a tier.
+The Judge's input can present the two arguments in either order (build_judge_messages); the
+Stage 6 calibration layer uses that for its order-swap consistency check.
 
 Usage:
     claim = sanitize_claim(raw_claim)
@@ -30,6 +31,7 @@ from app.agents.naive_baseline_agent import BASELINE_HIGH_CONFIDENCE_THRESHOLD
 
 ROLES = ("prosecutor", "defender", "judge")
 CONFIDENCE_LEVELS = ("HIGH", "MEDIUM", "LOW")
+JUDGE_ORDERS = ("prosecutor_first", "defender_first")
 MEDIUM_CONFIDENCE_FLOOR = 65  # below this many correct out of 100 is LOW
 
 MAX_PROSECUTOR_POINTS = 5
@@ -65,17 +67,18 @@ Rules for your argument:
 Respond with only a JSON object in exactly this form:
 {{"responses": [{{"responds_to": "P1", "position": "rebut or concede", "response": "<your answer>", "evidence": "<the specific case-file facts>"}}], "points": [{{"id": "D1", "point": "<the argument>", "evidence": "<the specific case-file facts>"}}], "summary": "<one or two sentences: your overall case for approval>"}}"""
 
-JUDGE_SYSTEM_PROMPT = f"""You are the judge in a structured claims review at a US property and casualty insurer. A prosecutor has argued that the claim should be denied and a defender has argued that it should be paid. Their arguments follow the case file. You decide.
+JUDGE_SYSTEM_PROMPT = f"""You are the judge in a structured claims review at a US property and casualty insurer. A prosecutor has argued that the claim should be denied and a defender has argued that it should be paid. Both arguments follow the case file. You decide.
 
 {_SHARED_CONTEXT}
 
 How to judge:
 - The arguments are advocacy, not evidence. Check every fact either side cites against the case file, and give no weight to anything the case file does not support.
-- A point conceded by the side it hurts can be treated as settled. A point one side raised and the other failed to answer deserves close attention, but only if the case file supports it.
+- A response answers a point only if it engages the specific facts that point relies on. Saying that something is permitted, common or normal does not answer a point about whether it fits the particular facts of this claim; treat a point answered only in that way as unanswered.
+- A point conceded by the side it hurts can be treated as settled. A point one side raised and the other did not actually answer deserves close attention, but only if the case file supports it.
 - Choose the decision that is more likely to be correct given the case file.
 
 Confidence (verbalized_confidence), with a justification for that specific level:
-- HIGH: you would expect this decision to be correct at least {BASELINE_HIGH_CONFIDENCE_THRESHOLD} times out of 100 on claims like this one. The facts clearly support it, and the other side's strongest point is answered by the case file.
+- HIGH: you would expect this decision to be correct at least {BASELINE_HIGH_CONFIDENCE_THRESHOLD} times out of 100 on claims like this one. The facts clearly support it, and the other side's strongest point is actually answered by facts in the case file, not merely by an assertion.
 - MEDIUM: roughly {MEDIUM_CONFIDENCE_FLOOR} to {BASELINE_HIGH_CONFIDENCE_THRESHOLD - 1} times out of 100. The decision is better supported, but a significant point for the other side is not fully answered.
 - LOW: fewer than {MEDIUM_CONFIDENCE_FLOOR} times out of 100. The case file supports both decisions about equally, or the outcome turns on facts the case file does not contain.
 
@@ -101,13 +104,20 @@ def build_defender_messages(case_file, prosecutor_argument):
     ]
 
 
-def build_judge_messages(case_file, prosecutor_argument, defender_argument):
+def build_judge_messages(case_file, prosecutor_argument, defender_argument, order="prosecutor_first"):
+    """The Judge's input. Only the order of the two arguments changes between orders;
+    the system prompt, case file and argument text are identical."""
+    prosecutor_section = f"PROSECUTOR'S ARGUMENT:\n{compact_json(prosecutor_argument)}"
+    defender_section = f"DEFENDER'S ARGUMENT:\n{compact_json(defender_argument)}"
+    if order == "prosecutor_first":
+        first, second = prosecutor_section, defender_section
+    elif order == "defender_first":
+        first, second = defender_section, prosecutor_section
+    else:
+        raise ValueError(f"order must be one of {JUDGE_ORDERS}, got {order!r}")
     return [
         {"role": "system", "content": JUDGE_SYSTEM_PROMPT},
-        {"role": "user", "content": (
-            f"{case_file}\n\nPROSECUTOR'S ARGUMENT:\n{compact_json(prosecutor_argument)}"
-            f"\n\nDEFENDER'S ARGUMENT:\n{compact_json(defender_argument)}"
-        )},
+        {"role": "user", "content": f"{case_file}\n\n{first}\n\n{second}"},
     ]
 
 
@@ -116,7 +126,7 @@ def build_judge_messages(case_file, prosecutor_argument, defender_argument):
 # ---------------------------------------------------------------------------
 
 def run_debate(claim, evidence, llm=call_llm, completed_steps=None, on_step=None):
-    """Run Prosecutor, Defender and Judge for one sanitized claim.
+    """Run Prosecutor, Defender and Judge (Prosecutor's argument presented first) for one sanitized claim.
 
     completed_steps: steps saved from an interrupted run ({role: step}); those roles are
                      skipped, so a failure at the Judge never re-spends the first two calls.
@@ -129,15 +139,15 @@ def run_debate(claim, evidence, llm=call_llm, completed_steps=None, on_step=None
 
     if "prosecutor" not in steps:
         messages = build_prosecutor_messages(case_file)
-        _run_step(steps, "prosecutor", messages, parse_prosecutor, llm, claim_id, on_step)
+        run_step(steps, "prosecutor", messages, parse_prosecutor, llm, claim_id, on_step)
 
     if "defender" not in steps:
         messages = build_defender_messages(case_file, steps["prosecutor"]["output"])
-        _run_step(steps, "defender", messages, parse_defender, llm, claim_id, on_step)
+        run_step(steps, "defender", messages, parse_defender, llm, claim_id, on_step)
 
     if "judge" not in steps:
         messages = build_judge_messages(case_file, steps["prosecutor"]["output"], steps["defender"]["output"])
-        _run_step(steps, "judge", messages, parse_judge, llm, claim_id, on_step)
+        run_step(steps, "judge", messages, parse_judge, llm, claim_id, on_step)
 
     judge = steps["judge"]["output"]
     return {
@@ -145,19 +155,20 @@ def run_debate(claim, evidence, llm=call_llm, completed_steps=None, on_step=None
         "decision": judge["decision"],
         "verbalized_confidence": judge["verbalized_confidence"],
         "transcript": {role: steps[role]["output"] for role in ROLES},
-        "usage": {**{role: steps[role]["usage"] for role in ROLES}, "total": _sum_usage(steps[role]["usage"] for role in ROLES)},
+        "usage": {**{role: steps[role]["usage"] for role in ROLES}, "total": sum_usage(steps[role]["usage"] for role in ROLES)},
         "attempts": {**{role: steps[role]["attempts"] for role in ROLES}, "total": sum(steps[role]["attempts"] for role in ROLES)},
     }
 
 
-def _run_step(steps, role, messages, parse, llm, claim_id, on_step):
-    result = llm(messages, label=f"debate_{role}:{claim_id}")
-    steps[role] = {"output": parse(result["data"]), "usage": result["usage"], "attempts": result["attempts"]}
+def run_step(steps, name, messages, parse, llm, claim_id, on_step):
+    """Make one model call, validate its reply, store it under steps[name], then checkpoint."""
+    result = llm(messages, label=f"debate_{name}:{claim_id}")
+    steps[name] = {"output": parse(result["data"]), "usage": result["usage"], "attempts": result["attempts"]}
     if on_step:
         on_step(steps)
 
 
-def _sum_usage(usages):
+def sum_usage(usages):
     total = {"prompt_tokens": 0, "completion_tokens": 0, "reasoning_tokens": 0, "total_tokens": 0}
     for usage in usages:
         for key in total:

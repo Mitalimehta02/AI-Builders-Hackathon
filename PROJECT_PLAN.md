@@ -157,6 +157,36 @@ on the Portfolio Analytics page (Stage 10) and restated on the Impact slide of t
 
 ---
 
+## PART 5b — Evaluation protocol (added at Stage 5 — this is what makes the numbers credible)
+
+**Development set (7 claims): CLM-0001, CLM-0006, CLM-0019, CLM-0027, CLM-0030, CLM-0034,
+CLM-0035.** These were inspected and run during Stages 2-5, so they are contaminated by
+definition. All prompt iteration, debugging and design changes happen here and only here.
+
+**Held-out set (the other 33 claims).** Not inspected, not run, not tuned against until the
+final Stage 11 batch. No looking at individual held-out transcripts to decide how to change a
+prompt. If a held-out claim is ever used to drive a change, it moves to the dev set
+permanently and is excluded from the headline numbers.
+
+**Reporting rule:** the headline accuracy and confidently-wrong figures come from the 33
+held-out claims. Dev-set figures may be shown but must be labelled as the set the system was
+tuned on. State this split in the README, METHODOLOGY.md and on the results slide.
+
+**Why this exists:** without it, every prompt improvement made after seeing a failure is
+partly memorisation, and the Stage 11 comparison measures how well we fitted 40 known cases
+rather than whether the architecture works. Train/test hygiene is cheap here — it costs
+discipline, not tokens — and it is the difference between a number a judge can rely on and a
+number they have to take on faith.
+
+**The tuning line, for prompt changes:** fixing a general reasoning defect is engineering
+("a rebuttal asserting that a practice is permissible does not address whether its timing is
+suspicious"). Encoding a specific case's answer is cheating ("watch for comprehensive cover
+added days before a theft"). Test each proposed change by asking: would someone who had never
+seen the dev claims have written this? If no, don't write it. Log every prompt change in
+METHODOLOGY.md with that justification.
+
+---
+
 ## PART 6 — Technical architecture (final decisions — do not relitigate these mid-build)
 
 - **Backend:** Python + FastAPI. Reasons: fast to build, official Groq SDK support, easy
@@ -539,7 +569,10 @@ evidence are both legible and clearly laid out.
 
 ### Stage 11 — Full batch run + baseline comparison (the proof-it-works stage)
 **PROMPT TO USE:**
-> Continue to Stage 11 from PROJECT_PLAN.md only. Write a script
+> Continue to Stage 11 from PROJECT_PLAN.md only. Respect the Part 5b evaluation protocol:
+> report headline numbers on the 33 held-out claims, and dev-set numbers separately and
+> clearly labelled. Also report the trivial "always approve" reference line (60% accuracy on
+> the full set) so the accuracy figures are interpretable. Write a script
 > `backend/app/synthetic/run_full_batch.py` that runs EVERY claim in synthetic_claims.json
 > through both (a) the naive baseline agent (Stage 4) and (b) the full ClaimLens pipeline
 > (Stages 3/5/6), saving results to `results_naive.json` and `results_claimlens.json`.

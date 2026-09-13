@@ -29,6 +29,7 @@ Run from the backend/ folder:
 import json
 import math
 import random
+import re
 from collections import Counter
 from datetime import date, timedelta
 from pathlib import Path
@@ -142,7 +143,7 @@ INCIDENT_TEMPLATES = {
     "vehicle_theft": {
         "claim_type": "auto",
         "summary": "Vehicle stolen from outside home",
-        "description": "My car was stolen overnight from outside my home on {street}. I noticed it was gone at 6am and called the police.",
+        "description": "My car was stolen overnight from outside my home at {street}. I noticed it was gone at 6am and called the police.",
         "damage": "Vehicle stolen and not recovered.",
         "amount": "vehicle_value",
         "documents": ["Police theft report", "Both sets of keys handed to adjuster", "Vehicle title copy"],
@@ -209,6 +210,13 @@ INCIDENT_TEMPLATES = {
 # Incidents that only make sense in freezing weather. Stage 3 can check these against
 # real historical temperatures for the incident date and location.
 FREEZE_KINDS = {"icy_skid", "frozen_pipe"}
+
+# Auto incidents whose story places them at the policyholder's home ("outside my home").
+AT_HOME_AUTO_KINDS = {"vehicle_theft"}
+
+# Stories that imply a day of the week, so the incident date must fit the story.
+WEEKEND_STORY_KINDS = {"burglary"}     # "while we were away for the weekend"
+WORKDAY_STORY_KINDS = {"frozen_pipe"}  # "while we were at work"
 
 
 # ---------------------------------------------------------------------------
@@ -313,6 +321,26 @@ def summer_date():
     return random_date(start, end)
 
 
+def match_story_day_of_week(kind, incident_date):
+    """Move the date forward (deterministically, no random draw) so it fits the story's day of the week."""
+    weekday = incident_date.weekday()  # Monday = 0 ... Sunday = 6
+    if kind in WEEKEND_STORY_KINDS and weekday < 5:
+        return incident_date + timedelta(days=6 - weekday)  # the Sunday of that week
+    if kind in WORKDAY_STORY_KINDS and weekday >= 5:
+        return incident_date + timedelta(days=7 - weekday)  # the following Monday
+    return incident_date
+
+
+def adult_date_of_birth(date_of_birth):
+    """Move a date of birth back 8 years if the person would be under 30 (no random draw)."""
+    if (AS_OF_DATE - date_of_birth).days >= 30 * 365.25:
+        return date_of_birth
+    try:
+        return date_of_birth.replace(year=date_of_birth.year - 8)
+    except ValueError:  # 29 February in a non-leap year
+        return date_of_birth.replace(year=date_of_birth.year - 8, day=28)
+
+
 def make_location(city, street=None):
     return {
         "street": street or fake.street_address(),
@@ -323,11 +351,11 @@ def make_location(city, street=None):
     }
 
 
-def make_vehicle():
+def make_vehicle(incident_date):
     make, model, new_price = rng.choice(VEHICLES)
     year = rng.randint(2013, 2024)
-    # Simple depreciation: lose ~15% of value per year of age.
-    value = round(new_price * 0.85 ** (AS_OF_DATE.year - year), -2)
+    # Actual cash value just before the loss: lose ~15% of value per year of age at the incident date.
+    value = round(new_price * 0.85 ** max(incident_date.year - year, 0), -2)
     return {"year": year, "make": make, "model": model, "license_plate": fake.license_plate(), "estimated_value": value}
 
 
@@ -362,12 +390,16 @@ def build_base_claim(scenario):
         home, incident_date = pick_city(climate="cold"), winter_date()
     else:
         home, incident_date = pick_city(), any_incident_date()
+    incident_date = match_story_day_of_week(kind, incident_date)
 
     home_location = make_location(home)
     home_address = {k: home_location[k] for k in ("street", "city", "state")}
 
     # Auto incidents happen on a street in the home city; property incidents at the home itself.
+    # A street name is always drawn, so the random sequence (and every other claim) is unchanged.
     street_name = fake.street_name()
+    if kind in AT_HOME_AUTO_KINDS:
+        street_name = home_address["street"]  # the story says it happened outside the home
     incident_location = make_location(home, street=street_name) if claim_type == "auto" else dict(home_location)
 
     policy = {
@@ -376,7 +408,7 @@ def build_base_claim(scenario):
         "coverage_history": [],
     }
     if claim_type == "auto":
-        vehicle = make_vehicle()
+        vehicle = make_vehicle(incident_date)
         shop = f"{fake.last_name()} Auto Body"
         policy.update({
             "policy_type": "Personal Auto",
@@ -414,7 +446,9 @@ def build_base_claim(scenario):
         "filed_date": incident_date + timedelta(days=rng.randint(0, 4)),
         "policyholder": {
             "name": fake.name(),
-            "date_of_birth": fake.date_of_birth(minimum_age=22, maximum_age=75),
+            # Drawn exactly as before (so faker's random sequence is unchanged), then made at least 30
+            # so the policyholder was an adult at policy start and at any prior claim.
+            "date_of_birth": adult_date_of_birth(fake.date_of_birth(minimum_age=22, maximum_age=75)),
             "phone": fake.phone_number(),
             "email": fake.safe_email(),
             "address": home_address,
@@ -487,7 +521,10 @@ def severity_mismatch(claim, scenario):
     """The damage and amount are far bigger than the incident described could cause."""
     if claim["claim_type"] == "auto":
         claim["incident"]["damage"] = "Rear bumper, tailgate, both rear quarter panels and parking sensors replaced; rear frame straightening required."
-        claim["claim_amount"] = round(rng.uniform(14000, 21000), 2)
+        # Still a repair (not a write-off), so like every other repair claim it stays below the
+        # car's value; the designed mismatch is between the minor incident and the damage listed.
+        value = claim["policy"]["insured_vehicle"]["estimated_value"]
+        claim["claim_amount"] = round(min(rng.uniform(14000, 21000), value * 0.7), 2)
     else:
         claim["incident"]["damage"] = "Full kitchen replacement: all cabinets, countertops, hardwood floor and subfloor, plus dishwasher and refrigerator."
         claim["claim_amount"] = round(rng.uniform(18000, 26000), 2)
@@ -524,6 +561,10 @@ def document_inconsistency(claim, scenario):
     ]
     docs = [d for d in claim["supporting_documents"] if not d.startswith("Purchase receipts")]
     claim["supporting_documents"] = docs + receipts
+    # The claimed total must at least cover the itemised receipts (the jewelry and door are extra).
+    receipts_total = 1899 + 1349 + 1150
+    if claim["claim_amount"] < receipts_total + 1000:
+        claim["claim_amount"] = round(claim["claim_amount"] + receipts_total, 2)
 
 
 def weather_mismatch(claim, scenario):
@@ -671,6 +712,22 @@ def validate(claims):
         assert claim["claim_amount"] > 0, f"{cid}: non-positive amount"
         assert all(p["date"] < incident_date for p in claim["prior_claims"]), f"{cid}: prior claim after incident"
         assert all(c["date"] < incident_date for c in claim["policy"]["coverage_history"]), f"{cid}: policy change after incident"
+
+        # Consistency rules added with the benchmark data fixes (see docs/METHODOLOGY.md).
+        description = claim["incident"]["description"]
+        if "outside my home" in description:
+            assert claim["incident"]["location"]["street"] == claim["policyholder"]["address"]["street"], f"{cid}: home street mismatch"
+        if "away for the weekend" in description:
+            assert incident_date.weekday() >= 5, f"{cid}: weekend story dated on a weekday"
+        if "while we were at work" in description:
+            assert incident_date.weekday() < 5, f"{cid}: workday story dated on a weekend"
+        if claim["claim_type"] == "auto" and "amount_exceeds_value" not in claim["ground_truth"]["signals"]:
+            assert claim["claim_amount"] <= claim["policy"]["insured_vehicle"]["estimated_value"], f"{cid}: amount above vehicle value"
+        receipts_total = sum(int(amount.replace(",", "")) for doc in claim["supporting_documents"]
+                             if doc.startswith("Receipt:") for amount in re.findall(r"\$([\d,]+)", doc))
+        assert receipts_total <= claim["claim_amount"], f"{cid}: itemised receipts exceed the claimed amount"
+        earliest_event = min([claim["policy"]["start_date"]] + [p["date"] for p in claim["prior_claims"]])
+        assert (earliest_event - claim["policyholder"]["date_of_birth"]).days >= 18 * 365.25, f"{cid}: policyholder under 18"
 
 
 def print_summary(claims):
