@@ -1,0 +1,143 @@
+{
+  "25.7617,-80.1918,2026-07-11,2026-07-13": {
+    "fetched_at": "2026-09-13T16:16:53+00:00",
+    "request_url": "https://archive-api.open-meteo.com/v1/archive?latitude=25.7617&longitude=-80.1918&start_date=2026-07-11&end_date=2026-07-13&daily=temperature_2m_min%2Ctemperature_2m_max%2Cprecipitation_sum%2Csnowfall_sum&timezone=auto",
+    "response": {
+      "daily": {
+        "precipitation_sum": [
+          4.2,
+          0.4,
+          1.6
+        ],
+        "snowfall_sum": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "temperature_2m_max": [
+          32.6,
+          33.1,
+          33.5
+        ],
+        "temperature_2m_min": [
+          23.1,
+          28.7,
+          25.9
+        ],
+        "time": [
+          "2026-07-11",
+          "2026-07-12",
+          "2026-07-13"
+        ]
+      },
+      "daily_units": {
+        "precipitation_sum": "mm",
+        "snowfall_sum": "cm",
+        "temperature_2m_max": "\u00b0C",
+        "temperature_2m_min": "\u00b0C",
+        "time": "iso8601"
+      },
+      "elevation": 5.0,
+      "generationtime_ms": 0.13971328735351562,
+      "latitude": 25.764498,
+      "longitude": -80.196075,
+      "timezone": "America/New_York",
+      "timezone_abbreviation": "GMT-4",
+      "utc_offset_seconds": -14400
+    }
+  },
+  "45.5152,-122.6784,2025-09-16,2025-09-18": {
+    "fetched_at": "2026-09-13T16:16:59+00:00",
+    "request_url": "https://archive-api.open-meteo.com/v1/archive?latitude=45.5152&longitude=-122.6784&start_date=2025-09-16&end_date=2025-09-18&daily=temperature_2m_min%2Ctemperature_2m_max%2Cprecipitation_sum%2Csnowfall_sum&timezone=auto",
+    "response": {
+      "daily": {
+        "precipitation_sum": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "snowfall_sum": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "temperature_2m_max": [
+          28.3,
+          27.5,
+          25.1
+        ],
+        "temperature_2m_min": [
+          14.9,
+          14.3,
+          14.3
+        ],
+        "time": [
+          "2025-09-16",
+          "2025-09-17",
+          "2025-09-18"
+        ]
+      },
+      "daily_units": {
+        "precipitation_sum": "mm",
+        "snowfall_sum": "cm",
+        "temperature_2m_max": "\u00b0C",
+        "temperature_2m_min": "\u00b0C",
+        "time": "iso8601"
+      },
+      "elevation": 25.0,
+      "generationtime_ms": 0.1838207244873047,
+      "latitude": 45.51845,
+      "longitude": -122.63736,
+      "timezone": "America/Los_Angeles",
+      "timezone_abbreviation": "GMT-7",
+      "utc_offset_seconds": -25200
+    }
+  },
+  "45.5152,-122.6784,2026-04-25,2026-04-27": {
+    "fetched_at": "2026-09-13T16:16:57+00:00",
+    "request_url": "https://archive-api.open-meteo.com/v1/archive?latitude=45.5152&longitude=-122.6784&start_date=2026-04-25&end_date=2026-04-27&daily=temperature_2m_min%2Ctemperature_2m_max%2Cprecipitation_sum%2Csnowfall_sum&timezone=auto",
+    "response": {
+      "daily": {
+        "precipitation_sum": [
+          0.0,
+          0.0,
+          0.1
+        ],
+        "snowfall_sum": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "temperature_2m_max": [
+          18.8,
+          19.0,
+          14.4
+        ],
+        "temperature_2m_min": [
+          4.2,
+          3.9,
+          7.0
+        ],
+        "time": [
+          "2026-04-25",
+          "2026-04-26",
+          "2026-04-27"
+        ]
+      },
+      "daily_units": {
+        "precipitation_sum": "mm",
+        "snowfall_sum": "cm",
+        "temperature_2m_max": "\u00b0C",
+        "temperature_2m_min": "\u00b0C",
+        "time": "iso8601"
+      },
+      "elevation": 25.0,
+      "generationtime_ms": 0.1043081283569336,
+      "latitude": 45.51845,
+      "longitude": -122.63736,
+      "timezone": "America/Los_Angeles",
+      "timezone_abbreviation": "GMT-7",
+      "utc_offset_seconds": -25200
+    }
+  }
+}
