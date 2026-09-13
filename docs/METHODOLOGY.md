@@ -516,3 +516,64 @@ ClaimLens plus about 2,300 for the baseline, the full 40-claim run would need ro
 tokens — nearly five days of a 200,000-token daily allowance — and even the 27 held-out claims
 alone would need about 640,000. The dev iteration was stopped here rather than resumed, in line with
 the decision to move on to Stage 7; how Stage 11 will fit the budget is an open decision.
+
+### 2026-09-14 — Stage 11 evaluation sample pre-registered (before any held-out claim is run)
+
+**Why a sample.** With the confirmed 200,000-token daily cap, the 27-claim held-out run (about
+640,000 tokens) cannot finish before the deadline. PROJECT_PLAN.md Part 5b now specifies a
+pre-registered stratified random sample of 15 held-out claims, selected and logged before any
+held-out claim is run. This entry is that registration.
+
+**Selection.** Produced by `backend/app/synthetic/stage11_sample.py`; the committed record is
+`backend/data/stage11_sample.json`.
+
+- **Seed:** 20260914 (Python `random.Random`).
+- **Method:** the 15 slots are split between fraud and legitimate in proportion to the held-out
+  set (largest-remainder rounding), then across easy / ambiguous / hard within each label in
+  proportion to tier size (largest remainder; ties go to the earlier tier in that order), then
+  claims are drawn at random within each tier.
+- **Only claim IDs and the two label fields were read.** No claim content was inspected and no
+  model was run.
+
+| Stratum | Held-out | Selected |
+|---|---|---|
+| fraud / easy | 4 | 2 |
+| fraud / ambiguous | 2 | 1 |
+| fraud / hard | 3 | 2 |
+| legitimate / easy | 6 | 4 |
+| legitimate / ambiguous | 6 | 3 |
+| legitimate / hard | 6 | 3 |
+| **Total** | **27 (9 fraud, 18 legitimate)** | **15 (5 fraud, 10 legitimate)** |
+
+**Selected claim IDs (15):** CLM-0004, CLM-0007, CLM-0010, CLM-0011, CLM-0015, CLM-0017, CLM-0020,
+CLM-0021, CLM-0022, CLM-0026, CLM-0028, CLM-0029, CLM-0037, CLM-0039, CLM-0040.
+
+**Hashes.**
+- `claim_ids_sha256` = `bbcdf0fd5693fd7a1be43ee4516dd7c99ef71fbb238e696c6c190dc108d5b49a`
+  (the IDs above sorted, joined with newlines, UTF-8).
+- `claims_data_sha256` = `f309786c9be4f527190fd61ef07cdaeb07ea22b6f4a1ccf234b5da968fee8e29`
+  (`json.dumps` of the parsed frozen claim data with sorted keys, UTF-8), so any later change to
+  the data is detectable.
+- `backend/tests/test_stage11_sample.py` fails if the selection cannot be reproduced from the
+  seed and method, if either hash no longer matches, or if a development claim is in the sample.
+
+**Reference line.** Always answering APPROVE would be correct on 10 of these 15 claims.
+
+**Reporting rules for this sample** (Part 5b): raw counts rather than percentages for
+confidence-tier outcomes; the sample size and this pre-registration stated wherever results
+appear; the always-approve line next to every accuracy figure; a difference of one or two
+claims is described as directionally suggestive, not demonstrated.
+
+**Unused.** The other 12 held-out claims are not run or inspected and are not part of any
+reported figure.
+
+**Disclosure.** Every held-out claim appeared in the all-claims listings printed at Stages 2 and 3
+(disclosed in the 2026-09-13 protocol entry). Among the selected claims, CLM-0007, CLM-0011 and
+CLM-0015 were also printed with their labels by the Stage 5 address check, and CLM-0015, CLM-0029,
+CLM-0037, CLM-0039 and CLM-0040 appeared in the signal-check table with their signal names and a
+pass result. None of them drove a change. The random draw did not take any of this into account.
+
+**Plan text correction.** The 2026-09-13 revision of PROJECT_PLAN.md reverted the Part 5b and
+Stage 11 wording to "7 development / 33 held-out" while its new sample paragraph used 27. The
+split itself never changed (it is enforced by `backend/app/synthetic/eval_split.py`), so the 13 / 27
+wording was restored.

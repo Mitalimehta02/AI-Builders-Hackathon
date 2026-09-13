@@ -170,8 +170,26 @@ final Stage 11 batch. No looking at individual held-out transcripts to decide ho
 prompt. If a held-out claim is ever used to drive a change, it moves to the dev set
 permanently and is excluded from the headline numbers.
 
-**Reporting rule:** the headline accuracy and confidently-wrong figures come from the 27
-held-out claims. Dev-set figures may be shown but must be labelled as the set the system was
+**Budget-constrained sample (locked Sep 13):** Groq's free tier has a confirmed 200,000
+tokens/day cap, leaving ~475,000 tokens before the deadline for all remaining work. The full
+27-claim held-out run (~640k) does not fit. Stage 11 therefore evaluates a **pre-registered
+stratified random sample of 15 held-out claims**, selected with a fixed seed, stratified to
+preserve the held-out set's fraud/legitimate ratio and spread across difficulty tiers, chosen
+and logged (with a hash of the ID list) **before any held-out claim is run**. The remaining 12
+held-out claims stay unused and unseen.
+
+**Reporting rules for a small sample — follow these exactly:**
+- **Report raw counts, not percentages**, for confidence-tier outcomes. "3 of 7 HIGH-confidence
+  answers were wrong" is honest; "43% confidently wrong" implies precision that n=15 cannot
+  support and is the kind of overclaim a technical judge spots immediately.
+- State the sample size and the pre-registration plainly on the results slide, in the README
+  and in the demo narration. Volunteering the limitation is what makes the rest credible.
+- Report the "always approve" reference line alongside every accuracy figure.
+- If the difference between baseline and ClaimLens is within one or two claims, say so — call
+  it directionally suggestive rather than demonstrated.
+
+**Reporting rule:** the headline accuracy and confidently-wrong figures come from the
+pre-registered held-out sample. Dev-set figures may be shown but must be labelled as the set the system was
 tuned on. State this split in the README, METHODOLOGY.md and on the results slide.
 
 **Why this exists:** without it, every prompt improvement made after seeing a failure is
@@ -572,7 +590,7 @@ evidence are both legible and clearly laid out.
 ### Stage 11 — Full batch run + baseline comparison (the proof-it-works stage)
 **PROMPT TO USE:**
 > Continue to Stage 11 from PROJECT_PLAN.md only. Respect the Part 5b evaluation protocol:
-> report headline numbers on the 27 held-out claims, and dev-set numbers separately and
+> report headline numbers on the pre-registered held-out sample (Part 5b), and dev-set numbers separately and
 > clearly labelled. Also report the trivial "always approve" reference line (60% accuracy on
 > the full set) so the accuracy figures are interpretable. Write a script
 > `backend/app/synthetic/run_full_batch.py` that runs EVERY claim in synthetic_claims.json

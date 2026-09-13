@@ -1,0 +1,65 @@
+{
+  "registered_on": "2026-09-14",
+  "purpose": "Stage 11 headline evaluation sample (PROJECT_PLAN.md Part 5b); chosen before any held-out claim was run",
+  "seed": 20260914,
+  "sample_size": 15,
+  "held_out_size": 27,
+  "method": "stratified random sample: slots split between fraud and legitimate in proportion to the held-out set (largest remainder), then across easy/ambiguous/hard within each label (largest remainder, ties to the earlier tier), then drawn at random within each tier with random.Random(seed)",
+  "label_counts": {
+    "fraud": {
+      "held_out": 9,
+      "selected": 5
+    },
+    "legitimate": {
+      "held_out": 18,
+      "selected": 10
+    }
+  },
+  "strata_counts": {
+    "fraud/easy": {
+      "held_out": 4,
+      "selected": 2
+    },
+    "fraud/ambiguous": {
+      "held_out": 2,
+      "selected": 1
+    },
+    "fraud/hard": {
+      "held_out": 3,
+      "selected": 2
+    },
+    "legitimate/easy": {
+      "held_out": 6,
+      "selected": 4
+    },
+    "legitimate/ambiguous": {
+      "held_out": 6,
+      "selected": 3
+    },
+    "legitimate/hard": {
+      "held_out": 6,
+      "selected": 3
+    }
+  },
+  "claim_ids": [
+    "CLM-0004",
+    "CLM-0007",
+    "CLM-0010",
+    "CLM-0011",
+    "CLM-0015",
+    "CLM-0017",
+    "CLM-0020",
+    "CLM-0021",
+    "CLM-0022",
+    "CLM-0026",
+    "CLM-0028",
+    "CLM-0029",
+    "CLM-0037",
+    "CLM-0039",
+    "CLM-0040"
+  ],
+  "claim_ids_sha256": "bbcdf0fd5693fd7a1be43ee4516dd7c99ef71fbb238e696c6c190dc108d5b49a",
+  "claim_ids_hash_input": "the claim IDs sorted ascending, joined with newline characters, UTF-8 encoded",
+  "claims_data_sha256": "f309786c9be4f527190fd61ef07cdaeb07ea22b6f4a1ccf234b5da968fee8e29",
+  "claims_data_hash_input": "json.dumps(<parsed synthetic_claims.json>, sort_keys=True), UTF-8 encoded"
+}
