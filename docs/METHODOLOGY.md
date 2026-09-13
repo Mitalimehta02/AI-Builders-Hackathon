@@ -384,3 +384,135 @@ call is now measured rather than estimated. Stage 11 projection: 40 × (2,321 + 
 tokens and 200 accepted requests, at least 87 minutes at 8,000 tokens per minute. This run used 35
 accepted requests and 122,259 tokens; 6 further requests were rejected with HTTP 429 (tokens per
 minute) and retried, and did not reduce the daily request count.
+
+### 2026-09-13 — Benchmark solvability check, and a correction to Stage 6 data fix #4
+
+**Why.** A claim labelled fraud with no fraud evidence left would be a broken test case, not a hard
+one. After Stage 6, CLM-0030 moved from a correct DENY (Stage 4, v3) to a wrong APPROVE, and the
+Stage 6 cap on its repair amount was the obvious suspect.
+
+**Check added.** `backend/app/synthetic/check_signals.py` measures every designed fraud signal of
+every fraud claim against the parameters the generator used to create it (no model calls).
+`backend/tests/test_signals.py` now runs the same check with the test suite, so no future data
+change can silently remove a signal. Measured details are printed for dev claims and failed checks
+only.
+
+**Result before repair.** 16 fraud claims, 22 designed signals, **2 missing**, both
+`severity_mismatch` and both caused by Stage 6 fix #4 (repair bill capped at 70% of the car's
+value): CLM-0030 (dev) at $3,570.00 and CLM-0009 (held-out) at $10,290.00, against a designed range
+of $14,000–21,000. The damage description was still extensive in both. Neither claim had lost all
+evidence: CLM-0030 still had `early_claim` and `document_gap`; CLM-0009 still had
+`duplicate_claim`.
+
+**Correction.** Fix #4 is reversed: severity-mismatch car claims are back in the designed
+$14,000–21,000 range, using the same single random draw. On low-value cars this exceeds the car's
+value, exactly as in the original Stage 2 data; the generator's "repair bill below the car's value"
+rule now exempts `severity_mismatch` as well as `amount_exceeds_value`. The Stage 6 concern about
+a "second clue" was wrong to act on — it removed part of the designed signal.
+
+**Verification.** Only 2 claims changed: CLM-0030's claim amount ($3,570.00 → $14,758.82) and
+CLM-0009's claim amount plus the amount of its designed duplicate prior claim (which is derived
+from the claim amount). Labels and all other fields are identical. The signal check now reports
+0 of 22 missing.
+
+**CLM-0009 stays held-out.** Its failed check printed its amount, but the repair was needed for
+CLM-0030 in any case and restores CLM-0009's original Stage 2 amount; no prompt or rule was shaped
+around it. This is recorded here so the choice can be challenged.
+
+**Consequence.** The Stage 6 dev results (`stage6_dev_results.json`) used the capped CLM-0030 and
+are kept only as history. The data is frozen again from this entry.
+
+### 2026-09-13 — Development set enlarged from 7 to 13 claims (open decision settled)
+
+CLM-0014, CLM-0024, CLM-0025, CLM-0032, CLM-0033 and CLM-0036 — the six claims that drove data or
+evidence-rule fixes before the split existed — moved to the development set, as Part 5b requires.
+**Held-out set: 27 claims.** Headline Stage 11 figures will come from those 27. Updated in
+`backend/app/synthetic/eval_split.py` (enforced) and PROJECT_PLAN.md Part 5b and Stage 11.
+
+### 2026-09-13 — Debate protocol: prosecutor rebuttal round (before re-running the dev set)
+
+**Observed.** In the Stage 6 dev run, on both CLM-0019 and CLM-0030 the Prosecutor raised the
+relevant fact and the Defender dismissed it by assertion. The Defender always spoke last, so no
+such response could be challenged before the Judge ruled.
+
+**Changed.** The protocol is now Prosecutor → Defender → **Prosecutor rebuttal** → Judge. The
+rebuttal may only reply to what the Defender said (no new points), may dispute a response only if
+it fails to engage the specific facts it answers or misstates a fact, must name the fact left
+unaddressed, and is limited to 3 items of one or two sentences each (an empty list is allowed).
+The rebuttal appears after both opening arguments in both Judge orderings; the order swap still
+exchanges which opening argument comes first.
+
+**Part 5b test.** Alternating rounds is standard in debate formats because the last unchallenged
+speaker has a structural advantage. The change concerns who may reply to whom, not any claim,
+field or pattern; someone who had never seen the dev claims could have designed it. A test fails if
+the rebuttal rules mention case-pattern words.
+
+**Cost.** One more model call per claim (5 per claim for ClaimLens, plus the baseline's 1).
+
+### 2026-09-13 — Structured rebuttal accounting with a mechanical confidence cap (before re-running the dev set)
+
+**Observed.** The Stage 6 rubric sentence ("saying something is permitted, common or normal does
+not answer a point") was in the Judge prompt, and both Judge orderings still accepted exactly such
+a response with HIGH confidence. Asking the model to be stricter with itself did not work.
+
+**Changed.**
+1. The Judge now also returns `point_assessments`: for every numbered point from either side, whether
+   it is `significant` (could change the decision if left standing) and its status —
+   `answered_with_case_file_fact`, `answered_by_assertion_only` or `unanswered`.
+2. **In code** (`calibration.py`), after the tier is combined: if the tier is HIGH and either Judge
+   ordering has a significant point *against its own decision* whose status is not
+   `answered_with_case_file_fact`, the tier becomes MEDIUM. A point the Judge did not assess
+   counts as unresolved. The cap can only lower HIGH to MEDIUM. The Judge is not told the cap
+   exists.
+3. "Against its own decision" is applied symmetrically: the Prosecutor's points for an APPROVE,
+   the Defender's points for a DENY. (Capping only approvals would lower confidence on one kind
+   of decision only, which would bias the confidently-wrong comparison.)
+
+**Part 5b test.** Whether each argument was answered with evidence is a general accounting of a
+debate, applicable to any dispute; it names no field or pattern, and someone who had never seen
+the dev claims could have designed it. The existing test that fails if the Judge rules mention
+pattern words stays in place and covers the new text.
+
+**Stated limitation.** Which points are "significant" is still the Judge's own call. The cap makes
+the consequence mechanical, not the assessment.
+
+**Fairness.** Both changes are ClaimLens architecture; the baseline's inputs and instructions are
+unchanged. For the dev re-run, a baseline result from the Stage 6 dev run is reused only if the
+request log shows the baseline input is byte-identical to the current one; otherwise the baseline
+is re-run.
+
+### 2026-09-13 — Dev re-run stopped by Groq's daily token limit (partial result only)
+
+**What happened.** The 13-claim dev re-run with the rebuttal round and accounting cap stopped on its
+second claim. Groq rejected the CLM-0006 rebuttal call with HTTP 429 on **tokens per day: limit
+200,000** ("Used 197,689, Requested 4,103, please try again in 12m54s"). Part 6b had listed a daily
+token cap as possible but unconfirmed; it is now confirmed. The shared client correctly stopped
+instead of retrying (the requested wait exceeded its 60-second cap), and progress was saved after
+every call. The wait matched a gradual refill of about 8,300 tokens per hour, which suggests a rolling
+allowance rather than a reset at midnight. Accepted calls logged on this UTC day total 215,562 tokens.
+
+**Completed: 1 of 13 dev claims.** Results in `backend/data/stage6_dev_results_v2.json`.
+
+| Claim | Is fraud | Baseline | Judge, Prosecutor first | Judge, Defender first | Tier before cap | Final tier | Gate | ClaimLens |
+|---|---|---|---|---|---|---|---|---|
+| CLM-0001 | yes | APPROVE (70), reused (identical input) | APPROVE / MEDIUM | APPROVE / HIGH | MEDIUM | MEDIUM | human review | wrong |
+
+- Compared with the Stage 6 dev run: decision unchanged (APPROVE), tier unchanged (MEDIUM). No
+  claim that was previously HIGH and wrong has been re-run yet.
+- Both Judge rulings labelled two significant Prosecutor points as `answered_by_assertion_only`, yet
+  the Defender-first ruling still verbalized HIGH. The cap did not need to act because the tier was
+  already MEDIUM, but this is the behaviour the mechanical cap exists for.
+- The rebuttal on CLM-0001 argued that the claimed amount exceeds "vehicle value minus deductible",
+  which the case-file guide explicitly says is not how the amount is defined.
+- CLM-0006 stopped after the Prosecutor and Defender calls; the other 11 dev claims were not started.
+
+**Measured tokens with the extra call (CLM-0001).** Prosecutor 2,977, Defender 3,977, Prosecutor
+rebuttal 4,541, Judge (Prosecutor first) 4,912, Judge (Defender first) 4,901 — **21,308** for the
+pipeline, against 15,404 for the same claim in the Stage 6 run (+38%). On a single claim this is an
+indication, not an average.
+
+**Consequence for Stage 11 (recorded, not yet acted on).** At about 21,300 tokens per claim for
+ClaimLens plus about 2,300 for the baseline, the full 40-claim run would need roughly 945,000
+tokens — nearly five days of a 200,000-token daily allowance — and even the 27 held-out claims
+alone would need about 640,000. The dev iteration was stopped here rather than resumed, in line with
+the decision to move on to Stage 7; how Stage 11 will fit the budget is an open decision.

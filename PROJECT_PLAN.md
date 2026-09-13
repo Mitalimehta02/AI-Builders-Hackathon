@@ -159,16 +159,18 @@ on the Portfolio Analytics page (Stage 10) and restated on the Impact slide of t
 
 ## PART 5b — Evaluation protocol (added at Stage 5 — this is what makes the numbers credible)
 
-**Development set (7 claims): CLM-0001, CLM-0006, CLM-0019, CLM-0027, CLM-0030, CLM-0034,
-CLM-0035.** These were inspected and run during Stages 2-5, so they are contaminated by
-definition. All prompt iteration, debugging and design changes happen here and only here.
+**Development set (13 claims): CLM-0001, CLM-0006, CLM-0014, CLM-0019, CLM-0024, CLM-0025,
+CLM-0027, CLM-0030, CLM-0032, CLM-0033, CLM-0034, CLM-0035, CLM-0036.** The first 7 were
+inspected and run during Stages 2-5; the other 6 drove data or evidence-rule fixes before the
+split existed and were moved here after Stage 6 (see docs/METHODOLOGY.md). All are
+contaminated by definition. All prompt iteration, debugging and design changes happen here and only here.
 
-**Held-out set (the other 33 claims).** Not inspected, not run, not tuned against until the
+**Held-out set (the other 27 claims).** Not inspected, not run, not tuned against until the
 final Stage 11 batch. No looking at individual held-out transcripts to decide how to change a
 prompt. If a held-out claim is ever used to drive a change, it moves to the dev set
 permanently and is excluded from the headline numbers.
 
-**Reporting rule:** the headline accuracy and confidently-wrong figures come from the 33
+**Reporting rule:** the headline accuracy and confidently-wrong figures come from the 27
 held-out claims. Dev-set figures may be shown but must be labelled as the set the system was
 tuned on. State this split in the README, METHODOLOGY.md and on the results slide.
 
@@ -570,7 +572,7 @@ evidence are both legible and clearly laid out.
 ### Stage 11 — Full batch run + baseline comparison (the proof-it-works stage)
 **PROMPT TO USE:**
 > Continue to Stage 11 from PROJECT_PLAN.md only. Respect the Part 5b evaluation protocol:
-> report headline numbers on the 33 held-out claims, and dev-set numbers separately and
+> report headline numbers on the 27 held-out claims, and dev-set numbers separately and
 > clearly labelled. Also report the trivial "always approve" reference line (60% accuracy on
 > the full set) so the accuracy figures are interpretable. Write a script
 > `backend/app/synthetic/run_full_batch.py` that runs EVERY claim in synthetic_claims.json

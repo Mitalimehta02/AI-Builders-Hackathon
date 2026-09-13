@@ -437,7 +437,7 @@ def build_base_claim(scenario):
         amount = rng.uniform(*template["amount"])
         if claim_type == "auto":
             # A real repair bill stays well below the car's value (otherwise it would be
-            # written off as a total loss). Only the amount_exceeds_value fraud breaks this.
+            # written off as a total loss). Only the amount_exceeds_value and severity_mismatch fraud signals break this.
             amount = min(amount, policy["insured_vehicle"]["estimated_value"] * 0.7)
 
     return {
@@ -521,10 +521,9 @@ def severity_mismatch(claim, scenario):
     """The damage and amount are far bigger than the incident described could cause."""
     if claim["claim_type"] == "auto":
         claim["incident"]["damage"] = "Rear bumper, tailgate, both rear quarter panels and parking sensors replaced; rear frame straightening required."
-        # Still a repair (not a write-off), so like every other repair claim it stays below the
-        # car's value; the designed mismatch is between the minor incident and the damage listed.
-        value = claim["policy"]["insured_vehicle"]["estimated_value"]
-        claim["claim_amount"] = round(min(rng.uniform(14000, 21000), value * 0.7), 2)
+        # Kept in the designed range even when that exceeds a low-value car's worth: capping it
+        # (tried at Stage 6) removed the amount half of this signal. See docs/METHODOLOGY.md.
+        claim["claim_amount"] = round(rng.uniform(14000, 21000), 2)
     else:
         claim["incident"]["damage"] = "Full kitchen replacement: all cabinets, countertops, hardwood floor and subfloor, plus dishwasher and refrigerator."
         claim["claim_amount"] = round(rng.uniform(18000, 26000), 2)
@@ -721,7 +720,8 @@ def validate(claims):
             assert incident_date.weekday() >= 5, f"{cid}: weekend story dated on a weekday"
         if "while we were at work" in description:
             assert incident_date.weekday() < 5, f"{cid}: workday story dated on a weekend"
-        if claim["claim_type"] == "auto" and "amount_exceeds_value" not in claim["ground_truth"]["signals"]:
+        # Car repair bills stay below the car's value, except in the two signals designed to break that.
+        if claim["claim_type"] == "auto" and not {"amount_exceeds_value", "severity_mismatch"} & set(claim["ground_truth"]["signals"]):
             assert claim["claim_amount"] <= claim["policy"]["insured_vehicle"]["estimated_value"], f"{cid}: amount above vehicle value"
         receipts_total = sum(int(amount.replace(",", "")) for doc in claim["supporting_documents"]
                              if doc.startswith("Receipt:") for amount in re.findall(r"\$([\d,]+)", doc))

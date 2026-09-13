@@ -1,0 +1,477 @@
+{
+  "CLM-0001": {
+    "evidence": {
+      "claim_id": "CLM-0001",
+      "timeline": {
+        "incident_date": "2025-09-18",
+        "filed_date": "2025-09-21",
+        "policy_start_date": "2024-02-19",
+        "days_incident_to_filing": 3,
+        "days_policy_start_to_incident": 577,
+        "days_last_policy_change_to_incident": 397
+      },
+      "policy": {
+        "type": "Personal Auto",
+        "coverages": [
+          "Liability",
+          "Collision",
+          "Comprehensive"
+        ],
+        "vehicle": "2021 Jeep Grand Cherokee",
+        "vehicle_estimated_value": 20900.0,
+        "claim_amount_pct_of_vehicle_value": 99.7,
+        "changes": [
+          {
+            "days_before_incident": 397,
+            "change": "Raised deductible to lower premium"
+          }
+        ]
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Portland, OR",
+        "policyholder_home": "Portland, OR",
+        "same_city_as_home": true,
+        "same_state_as_home": true
+      },
+      "documents": {
+        "documents_provided": 2,
+        "documents_mentioned_but_absent": [
+          "police report or incident number (description mentions 'police')",
+          "all vehicle keys (description mentions 'car was stolen')"
+        ],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2025-09-16 to 2025-09-18",
+        "lowest_temp_c": 14.3,
+        "highest_temp_c": 28.3,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 0.0,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0001",
+      "decision": "APPROVE",
+      "confidence": 70,
+      "reasoning": "The claim is for theft of a 2021 Jeep Grand Cherokee valued at $20,900, and the claimed loss of $20,843.81 (99.7% of value) aligns with comprehensive coverage. The incident occurred in the policyholder\u2019s home city, within the policy period, and was reported promptly (3 days). There are no prior claims or policy changes indicating fraud, and the coverage includes theft. While a police report and additional keys are noted as missing, their absence alone does not prove the loss is fabricated, and the overall facts support a genuine loss.",
+      "high_confidence": false,
+      "usage": {
+        "prompt_tokens": 1920,
+        "completion_tokens": 605,
+        "reasoning_tokens": 464,
+        "total_tokens": 2525
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "995",
+        "requests_reset_in": "7m12s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "5544",
+        "tokens_reset_in": "18.42s"
+      },
+      "reused_from_previous_run": true
+    },
+    "claimlens": {
+      "status": "complete",
+      "claim_id": "CLM-0001",
+      "decision": "APPROVE",
+      "confidence_tier": "MEDIUM",
+      "tier_before_cap": "MEDIUM",
+      "cap_applied": false,
+      "unresolved_points": {
+        "prosecutor_first": [
+          {
+            "point_id": "P1",
+            "status": "answered_by_assertion_only"
+          },
+          {
+            "point_id": "P2",
+            "status": "answered_by_assertion_only"
+          }
+        ],
+        "defender_first": [
+          {
+            "point_id": "P1",
+            "status": "answered_by_assertion_only"
+          },
+          {
+            "point_id": "P2",
+            "status": "answered_by_assertion_only"
+          }
+        ]
+      },
+      "orderings_agree": true,
+      "gate": "human_review",
+      "transcript": {
+        "prosecutor": {
+          "points": [
+            {
+              "id": "P1",
+              "point": "The claim description states a police call but no police report or incident number was provided, and the system flags the police report as missing.",
+              "evidence": "documents_mentioned_but_absent includes \"police report or incident number (description mentions 'police')\" while supporting_documents lists only \"Vehicle title copy\" and a key statement."
+            },
+            {
+              "id": "P2",
+              "point": "Only one vehicle key is documented, yet the description implies multiple keys (a spare key lost), and the required proof of all keys is absent.",
+              "evidence": "supporting_documents contains \"Only one key provided; policyholder says the spare key was lost\" and documents_mentioned_but_absent lists \"all vehicle keys (description mentions 'car was stolen')\"."
+            },
+            {
+              "id": "P3",
+              "point": "The claimed loss equals 99.7% of the vehicle\u2019s estimated value, an unusually high payout for a theft claim without corroborating evidence, suggesting inflation.",
+              "evidence": "claim_amount 20843.81, estimated_value 20900.0, claim_amount_pct_of_vehicle_value 99.7."
+            },
+            {
+              "id": "P4",
+              "point": "The policy deductible was raised 397 days before the incident, yet the claim seeks the full vehicle value, indicating the policyholder is pursuing a maximum payout despite a higher out\u2011of\u2011pocket cost.",
+              "evidence": "policy changes show \"Raised deductible to lower premium\" 397 days before incident; deductible is $250 while claim_amount seeks $20,843.81 (near full value)."
+            }
+          ],
+          "summary": "Missing essential police documentation and key evidence, combined with an almost total\u2011value claim and a recent deductible increase, strongly indicate material misrepresentation warranting denial."
+        },
+        "defender": {
+          "responses": [
+            {
+              "responds_to": "P1",
+              "position": "rebut",
+              "response": "A police report is not a mandatory prerequisite for filing an auto theft claim; the policyholder reported the theft within three days and provided ownership proof, so the missing report alone does not prove fraud.",
+              "evidence": "documents_mentioned_but_absent lists police report missing; timeline shows days_incident_to_filing=3"
+            },
+            {
+              "responds_to": "P2",
+              "position": "rebut",
+              "response": "Ownership is established by the vehicle title copy; the number of keys is not a required document for a theft loss, and the claimant\u2019s statement about a lost spare key is acceptable.",
+              "evidence": "supporting_documents includes \"Vehicle title copy\" and \"Only one key provided; policyholder says the spare key was lost\"; documents_mentioned_but_absent lists all keys but such a document is not a standard requirement"
+            },
+            {
+              "responds_to": "P3",
+              "position": "rebut",
+              "response": "A total loss from theft is normally settled at the vehicle\u2019s actual cash value; a claim for 99.7% of the estimated value simply reflects the $250 deductible and is consistent with standard practice.",
+              "evidence": "claim_amount=20843.81, estimated_value=20900.0, claim_amount_pct_of_vehicle_value=99.7, deductible=250"
+            },
+            {
+              "responds_to": "P4",
+              "position": "rebut",
+              "response": "The deductible increase occurred 397 days before the incident and does not affect the legitimacy of the loss; the claim amount is the pre\u2011deductible ACV, which is proper under the policy.",
+              "evidence": "policy changes show \"Raised deductible to lower premium\" 397 days before incident; deductible=250; claim_amount before deductible=20843.81"
+            }
+          ],
+          "points": [
+            {
+              "id": "D1",
+              "point": "The claim was filed only three days after the theft, showing prompt and credible reporting.",
+              "evidence": "days_incident_to_filing=3"
+            },
+            {
+              "id": "D2",
+              "point": "The incident occurred at the insured vehicle\u2019s regular location, as the incident address matches the policyholder\u2019s home address in Portland, OR.",
+              "evidence": "same_city_as_home=true; incident_location='Portland, OR'; policyholder_home='Portland, OR'"
+            },
+            {
+              "id": "D3",
+              "point": "The policyholder has no prior claim history, reducing any suspicion of patterned fraud.",
+              "evidence": "prior_claims_count=0; prior_claims=[]"
+            }
+          ],
+          "summary": "Timely reporting, location consistency, appropriate valuation, and a clean claim history together demonstrate that this theft loss is genuine and should be approved."
+        },
+        "prosecutor_rebuttal": {
+          "rebuttals": [
+            {
+              "responds_to": "P3",
+              "rebuttal": "The defender misstates that the claim amount merely reflects the $250 deductible; the claim amount of $20,843.81 exceeds the vehicle value minus deductible ($20,650) by $193.81, so it is not simply the deductible adjustment.",
+              "evidence": "claim_amount=20843.81, estimated_value=20900.0, deductible=250, claim_amount_pct_of_vehicle_value=99.7"
+            }
+          ],
+          "summary": "Defender\u2019s claim that the payout only reflects the deductible is factually incorrect."
+        },
+        "judge_prosecutor_first": {
+          "decision": "APPROVE",
+          "reasoning": "The claim describes a theft of the insured vehicle from the policyholder's home, filed within three days, with the vehicle\u2019s ACV of $20,900 and a claim amount of $20,843.81 (99.7% of ACV), which after the $250 deductible results in a legitimate payout; there is no prior claim history and the incident location matches the insured address. Although the police report is absent, the policy does not require it as proof of loss, and the missing key documentation is not a required item for an auto theft claim. These facts outweigh the prosecutor\u2019s concerns and support that the loss is genuine.",
+          "verbalized_confidence": "MEDIUM",
+          "confidence_justification": "The evidence strongly supports a genuine loss, but the lack of a police report\u2014a common verification document\u2014prevents a higher confidence level; the defender\u2019s factual rebuttals address the key concerns, yet the requirement for a police report is not established in the file.",
+          "point_assessments": [
+            {
+              "point_id": "P1",
+              "significant": true,
+              "status": "answered_by_assertion_only"
+            },
+            {
+              "point_id": "P2",
+              "significant": true,
+              "status": "answered_by_assertion_only"
+            },
+            {
+              "point_id": "P3",
+              "significant": true,
+              "status": "answered_with_case_file_fact"
+            },
+            {
+              "point_id": "P4",
+              "significant": false,
+              "status": "answered_with_case_file_fact"
+            },
+            {
+              "point_id": "D1",
+              "significant": false,
+              "status": "unanswered"
+            },
+            {
+              "point_id": "D2",
+              "significant": false,
+              "status": "unanswered"
+            },
+            {
+              "point_id": "D3",
+              "significant": false,
+              "status": "unanswered"
+            }
+          ]
+        },
+        "judge_defender_first": {
+          "decision": "APPROVE",
+          "reasoning": "The claim describes a genuine auto theft: the incident occurred at the insured vehicle\u2019s home address, was reported within three days, and the policyholder provided a vehicle title as proof of ownership. The claimed amount of $20,843.81 is less than the vehicle\u2019s estimated value of $20,900 and, after the $250 deductible, results in a payout below the ACV, satisfying policy limits. The policy does not require a police report to file a theft claim, and the lack of additional keys is not a standard documentation requirement. No prior claims exist, supporting credibility. These facts outweigh the prosecutor\u2019s concerns about missing police documentation and key evidence.",
+          "verbalized_confidence": "HIGH",
+          "confidence_justification": "All relevant case\u2011file facts directly support the loss\u2019s legitimacy, and the defender\u2019s rebuttals are grounded in documented policy terms and numbers; there is no unresolved contradictory evidence, making the decision strongly supported.",
+          "point_assessments": [
+            {
+              "point_id": "P1",
+              "significant": true,
+              "status": "answered_by_assertion_only"
+            },
+            {
+              "point_id": "P2",
+              "significant": true,
+              "status": "answered_by_assertion_only"
+            },
+            {
+              "point_id": "P3",
+              "significant": true,
+              "status": "answered_with_case_file_fact"
+            },
+            {
+              "point_id": "P4",
+              "significant": false,
+              "status": "answered_with_case_file_fact"
+            },
+            {
+              "point_id": "D1",
+              "significant": true,
+              "status": "unanswered"
+            },
+            {
+              "point_id": "D2",
+              "significant": true,
+              "status": "unanswered"
+            },
+            {
+              "point_id": "D3",
+              "significant": true,
+              "status": "unanswered"
+            }
+          ]
+        }
+      },
+      "usage": {
+        "prosecutor": {
+          "prompt_tokens": 1945,
+          "completion_tokens": 1032,
+          "reasoning_tokens": 669,
+          "total_tokens": 2977
+        },
+        "defender": {
+          "prompt_tokens": 2350,
+          "completion_tokens": 1627,
+          "reasoning_tokens": 1089,
+          "total_tokens": 3977
+        },
+        "prosecutor_rebuttal": {
+          "prompt_tokens": 2909,
+          "completion_tokens": 1632,
+          "reasoning_tokens": 1500,
+          "total_tokens": 4541
+        },
+        "judge": {
+          "prompt_tokens": 3380,
+          "completion_tokens": 1532,
+          "reasoning_tokens": 1185,
+          "total_tokens": 4912
+        },
+        "judge_defender_first": {
+          "prompt_tokens": 3380,
+          "completion_tokens": 1521,
+          "reasoning_tokens": 1184,
+          "total_tokens": 4901
+        },
+        "total": {
+          "prompt_tokens": 13964,
+          "completion_tokens": 7344,
+          "reasoning_tokens": 5627,
+          "total_tokens": 21308
+        }
+      },
+      "attempts": {
+        "prosecutor": 1,
+        "defender": 1,
+        "prosecutor_rebuttal": 1,
+        "judge": 1,
+        "judge_defender_first": 2,
+        "total": 6
+      }
+    }
+  },
+  "CLM-0006": {
+    "evidence": {
+      "claim_id": "CLM-0006",
+      "timeline": {
+        "incident_date": "2026-05-22",
+        "filed_date": "2026-05-22",
+        "policy_start_date": "2020-10-25",
+        "days_incident_to_filing": 0,
+        "days_policy_start_to_incident": 2035,
+        "days_last_policy_change_to_incident": null
+      },
+      "policy": {
+        "type": "Homeowners (HO-3)",
+        "property": "Single-family home, built 1967",
+        "dwelling_coverage": 450000,
+        "contents_coverage": 225000,
+        "changes": []
+      },
+      "claim_history": {
+        "prior_claims_count": 0,
+        "prior_claims_last_24_months": 0,
+        "prior_claims": []
+      },
+      "location": {
+        "incident_location": "Las Vegas, NV",
+        "policyholder_home": "Las Vegas, NV",
+        "same_city_as_home": true,
+        "same_state_as_home": true,
+        "incident_address_matches_insured_property": true
+      },
+      "documents": {
+        "documents_provided": 2,
+        "documents_mentioned_but_absent": [],
+        "listed_as_not_yet_provided": [],
+        "dated_documents": []
+      },
+      "weather": {
+        "status": "ok",
+        "source": "Open-Meteo historical archive",
+        "dates_checked": "2026-05-20 to 2026-05-22",
+        "lowest_temp_c": 14.2,
+        "highest_temp_c": 35.5,
+        "days_with_low_below_freezing": 0,
+        "total_precipitation_mm": 0.0,
+        "total_snowfall_cm": 0.0,
+        "weather_terms_in_description": []
+      }
+    },
+    "baseline": {
+      "claim_id": "CLM-0006",
+      "decision": "APPROVE",
+      "confidence": 85,
+      "reasoning": "The incident occurred at the insured home on the same day it was filed, the policy was active and unchanged, and the location matches the insured property. The claim describes a minor water leak causing cabinet damage, supported by a plumber invoice and photos, with no missing documents or inconsistencies in the timeline, prior claims, or weather data. The amount claimed is reasonable for the described repair, even though it is below the deductible, but the decision concerns the genuineness of the loss, which the evidence supports.",
+      "high_confidence": true,
+      "usage": {
+        "prompt_tokens": 1861,
+        "completion_tokens": 272,
+        "reasoning_tokens": 146,
+        "total_tokens": 2133
+      },
+      "attempts": 1,
+      "rate_limit": {
+        "requests_per_day_limit": "1000",
+        "requests_remaining_today": "990",
+        "requests_reset_in": "14m24s",
+        "tokens_per_minute_limit": "8000",
+        "tokens_remaining_this_minute": "4204",
+        "tokens_reset_in": "28.47s"
+      },
+      "reused_from_previous_run": true
+    },
+    "claimlens": {
+      "status": "in_progress",
+      "steps": {
+        "prosecutor": {
+          "output": {
+            "points": [
+              {
+                "id": "P1",
+                "point": "The claimed loss of $2,335.09 is below the policy deductible of $2,500, meaning the insurer would owe nothing, yet the policyholder filed a claim seeking payment for a loss that is contractually non\u2011payable.",
+                "evidence": "policy.deductible=2500; claim_amount=2335.09"
+              },
+              {
+                "id": "P2",
+                "point": "The only damage described is a warped cabinet base, yet the claim amount includes parts, labor, and tax that are disproportionate to such a limited repair, with no independent verification beyond a plumber invoice and photos, suggesting the loss may be inflated.",
+                "evidence": "incident.damage='Cabinet base under the sink warped and needs replacing.'; claim_amount=2335.09; supporting_documents=['Plumber invoice','Photos of damage (4)']"
+              }
+            ],
+            "summary": "Because the claimed amount is below the deductible and appears excessive for the minimal damage reported, the claim is likely a material misrepresentation and should be denied."
+          },
+          "usage": {
+            "prompt_tokens": 1886,
+            "completion_tokens": 780,
+            "reasoning_tokens": 561,
+            "total_tokens": 2666
+          },
+          "attempts": 1
+        },
+        "defender": {
+          "output": {
+            "responses": [
+              {
+                "responds_to": "P1",
+                "position": "rebut",
+                "response": "The claim describes a real water\u2011damage loss; the deductible only determines the insurer\u2019s payout, not the legitimacy of the loss, so filing a claim below the deductible is permissible and does not make the loss fictitious.",
+                "evidence": "policy.deductible=2500; claim_amount=2335.09; policy.type='Homeowners (HO-3)'; incident.location matches insured property"
+              },
+              {
+                "responds_to": "P2",
+                "position": "rebut",
+                "response": "The plumber invoice and four photos constitute independent verification of the repair cost for the warped cabinet base, making the $2,335.09 amount reasonable for parts, labor and tax; there is no evidence of inflation.",
+                "evidence": "supporting_documents=['Plumber invoice','Photos of damage (4)']; incident.damage='Cabinet base under the sink warped and needs replacing.'; claim_amount=2335.09"
+              }
+            ],
+            "points": [
+              {
+                "id": "D1",
+                "point": "The loss occurred at the insured residence; the incident address exactly matches the insured property address, confirming coverage applicability.",
+                "evidence": "location.incident_address_matches_insured_property=true"
+              },
+              {
+                "id": "D2",
+                "point": "The claim was reported on the same day as the incident (0\u202fdays delay), demonstrating prompt and credible reporting.",
+                "evidence": "timeline.days_incident_to_filing=0; timeline.incident_date='2026-05-22'; timeline.filed_date='2026-05-22'"
+              },
+              {
+                "id": "D3",
+                "point": "The policyholder has no prior claims in any insurer\u2019s record, reducing any indication of fraudulent behavior.",
+                "evidence": "claim_history.prior_claims_count=0; claim_history.prior_claims=[]"
+              }
+            ],
+            "summary": "The loss is genuine: it occurred at the insured home, was promptly documented with valid invoices and photos, and the policyholder has no prior claim history, so the claim should be approved despite being below the deductible."
+          },
+          "usage": {
+            "prompt_tokens": 2140,
+            "completion_tokens": 798,
+            "reasoning_tokens": 384,
+            "total_tokens": 2938
+          },
+          "attempts": 1
+        }
+      }
+    }
+  }
+}
