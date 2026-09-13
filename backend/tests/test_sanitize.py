@@ -14,7 +14,9 @@ from pathlib import Path
 
 import pytest
 
+from app.agents.case_file import build_case_file
 from app.agents.evidence_agent import gather_evidence
+from app.agents.naive_baseline_agent import BASELINE_HIGH_CONFIDENCE_THRESHOLD, parse_decision, run_naive_baseline
 from app.agents.sanitize import LABEL_KEYS, find_label_keys, sanitize_claim
 from app.synthetic.generate_claims import SIGNAL_FUNCTIONS
 
@@ -98,3 +100,78 @@ def test_weather_failure_is_recorded_not_raised():
     evidence = gather_evidence(sanitize_claim(raw), weather_lookup=failing_lookup)
     assert evidence["weather"]["status"] == "unavailable"
     assert evidence["weather"]["reason"] == "simulated network failure"
+
+
+# ---------------------------------------------------------------------------
+# Stage 4: the case file and the naive baseline go through the same sanitization path
+# ---------------------------------------------------------------------------
+
+# Label and signal words that must never appear anywhere in what is sent to a model,
+# including the system prompt. (The system prompt may legitimately say "fraudulent".)
+LABEL_WORDS = ["ground_truth", "is_fraud", "difficulty", "easy", "ambiguous", "hard"] + list(SIGNAL_FUNCTIONS)
+
+
+def stub_llm_reply(messages, label):
+    return {
+        "data": {"decision": "APPROVE", "confidence": 85, "reasoning": "stub"},
+        "usage": {"prompt_tokens": 0, "completion_tokens": 0, "reasoning_tokens": 0, "total_tokens": 0},
+        "attempts": 1,
+        "rate_limit": {},
+    }
+
+
+def test_case_file_contains_no_labels_or_personal_identifiers():
+    for raw in load_claims():
+        claim = sanitize_claim(raw)
+        case_file = build_case_file(claim, gather_evidence(claim, weather_lookup=fake_weather_lookup)).lower()
+        for word in FORBIDDEN_WORDS:
+            assert not re.search(rf"\b{re.escape(word)}\b", case_file), f"{raw['claim_id']}: case file contains '{word}'"
+        assert raw["policyholder"]["name"].lower() not in case_file, raw["claim_id"]
+        assert raw["policyholder"]["email"].lower() not in case_file, raw["claim_id"]
+
+
+def test_naive_baseline_sends_only_sanitized_content():
+    sent = []
+
+    def capturing_llm(messages, label):
+        sent.append(messages)
+        return stub_llm_reply(messages, label)
+
+    for raw in load_claims():
+        claim = sanitize_claim(raw)
+        run_naive_baseline(claim, gather_evidence(claim, weather_lookup=fake_weather_lookup), llm=capturing_llm)
+
+    assert len(sent) == 40
+    for messages in sent:
+        everything_sent = json.dumps(messages).lower()
+        for word in LABEL_WORDS:
+            assert not re.search(rf"\b{re.escape(word)}\b", everything_sent), f"prompt contains '{word}'"
+        user_message = messages[-1]["content"].lower()
+        for word in FORBIDDEN_WORDS:
+            assert not re.search(rf"\b{re.escape(word)}\b", user_message), f"case file contains '{word}'"
+
+
+def test_naive_baseline_rejects_unsanitized_claims_without_calling_the_model():
+    raw = load_claims()[0]
+    evidence = gather_evidence(sanitize_claim(raw), weather_lookup=fake_weather_lookup)
+
+    def must_not_be_called(messages, label):
+        raise AssertionError("the model was called with an unsanitized claim")
+
+    with pytest.raises(ValueError):
+        run_naive_baseline(raw, evidence, llm=must_not_be_called)
+
+
+def test_baseline_high_confidence_threshold_is_the_preregistered_value():
+    # Fixed at Stage 4 before any results were observed. If this test fails, someone moved it.
+    assert BASELINE_HIGH_CONFIDENCE_THRESHOLD == 80
+
+
+def test_baseline_rejects_malformed_model_output():
+    for bad in [{"decision": "MAYBE", "confidence": 70, "reasoning": "x"},
+                {"decision": "DENY", "confidence": 170, "reasoning": "x"},
+                {"decision": "DENY", "confidence": 70.5, "reasoning": "x"},
+                {"decision": "APPROVE", "confidence": 70, "reasoning": ""}]:
+        with pytest.raises(ValueError):
+            parse_decision(bad)
+    assert parse_decision({"decision": "deny", "confidence": "75", "reasoning": "ok"})["confidence"] == 75

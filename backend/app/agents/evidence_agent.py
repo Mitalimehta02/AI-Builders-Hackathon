@@ -178,7 +178,7 @@ def check_documents(claim, incident_date):
     not_yet_provided = [d for d in documents if any(p in d.lower() for p in NOT_YET_PROVIDED)]
     provided = [d.lower() for d in documents if d not in not_yet_provided]
 
-    expected_not_found = []
+    mentioned_but_absent = []
     for rule in DOCUMENT_RULES:
         if rule.get("only_for", claim["claim_type"]) != claim["claim_type"]:
             continue
@@ -187,7 +187,7 @@ def check_documents(claim, incident_date):
             continue
         if not any(word in doc for doc in provided for word in rule["satisfied_by"]):
             reason = f" (description mentions '{trigger}')" if trigger else ""
-            expected_not_found.append(rule["document"] + reason)
+            mentioned_but_absent.append(rule["document"] + reason)
 
     dated_documents = []
     for doc in documents:
@@ -199,7 +199,7 @@ def check_documents(claim, incident_date):
 
     return {
         "documents_provided": len(documents) - len(not_yet_provided),
-        "expected_but_not_found": expected_not_found,
+        "documents_mentioned_but_absent": mentioned_but_absent,
         "listed_as_not_yet_provided": not_yet_provided,
         "dated_documents": dated_documents,  # negative = before incident, positive = after
     }

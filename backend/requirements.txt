@@ -3,4 +3,5 @@ uvicorn[standard]==0.52.4
 groq==1.7.0
 faker==40.38.0
 httpx==0.28.1
+python-dotenv==1.2.3
 pytest==9.1.1
