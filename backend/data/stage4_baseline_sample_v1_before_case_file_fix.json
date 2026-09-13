@@ -1,0 +1,112 @@
+{
+  "CLM-0030": {
+    "claim_id": "CLM-0030",
+    "decision": "DENY",
+    "confidence": 75,
+    "reasoning": "The claim amount of $14,758.82 is 335% of the vehicle's estimated value ($4,400), yet the incident description only cites rear\u2011end damage, not a total loss; the supporting documentation is limited to a handwritten estimate with no photos, and the policy was purchased just three days before the accident, all indicating the loss is likely overstated or fraudulent.",
+    "high_confidence": false,
+    "usage": {
+      "prompt_tokens": 1313,
+      "completion_tokens": 354,
+      "reasoning_tokens": 254,
+      "total_tokens": 1667
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "999",
+      "requests_reset_in": "1m26.4s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "6186",
+      "tokens_reset_in": "13.605s"
+    }
+  },
+  "CLM-0019": {
+    "claim_id": "CLM-0019",
+    "decision": "DENY",
+    "confidence": 70,
+    "reasoning": "The claim requests $12,002.46 for a 2020 Kia Sorento with an estimated value of $12,100, but the policy has a $1,000 deductible; a total\u2011loss payout should be the vehicle value minus the deductible (\u2248$11,100). The claimed amount exceeds what the policy would cover, and no supporting documentation explains the extra $900, indicating a material misrepresentation.",
+    "high_confidence": false,
+    "usage": {
+      "prompt_tokens": 1332,
+      "completion_tokens": 736,
+      "reasoning_tokens": 629,
+      "total_tokens": 2068
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "999",
+      "requests_reset_in": "1m26.4s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "6158",
+      "tokens_reset_in": "13.815s"
+    }
+  },
+  "CLM-0006": {
+    "claim_id": "CLM-0006",
+    "decision": "APPROVE",
+    "confidence": 85,
+    "reasoning": "The incident occurred at the insured residence on the same day it was filed, the policy has been in force since 2020 with ample coverage, and the claim amount ($2,335.09) aligns with typical costs for repairing a warped cabinet base and a plumber\u2019s service. Supporting documents (plumber invoice and photos) are provided, the incident location matches the insured property, there are no prior claims, and no weather or timeline inconsistencies exist, indicating a legitimate loss.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1290,
+      "completion_tokens": 242,
+      "reasoning_tokens": 122,
+      "total_tokens": 1532
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "998",
+      "requests_reset_in": "2m52.8s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "4676",
+      "tokens_reset_in": "24.93s"
+    }
+  },
+  "CLM-0027": {
+    "claim_id": "CLM-0027",
+    "decision": "DENY",
+    "confidence": 70,
+    "reasoning": "The claim requests $4,841.89, which is 98.8% of the vehicle's estimated value ($4,900) and exceeds the amount payable after the policy\u2019s $250 comprehensive deductible (maximum $4,650). No supporting evidence shows a higher valuation or waiver of the deductible, indicating the loss is overstated and materially misrepresented.",
+    "high_confidence": false,
+    "usage": {
+      "prompt_tokens": 1479,
+      "completion_tokens": 752,
+      "reasoning_tokens": 657,
+      "total_tokens": 2231
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "997",
+      "requests_reset_in": "4m19.2s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "2940",
+      "tokens_reset_in": "37.949s"
+    }
+  },
+  "CLM-0035": {
+    "claim_id": "CLM-0035",
+    "decision": "DENY",
+    "confidence": 80,
+    "reasoning": "The incident description attributes the pipe burst to a \"cold snap\" that caused freezing, yet the weather data for July 11\u201113 in Miami shows temperatures ranging from 23.1\u202f\u00b0C to 33.5\u202f\u00b0C with no sub\u2011freezing days, making pipe freeze highly implausible; this key contradiction undermines the claim\u2019s validity despite proper documentation and coverage.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1344,
+      "completion_tokens": 224,
+      "reasoning_tokens": 124,
+      "total_tokens": 1568
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "996",
+      "requests_reset_in": "5m45.6s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "6302",
+      "tokens_reset_in": "12.735s"
+    }
+  }
+}

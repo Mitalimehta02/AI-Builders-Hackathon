@@ -2,111 +2,111 @@
   "CLM-0030": {
     "claim_id": "CLM-0030",
     "decision": "DENY",
-    "confidence": 75,
-    "reasoning": "The claim amount of $14,758.82 is 335% of the vehicle's estimated value ($4,400), yet the incident description only cites rear\u2011end damage, not a total loss; the supporting documentation is limited to a handwritten estimate with no photos, and the policy was purchased just three days before the accident, all indicating the loss is likely overstated or fraudulent.",
-    "high_confidence": false,
+    "confidence": 80,
+    "reasoning": "The claimed repair cost of $14,758.82 is 335% of the vehicle's estimated value ($4,400), which is far beyond a reasonable repair amount for the described rear\u2011end damage; only a handwritten estimate and no photos were provided, and the estimate even requests cash payment, all indicating the loss amount is likely inflated and not genuine as reported.",
+    "high_confidence": true,
     "usage": {
-      "prompt_tokens": 1313,
-      "completion_tokens": 354,
-      "reasoning_tokens": 254,
-      "total_tokens": 1667
+      "prompt_tokens": 1857,
+      "completion_tokens": 432,
+      "reasoning_tokens": 335,
+      "total_tokens": 2289
     },
     "attempts": 1,
     "rate_limit": {
       "requests_per_day_limit": "1000",
-      "requests_remaining_today": "999",
-      "requests_reset_in": "1m26.4s",
+      "requests_remaining_today": "995",
+      "requests_reset_in": "7m12s",
       "tokens_per_minute_limit": "8000",
-      "tokens_remaining_this_minute": "6186",
-      "tokens_reset_in": "13.605s"
+      "tokens_remaining_this_minute": "5636",
+      "tokens_reset_in": "17.73s"
     }
   },
   "CLM-0019": {
     "claim_id": "CLM-0019",
-    "decision": "DENY",
-    "confidence": 70,
-    "reasoning": "The claim requests $12,002.46 for a 2020 Kia Sorento with an estimated value of $12,100, but the policy has a $1,000 deductible; a total\u2011loss payout should be the vehicle value minus the deductible (\u2248$11,100). The claimed amount exceeds what the policy would cover, and no supporting documentation explains the extra $900, indicating a material misrepresentation.",
-    "high_confidence": false,
+    "decision": "APPROVE",
+    "confidence": 85,
+    "reasoning": "The claim describes a stolen 2020 Kia Sorento valued at $12,100, with a claim amount of $12,002.46 (99.2% of value), which aligns with a total loss settlement. Comprehensive coverage, which includes theft, was added to the policy 5 days before the incident, so coverage was in force at the loss date. Supporting documents include a police theft report, keys, and vehicle title, satisfying typical proof requirements. The incident occurred in the same city as the policyholder\u2019s home, was reported within 4 days, and there are no prior claims or contradictory evidence. All facts are consistent, indicating a genuine loss.",
+    "high_confidence": true,
     "usage": {
-      "prompt_tokens": 1332,
-      "completion_tokens": 736,
-      "reasoning_tokens": 629,
-      "total_tokens": 2068
+      "prompt_tokens": 1876,
+      "completion_tokens": 385,
+      "reasoning_tokens": 227,
+      "total_tokens": 2261
     },
     "attempts": 1,
     "rate_limit": {
       "requests_per_day_limit": "1000",
-      "requests_remaining_today": "999",
-      "requests_reset_in": "1m26.4s",
+      "requests_remaining_today": "994",
+      "requests_reset_in": "8m38.4s",
       "tokens_per_minute_limit": "8000",
-      "tokens_remaining_this_minute": "6158",
-      "tokens_reset_in": "13.815s"
+      "tokens_remaining_this_minute": "3519",
+      "tokens_reset_in": "33.607s"
     }
   },
   "CLM-0006": {
     "claim_id": "CLM-0006",
     "decision": "APPROVE",
     "confidence": 85,
-    "reasoning": "The incident occurred at the insured residence on the same day it was filed, the policy has been in force since 2020 with ample coverage, and the claim amount ($2,335.09) aligns with typical costs for repairing a warped cabinet base and a plumber\u2019s service. Supporting documents (plumber invoice and photos) are provided, the incident location matches the insured property, there are no prior claims, and no weather or timeline inconsistencies exist, indicating a legitimate loss.",
+    "reasoning": "The claim describes a straightforward water leak under a kitchen sink resulting in warped cabinet base, supported by a plumber invoice and photos of the damage. The incident occurred at the insured address on the same day it was filed, the policy was active with sufficient dwelling and contents coverage, and there are no prior claims, missing documents, or policy violations. The claim amount of $2,335.09 is reasonable for cabinet replacement and plumbing labor, and weather data shows no conflicting conditions. All evidence aligns, indicating a genuine loss.",
     "high_confidence": true,
     "usage": {
-      "prompt_tokens": 1290,
-      "completion_tokens": 242,
-      "reasoning_tokens": 122,
-      "total_tokens": 1532
+      "prompt_tokens": 1834,
+      "completion_tokens": 285,
+      "reasoning_tokens": 157,
+      "total_tokens": 2119
     },
     "attempts": 1,
     "rate_limit": {
       "requests_per_day_limit": "1000",
-      "requests_remaining_today": "998",
-      "requests_reset_in": "2m52.8s",
+      "requests_remaining_today": "993",
+      "requests_reset_in": "10m4.8s",
       "tokens_per_minute_limit": "8000",
-      "tokens_remaining_this_minute": "4676",
-      "tokens_reset_in": "24.93s"
+      "tokens_remaining_this_minute": "1766",
+      "tokens_reset_in": "46.755s"
     }
   },
   "CLM-0027": {
     "claim_id": "CLM-0027",
-    "decision": "DENY",
-    "confidence": 70,
-    "reasoning": "The claim requests $4,841.89, which is 98.8% of the vehicle's estimated value ($4,900) and exceeds the amount payable after the policy\u2019s $250 comprehensive deductible (maximum $4,650). No supporting evidence shows a higher valuation or waiver of the deductible, indicating the loss is overstated and materially misrepresented.",
-    "high_confidence": false,
+    "decision": "APPROVE",
+    "confidence": 80,
+    "reasoning": "The claim describes a theft of a 2015 Chevrolet Equinox that was purchased on 2026-04-15 and insured the next day; the vehicle was reported stolen on 2026-04-27, 11 days after policy inception, which aligns with the timeline and the supporting documents include a police theft report and neighbor\u2019s doorbell video confirming the theft. The claim amount ($4,841.89) is 98.8% of the insured vehicle\u2019s estimated value ($4,900), a typical proportion for a total\u2011loss theft, and the deductible is accounted for separately. No contradictory evidence, missing documents, or policy coverage issues appear in the evidence, and prior claims were with a different insurer and long ago. Therefore the loss appears genuine.",
+    "high_confidence": true,
     "usage": {
-      "prompt_tokens": 1479,
-      "completion_tokens": 752,
-      "reasoning_tokens": 657,
-      "total_tokens": 2231
+      "prompt_tokens": 2023,
+      "completion_tokens": 473,
+      "reasoning_tokens": 294,
+      "total_tokens": 2496
     },
     "attempts": 1,
     "rate_limit": {
       "requests_per_day_limit": "1000",
-      "requests_remaining_today": "997",
-      "requests_reset_in": "4m19.2s",
+      "requests_remaining_today": "992",
+      "requests_reset_in": "11m31.2s",
       "tokens_per_minute_limit": "8000",
-      "tokens_remaining_this_minute": "2940",
-      "tokens_reset_in": "37.949s"
+      "tokens_remaining_this_minute": "5574",
+      "tokens_reset_in": "18.195s"
     }
   },
   "CLM-0035": {
     "claim_id": "CLM-0035",
     "decision": "DENY",
-    "confidence": 80,
-    "reasoning": "The incident description attributes the pipe burst to a \"cold snap\" that caused freezing, yet the weather data for July 11\u201113 in Miami shows temperatures ranging from 23.1\u202f\u00b0C to 33.5\u202f\u00b0C with no sub\u2011freezing days, making pipe freeze highly implausible; this key contradiction undermines the claim\u2019s validity despite proper documentation and coverage.",
-    "high_confidence": true,
+    "confidence": 75,
+    "reasoning": "The claim asserts that an exterior wall water pipe froze and burst during a \"cold snap,\" yet the recorded weather for July 11\u201113 in Miami shows temperatures ranging from 23.1\u202f\u00b0C to 33.5\u202f\u00b0C with no sub\u2011freezing days, making pipe freeze highly implausible; this direct conflict between the incident description and objective weather data is the strongest evidence of material misrepresentation, outweighing the presence of invoices and photos.",
+    "high_confidence": false,
     "usage": {
-      "prompt_tokens": 1344,
-      "completion_tokens": 224,
-      "reasoning_tokens": 124,
-      "total_tokens": 1568
+      "prompt_tokens": 1888,
+      "completion_tokens": 313,
+      "reasoning_tokens": 198,
+      "total_tokens": 2201
     },
     "attempts": 1,
     "rate_limit": {
       "requests_per_day_limit": "1000",
-      "requests_remaining_today": "996",
-      "requests_reset_in": "5m45.6s",
+      "requests_remaining_today": "991",
+      "requests_reset_in": "12m57.599s",
       "tokens_per_minute_limit": "8000",
-      "tokens_remaining_this_minute": "6302",
-      "tokens_reset_in": "12.735s"
+      "tokens_remaining_this_minute": "3514",
+      "tokens_reset_in": "33.644s"
     }
   }
 }

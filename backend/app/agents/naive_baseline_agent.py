@@ -4,7 +4,8 @@ Naive baseline agent (Stage 4): ONE model call that decides APPROVE or DENY dire
 This is the honest comparison point for ClaimLens. It is deliberately single-pass (no
 debate, no cross-checking), but it is NOT a strawman:
 - same inputs as the full pipeline: the sanitized claim + the Stage 3 evidence object,
-  rendered by the shared build_case_file()
+  rendered by the shared build_case_file(), explained by the shared CASE_FILE_GUIDE
+- same review instructions as the debate Judge (shared REVIEW_GUIDANCE)
 - same model and generation settings: every call goes through llm_client.call_llm()
 - a prompt written as carefully as if this single call were the whole product, including
   an explicit request for calibrated confidence
@@ -16,13 +17,14 @@ Usage:
     result = run_naive_baseline(sanitize_claim(raw_claim), evidence)
 """
 
-from app.agents.case_file import CASE_FILE_GUIDE, DECISION_DEFINITIONS, build_case_file
+from app.agents.case_file import CASE_FILE_GUIDE, DECISION_DEFINITIONS, REVIEW_GUIDANCE, build_case_file
 from app.agents.llm_client import call_llm
 
 # PRE-REGISTERED THRESHOLD. Fixed at Stage 4, BEFORE any baseline or ClaimLens results were
 # observed. In the Stage 11 confidently-wrong comparison, a baseline decision is in the
 # HIGH-confidence band when confidence >= this value. Changing it after seeing results would
-# be tuning the metric to flatter the design - don't.
+# be tuning the metric to flatter the design - don't. (The debate Judge's HIGH level is
+# defined from this same number, so both systems' "high confidence" means the same thing.)
 BASELINE_HIGH_CONFIDENCE_THRESHOLD = 80
 
 SYSTEM_PROMPT = f"""You are a senior claims investigator at a US property and casualty insurer. You review one insurance claim at a time and decide whether it should be paid.
@@ -32,10 +34,7 @@ SYSTEM_PROMPT = f"""You are a senior claims investigator at a US property and ca
 Decisions:
 {DECISION_DEFINITIONS}
 
-How to review the claim:
-- Check whether the whole story holds together: the incident description against the damage and the amount; the amount against the insured vehicle's value; the documents against what the description says happened; the timeline against the policy start date and any policy changes; prior claims against this claim; the incident location against the home or insured address; and the recorded weather against any weather the description mentions.
-- An unusual fact is not proof of fraud on its own. New policies, prior claims, incidents away from home and large amounts all have ordinary explanations, and the case file may contain documents that supply them. Equally, a routine-looking claim can hide one specific contradiction that matters.
-- Use only facts in the case file. Do not invent facts, and do not assume documents exist that are not listed.
+{REVIEW_GUIDANCE}
 - Choose the decision that is more likely to be correct given the case file.
 
 Confidence:

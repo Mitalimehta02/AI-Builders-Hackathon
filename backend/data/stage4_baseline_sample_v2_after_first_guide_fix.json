@@ -1,0 +1,112 @@
+{
+  "CLM-0030": {
+    "claim_id": "CLM-0030",
+    "decision": "DENY",
+    "confidence": 85,
+    "reasoning": "The claimed repair cost of $14,758.82 is 335% of the vehicle's estimated actual cash value of $4,400, which is implausibly high for the listed damage; collision coverage would normally pay the lesser of repair cost or vehicle value. The only supporting document is a handwritten repair estimate with a cash payment request, and the required photos of damage are absent. The incident occurred only three days after the policy began, giving little time for the insurer to verify coverage adequacy. These inconsistencies strongly suggest the claim is materially misrepresented, warranting denial.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1821,
+      "completion_tokens": 479,
+      "reasoning_tokens": 339,
+      "total_tokens": 2300
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "999",
+      "requests_reset_in": "1m26.4s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "5727",
+      "tokens_reset_in": "17.047s"
+    }
+  },
+  "CLM-0019": {
+    "claim_id": "CLM-0019",
+    "decision": "APPROVE",
+    "confidence": 85,
+    "reasoning": "The incident is a vehicle theft, which is covered under the comprehensive coverage that was added 5 days before the loss; the policy was active at the time of loss, the claim amount (~99% of the vehicle's estimated value) matches a typical total loss settlement, and appropriate supporting documents (police report, keys, title) are provided with no contradictions in timeline, location, or weather.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1840,
+      "completion_tokens": 315,
+      "reasoning_tokens": 211,
+      "total_tokens": 2155
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "998",
+      "requests_reset_in": "2m52.8s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "3585",
+      "tokens_reset_in": "33.112s"
+    }
+  },
+  "CLM-0006": {
+    "claim_id": "CLM-0006",
+    "decision": "DENY",
+    "confidence": 90,
+    "reasoning": "The loss is legitimate and documented, but the claimed amount $2,335.09 is less than the policy deductible of $2,500, so under the policy the insurer would owe no payment; therefore the claim cannot be paid as submitted.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1798,
+      "completion_tokens": 492,
+      "reasoning_tokens": 420,
+      "total_tokens": 2290
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "997",
+      "requests_reset_in": "4m19.2s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "1626",
+      "tokens_reset_in": "47.805s"
+    }
+  },
+  "CLM-0027": {
+    "claim_id": "CLM-0027",
+    "decision": "APPROVE",
+    "confidence": 85,
+    "reasoning": "The claim is for theft of a 2015 Chevrolet Equinox covered under Comprehensive, which includes theft. The incident occurred 11 days after the policy began, and the claim amount ($4,841.89) is 98.8% of the vehicle's estimated value ($4,900), consistent with a total loss after the $250 deductible. Supporting documents include a police theft report, keys, title, bill of sale, and neighbor doorbell video that corroborate the theft. The incident location matches the policyholder\u2019s home city, weather conditions were normal, and there are no recent prior claims or contradictory evidence. All policy requirements appear satisfied, so the claim should be approved.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1987,
+      "completion_tokens": 507,
+      "reasoning_tokens": 345,
+      "total_tokens": 2494
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "996",
+      "requests_reset_in": "5m45.6s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "5534",
+      "tokens_reset_in": "18.495s"
+    }
+  },
+  "CLM-0035": {
+    "claim_id": "CLM-0035",
+    "decision": "DENY",
+    "confidence": 85,
+    "reasoning": "The claim describes a pipe freezing and bursting during a \"cold snap,\" yet the weather data for Miami on 2026-07-11 to 2026-07-13 shows temperatures ranging from 23.1\u00b0C to 33.5\u00b0C with no sub\u2011freezing lows, making a freeze highly implausible; no supporting documents address this discrepancy, so the loss description is materially inconsistent with objective weather evidence.",
+    "high_confidence": true,
+    "usage": {
+      "prompt_tokens": 1852,
+      "completion_tokens": 216,
+      "reasoning_tokens": 107,
+      "total_tokens": 2068
+    },
+    "attempts": 1,
+    "rate_limit": {
+      "requests_per_day_limit": "1000",
+      "requests_remaining_today": "995",
+      "requests_reset_in": "7m12s",
+      "tokens_per_minute_limit": "8000",
+      "tokens_remaining_this_minute": "3378",
+      "tokens_reset_in": "34.665s"
+    }
+  }
+}

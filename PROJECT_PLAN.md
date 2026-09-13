@@ -212,13 +212,24 @@ around **30 requests/minute, ~6,000 tokens/minute, ~1,000 requests/day** for mos
 `console.groq.com/settings/limits` before the Stage 11 batch run.**
 
 **Our budget maths (why the plan is sized the way it is):**
-- Full pipeline per claim ≈ 7 model calls (Prosecutor, Defender, Judge, then a second debate
-  run of 3 for the self-consistency check, plus the verbalized-confidence call).
+- Full pipeline per claim = **4 model calls**: Prosecutor, Defender, Judge, then the Judge a
+  second time with the two arguments presented in the opposite order (the order-swap
+  consistency check — see Stage 6). Verbalized confidence is returned inside the Judge calls
+  rather than costing a separate call.
 - Naive baseline per claim = 1 call.
-- At **40 claims**: (40 × 7) + (40 × 1) ≈ **320 calls** for one complete Stage 11 run —
-  comfortably inside a ~1,000/day budget, with room for a re-run if the first one is wrong.
-- Tokens are the tighter limit: at ~6,000 tokens/minute, a full batch will take on the order
-  of **1–2 hours of wall-clock time**. Start it early, don't leave it for deadline night.
+- At **40 claims**: (40 × 4) + (40 × 1) = **200 calls** for one complete Stage 11 run — inside
+  the confirmed 1,000/day request budget with room to re-run.
+- **Requests are not the binding limit — tokens are.** Confirmed from Groq's response headers:
+  1,000 requests/day and 8,000 tokens/minute. A tokens-per-day cap may also exist and is not
+  exposed in the headers; third-party figures for it have already proved unreliable, so do not
+  plan around a guessed number. Instead: measure real tokens-per-claim on 3 claims at Stage 5,
+  multiply, and schedule from that.
+- Observed cost reference: a single baseline call ran ~1,800 tokens, of which ~1,786 output
+  tokens were *reasoning* tokens. Reasoning effort is by far the largest cost lever if the
+  batch needs to shrink.
+- The Stage 11 runner checkpoints per claim and resumes, so hitting a daily cap is a
+  scheduling problem, not a lost run: it resumes the next day. This only works if the batch is
+  started early — Day 3 morning at the very latest.
 
 **Rules that follow from this — build them in, don't bolt them on later:**
 1. **Checkpoint after every claim.** Write each result to the results JSON as soon as it's
@@ -435,13 +446,17 @@ auto-resolves vs. what goes to a human.
 **PROMPT TO USE:**
 > Continue to Stage 6 (Calibration Layer) from PROJECT_PLAN.md only. Use the same model and
 > settings as Stages 4 and 5 — see the HONESTY RULE in Part 6. Build
-> `backend/app/agents/calibration.py`: after the Judge produces a recommendation, run the
-> full debate (Stage 5) a second time with a reworded/reordered prompt (self-consistency
-> check), and separately ask the Judge to verbalize its own confidence (HIGH/MEDIUM/LOW)
-> with a justification for that specific confidence level. Combine agreement-across-runs
-> and the verbalized confidence into a single final confidence tier using this rule: HIGH
-> only if both runs agree on the decision AND the Judge verbalized HIGH; otherwise MEDIUM
-> if runs agree but verbalized confidence is lower, or the reverse; otherwise LOW. Then
+> `backend/app/agents/calibration.py`: the Judge is run twice on the same Prosecutor and
+> Defender arguments — once with the Prosecutor's case presented first, once with the
+> Defender's first. This is an **order-swap consistency check**: LLM judges are known to be
+> sensitive to the order in which arguments are presented, so a verdict that flips when the
+> order flips is not a verdict worth acting on. Each Judge call also returns its own
+> verbalized confidence (HIGH/MEDIUM/LOW) with a justification. Combine the two signals into
+> a final tier: HIGH only if both orderings agree on the decision AND both verbalized HIGH;
+> MEDIUM if the orderings agree but confidence is lower or mixed; LOW if the orderings
+> disagree at all. (An optional `FULL_DOUBLE_DEBATE` config flag may re-run the entire
+> three-call debate instead of just the Judge, for a stronger check at ~75% more tokens —
+> use it for the final run only if the measured token budget allows.) Then
 > implement the auto-resolution gate: auto-resolve ONLY if confidence is HIGH and the
 > decision is APPROVE. Every DENY recommendation and every non-HIGH case is marked for
 > human review, regardless of confidence. Test on 5 sample claims and print: decision,
