@@ -1,0 +1,2568 @@
+[
+  {
+    "claim_id": "CLM-0001",
+    "claim_type": "auto",
+    "filed_date": "2025-09-21",
+    "policyholder": {
+      "name": "Sean Blake",
+      "date_of_birth": "1961-07-25",
+      "phone": "001-765-642-3511x615",
+      "email": "blairamanda@example.com",
+      "address": {
+        "street": "43321 Brittany Bypass",
+        "city": "Portland",
+        "state": "OR"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-5437923",
+      "start_date": "2024-02-19",
+      "coverage_history": [
+        {
+          "date": "2024-08-17",
+          "change": "Raised deductible to lower premium"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 250,
+      "insured_vehicle": {
+        "year": 2021,
+        "make": "Jeep",
+        "model": "Grand Cherokee",
+        "license_plate": "863-TARG",
+        "estimated_value": 17700.0
+      }
+    },
+    "incident": {
+      "date": "2025-09-18",
+      "location": {
+        "street": "Clayton Fort",
+        "city": "Portland",
+        "state": "OR",
+        "latitude": 45.5152,
+        "longitude": -122.6784
+      },
+      "description": "My car was stolen overnight from outside my home on Clayton Fort. I noticed it was gone at 6am and called the police.",
+      "damage": "Vehicle stolen and not recovered."
+    },
+    "claim_amount": 17652.41,
+    "supporting_documents": [
+      "Vehicle title copy",
+      "Only one key provided; policyholder says the spare key was lost"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "ambiguous",
+      "signals": [
+        "document_gap"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0002",
+    "claim_type": "property",
+    "filed_date": "2025-04-18",
+    "policyholder": {
+      "name": "Jamie Chavez",
+      "date_of_birth": "1975-07-11",
+      "phone": "(555)434-1928",
+      "email": "ogray@example.net",
+      "address": {
+        "street": "495 Janet Cape",
+        "city": "Raleigh",
+        "state": "NC"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-2166941",
+      "start_date": "2023-09-06",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "495 Janet Cape",
+        "city": "Raleigh",
+        "state": "NC",
+        "property_type": "Townhouse",
+        "year_built": 1960
+      },
+      "dwelling_coverage": 350000,
+      "contents_coverage": 175000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2025-04-15",
+      "location": {
+        "street": "503 Linda Locks",
+        "city": "Las Vegas",
+        "state": "NV",
+        "latitude": 36.1699,
+        "longitude": -115.1398
+      },
+      "description": "Our home was broken into while we were away for the weekend. The back door had been forced open.",
+      "damage": "Stolen: laptop, TV, jewelry and a camera. Back door frame broken."
+    },
+    "claim_amount": 10798.35,
+    "supporting_documents": [
+      "List of stolen items",
+      "Receipts for stolen items: policyholder says they will be provided later"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "easy",
+      "signals": [
+        "location_mismatch",
+        "document_gap"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0003",
+    "claim_type": "property",
+    "filed_date": "2025-03-20",
+    "policyholder": {
+      "name": "Stephanie Ross",
+      "date_of_birth": "1965-08-16",
+      "phone": "(387)810-1226",
+      "email": "dcarlson@example.net",
+      "address": {
+        "street": "39537 Wilkerson Row Suite 242",
+        "city": "Portland",
+        "state": "OR"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-7210606",
+      "start_date": "2020-02-16",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "39537 Wilkerson Row Suite 242",
+        "city": "Portland",
+        "state": "OR",
+        "property_type": "Townhouse",
+        "year_built": 1959
+      },
+      "dwelling_coverage": 350000,
+      "contents_coverage": 175000,
+      "deductible": 2500
+    },
+    "incident": {
+      "date": "2025-03-16",
+      "location": {
+        "street": "39537 Wilkerson Row Suite 242",
+        "city": "Portland",
+        "state": "OR",
+        "latitude": 45.5152,
+        "longitude": -122.6784
+      },
+      "description": "An outlet in the bedroom sparked and started a small fire. We put it out with an extinguisher and called an electrician.",
+      "damage": "Bedroom wall, carpet and furniture burned; wiring on that circuit replaced."
+    },
+    "claim_amount": 10714.8,
+    "supporting_documents": [
+      "Electrician report on the failed outlet",
+      "Photos of damage (8)",
+      "Repair estimate from Baker Home Restoration"
+    ],
+    "prior_claims": [
+      {
+        "date": "2024-09-16",
+        "claim_type": "property",
+        "summary": "Small electrical fire from a faulty outlet",
+        "amount": 9993.49,
+        "status": "Paid",
+        "insurer": "This policy"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "ambiguous",
+      "signals": [
+        "duplicate_claim"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0004",
+    "claim_type": "property",
+    "filed_date": "2025-02-02",
+    "policyholder": {
+      "name": "Jonathan White",
+      "date_of_birth": "1957-12-09",
+      "phone": "+1-948-293-2528x8095",
+      "email": "hickmannatasha@example.com",
+      "address": {
+        "street": "018 Mack Junctions Apt. 462",
+        "city": "Denver",
+        "state": "CO"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-6440561",
+      "start_date": "2025-01-08",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "018 Mack Junctions Apt. 462",
+        "city": "Denver",
+        "state": "CO",
+        "property_type": "Single-family home",
+        "year_built": 1990
+      },
+      "dwelling_coverage": 350000,
+      "contents_coverage": 175000,
+      "deductible": 1000
+    },
+    "incident": {
+      "date": "2025-02-01",
+      "location": {
+        "street": "018 Mack Junctions Apt. 462",
+        "city": "Denver",
+        "state": "CO",
+        "latitude": 39.7392,
+        "longitude": -104.9903
+      },
+      "description": "During a cold snap, a water pipe in an exterior wall froze and burst while we were at work. Water spread across the ground floor before we could shut off the main valve.",
+      "damage": "Ground-floor drywall, carpet and baseboards damaged; mold remediation needed."
+    },
+    "claim_amount": 9212.89,
+    "supporting_documents": [
+      "Plumber invoice",
+      "Water mitigation company invoice",
+      "Photos of damage (10)",
+      "Home purchase closing documents dated 2025-01-08",
+      "Pre-purchase home inspection report"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "winter_weather_benign",
+        "early_claim_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0005",
+    "claim_type": "auto",
+    "filed_date": "2025-05-10",
+    "policyholder": {
+      "name": "Michelle Ross",
+      "date_of_birth": "1996-05-28",
+      "phone": "+1-557-587-1331x5098",
+      "email": "jonescrystal@example.org",
+      "address": {
+        "street": "39117 Tiffany Place",
+        "city": "Seattle",
+        "state": "WA"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-9375710",
+      "start_date": "2025-04-13",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2015,
+        "make": "Jeep",
+        "model": "Grand Cherokee",
+        "license_plate": "FIQ-9638",
+        "estimated_value": 6700.0
+      }
+    },
+    "incident": {
+      "date": "2025-05-06",
+      "location": {
+        "street": "David Mountains",
+        "city": "Seattle",
+        "state": "WA",
+        "latitude": 47.6062,
+        "longitude": -122.3321
+      },
+      "description": "I was stopped at a red light on David Mountains when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details.",
+      "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
+    },
+    "claim_amount": 3198.15,
+    "supporting_documents": [
+      "Police report",
+      "Photos of damage (8)",
+      "Repair estimate from Campos Auto Body",
+      "Other driver's insurance details",
+      "Bill of sale: vehicle purchased 2025-04-12 (policy started with the purchase)",
+      "Letter from the other driver's insurer accepting fault"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "early_claim_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0006",
+    "claim_type": "property",
+    "filed_date": "2026-05-22",
+    "policyholder": {
+      "name": "Brent Jordan",
+      "date_of_birth": "1979-07-11",
+      "phone": "(870)410-6513x33872",
+      "email": "steven17@example.net",
+      "address": {
+        "street": "51834 Lewis Curve",
+        "city": "Las Vegas",
+        "state": "NV"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-8187926",
+      "start_date": "2020-10-25",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "51834 Lewis Curve",
+        "city": "Las Vegas",
+        "state": "NV",
+        "property_type": "Single-family home",
+        "year_built": 1967
+      },
+      "dwelling_coverage": 450000,
+      "contents_coverage": 225000,
+      "deductible": 2500
+    },
+    "incident": {
+      "date": "2026-05-22",
+      "location": {
+        "street": "51834 Lewis Curve",
+        "city": "Las Vegas",
+        "state": "NV",
+        "latitude": 36.1699,
+        "longitude": -115.1398
+      },
+      "description": "We noticed a slow leak under the kitchen sink.",
+      "damage": "Cabinet base under the sink warped and needs replacing."
+    },
+    "claim_amount": 2335.09,
+    "supporting_documents": [
+      "Plumber invoice",
+      "Photos of damage (4)"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0007",
+    "claim_type": "property",
+    "filed_date": "2026-07-09",
+    "policyholder": {
+      "name": "Mrs. Rachel Gibson",
+      "date_of_birth": "1979-06-26",
+      "phone": "001-287-223-4309x805",
+      "email": "hshaw@example.org",
+      "address": {
+        "street": "80132 Tucker Forest",
+        "city": "Denver",
+        "state": "CO"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-3684052",
+      "start_date": "2026-06-21",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "80132 Tucker Forest",
+        "city": "Denver",
+        "state": "CO",
+        "property_type": "Townhouse",
+        "year_built": 1998
+      },
+      "dwelling_coverage": 250000,
+      "contents_coverage": 125000,
+      "deductible": 2500
+    },
+    "incident": {
+      "date": "2026-07-05",
+      "location": {
+        "street": "80132 Tucker Forest",
+        "city": "Denver",
+        "state": "CO",
+        "latitude": 39.7392,
+        "longitude": -104.9903
+      },
+      "description": "Our home was broken into while we were away for the weekend. The back door had been forced open.",
+      "damage": "Stolen: laptop, TV, jewelry and a camera. Back door frame broken."
+    },
+    "claim_amount": 11965.09,
+    "supporting_documents": [
+      "Police report",
+      "Photos of forced back door",
+      "Purchase receipts for stolen items",
+      "List of stolen items",
+      "Home purchase closing documents dated 2026-06-21",
+      "Pre-purchase home inspection report"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "early_claim_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0008",
+    "claim_type": "auto",
+    "filed_date": "2024-10-15",
+    "policyholder": {
+      "name": "Dean Santiago",
+      "date_of_birth": "1972-01-30",
+      "phone": "946.324.7510",
+      "email": "medinawilliam@example.org",
+      "address": {
+        "street": "121 Emma Freeway",
+        "city": "San Diego",
+        "state": "CA"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-2921859",
+      "start_date": "2020-09-11",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2014,
+        "make": "Subaru",
+        "model": "Outback",
+        "license_plate": "90S 9169",
+        "estimated_value": 4400.0
+      }
+    },
+    "incident": {
+      "date": "2024-10-12",
+      "location": {
+        "street": "Wilson Port",
+        "city": "San Diego",
+        "state": "CA",
+        "latitude": 32.7157,
+        "longitude": -117.1611
+      },
+      "description": "My parked car was hit in a grocery store parking lot on Wilson Port. The other driver left a note with their phone number.",
+      "damage": "Dented front passenger door and scraped front fender."
+    },
+    "claim_amount": 1899.96,
+    "supporting_documents": [
+      "Photos of damage (5)",
+      "Repair estimate from Cunningham Auto Body",
+      "Photo of the note left by the other driver"
+    ],
+    "prior_claims": [
+      {
+        "date": "2023-11-17",
+        "claim_type": "auto",
+        "summary": "Parked car hit in a parking lot; door and fender dents",
+        "amount": 2072.41,
+        "status": "Paid",
+        "insurer": "This policy"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "hard",
+      "signals": [
+        "duplicate_claim"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0009",
+    "claim_type": "auto",
+    "filed_date": "2026-03-01",
+    "policyholder": {
+      "name": "Mark Baker",
+      "date_of_birth": "1983-12-11",
+      "phone": "801-264-0052x427",
+      "email": "jonesnicole@example.org",
+      "address": {
+        "street": "35427 Carr Valley Apt. 841",
+        "city": "Las Vegas",
+        "state": "NV"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-3997281",
+      "start_date": "2019-05-14",
+      "coverage_history": [
+        {
+          "date": "2025-05-24",
+          "change": "Added roadside assistance"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2023,
+        "make": "Honda",
+        "model": "Civic",
+        "license_plate": "493-REI",
+        "estimated_value": 14700.0
+      }
+    },
+    "incident": {
+      "date": "2026-02-25",
+      "location": {
+        "street": "Joseph Coves",
+        "city": "Las Vegas",
+        "state": "NV",
+        "latitude": 36.1699,
+        "longitude": -115.1398
+      },
+      "description": "While reversing out of a parking space on Joseph Coves at walking speed, I bumped into a concrete post.",
+      "damage": "Rear bumper, tailgate, both rear quarter panels and parking sensors replaced; rear frame straightening required."
+    },
+    "claim_amount": 18262.79,
+    "supporting_documents": [
+      "Photos of damage (4)",
+      "Repair estimate from Robbins Auto Body"
+    ],
+    "prior_claims": [
+      {
+        "date": "2025-12-18",
+        "claim_type": "auto",
+        "summary": "Low-speed bump while reversing; rear bumper",
+        "amount": 17802.25,
+        "status": "Paid",
+        "insurer": "This policy"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "easy",
+      "signals": [
+        "severity_mismatch",
+        "duplicate_claim"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0010",
+    "claim_type": "property",
+    "filed_date": "2025-09-01",
+    "policyholder": {
+      "name": "Heather Castro",
+      "date_of_birth": "1978-05-09",
+      "phone": "+1-423-322-6025x634",
+      "email": "ebrennan@example.org",
+      "address": {
+        "street": "9826 Bobby Lakes",
+        "city": "Kansas City",
+        "state": "MO"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-9197443",
+      "start_date": "2024-05-06",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "9826 Bobby Lakes",
+        "city": "Kansas City",
+        "state": "MO",
+        "property_type": "Townhouse",
+        "year_built": 1989
+      },
+      "dwelling_coverage": 250000,
+      "contents_coverage": 125000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2025-08-28",
+      "location": {
+        "street": "9826 Bobby Lakes",
+        "city": "Kansas City",
+        "state": "MO",
+        "latitude": 39.0997,
+        "longitude": -94.5786
+      },
+      "description": "The supply hose on our washing machine split while we were asleep, and water spread through the laundry room and hallway.",
+      "damage": "Laminate flooring in the hallway and laundry room ruined; lower drywall damaged."
+    },
+    "claim_amount": 4405.48,
+    "supporting_documents": [
+      "Plumber invoice (replaced hose)",
+      "Photos of damage (9)",
+      "Repair estimate from Fleming Home Restoration"
+    ],
+    "prior_claims": [
+      {
+        "date": "2019-12-08",
+        "claim_type": "property",
+        "summary": "Burglary; electronics and jewelry stolen",
+        "amount": 10344.21,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "prior_claims_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0011",
+    "claim_type": "property",
+    "filed_date": "2025-02-07",
+    "policyholder": {
+      "name": "Martin Ross",
+      "date_of_birth": "1987-03-10",
+      "phone": "301-842-9401x96556",
+      "email": "jonathanfletcher@example.org",
+      "address": {
+        "street": "5433 Donna Locks",
+        "city": "San Diego",
+        "state": "CA"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-3154051",
+      "start_date": "2018-09-05",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "5433 Donna Locks",
+        "city": "San Diego",
+        "state": "CA",
+        "property_type": "Townhouse",
+        "year_built": 2017
+      },
+      "dwelling_coverage": 350000,
+      "contents_coverage": 175000,
+      "deductible": 2500
+    },
+    "incident": {
+      "date": "2025-02-06",
+      "location": {
+        "street": "5433 Donna Locks",
+        "city": "San Diego",
+        "state": "CA",
+        "latitude": 32.7157,
+        "longitude": -117.1611
+      },
+      "description": "Our home was broken into while we were away for the weekend. The back door had been forced open.",
+      "damage": "Stolen: laptop, TV, jewelry and a camera. Back door frame broken."
+    },
+    "claim_amount": 6808.24,
+    "supporting_documents": [
+      "Police report",
+      "Photos of forced back door",
+      "Purchase receipts for stolen items",
+      "List of stolen items"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0012",
+    "claim_type": "property",
+    "filed_date": "2025-08-18",
+    "policyholder": {
+      "name": "Edward Martinez",
+      "date_of_birth": "1979-04-24",
+      "phone": "+1-762-999-4680x44369",
+      "email": "nramos@example.net",
+      "address": {
+        "street": "6159 Alvarado Crossing",
+        "city": "Houston",
+        "state": "TX"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-7693979",
+      "start_date": "2020-05-05",
+      "coverage_history": [
+        {
+          "date": "2023-07-13",
+          "change": "Updated mailing address"
+        }
+      ],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "6159 Alvarado Crossing",
+        "city": "Houston",
+        "state": "TX",
+        "property_type": "Townhouse",
+        "year_built": 1965
+      },
+      "dwelling_coverage": 600000,
+      "contents_coverage": 300000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2025-08-16",
+      "location": {
+        "street": "6159 Alvarado Crossing",
+        "city": "Houston",
+        "state": "TX",
+        "latitude": 29.7604,
+        "longitude": -95.3698
+      },
+      "description": "A pan of oil caught fire on the stove and spread to the cabinets. The fire department came and put it out.",
+      "damage": "Kitchen cabinets, countertops, range hood and ceiling destroyed; smoke damage to the living room."
+    },
+    "claim_amount": 24066.83,
+    "supporting_documents": [
+      "Fire department incident report",
+      "Photos of damage (15)",
+      "Repair estimate from Ortiz Home Restoration",
+      "Hotel receipts while the home was unlivable",
+      "Independent adjuster's on-site inspection report"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "high_amount_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0013",
+    "claim_type": "property",
+    "filed_date": "2025-05-14",
+    "policyholder": {
+      "name": "Patricia Gibson",
+      "date_of_birth": "1993-07-21",
+      "phone": "001-836-576-3201",
+      "email": "lindadominguez@example.com",
+      "address": {
+        "street": "214 Davis Terrace Apt. 433",
+        "city": "Raleigh",
+        "state": "NC"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-1120642",
+      "start_date": "2023-06-24",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "214 Davis Terrace Apt. 433",
+        "city": "Raleigh",
+        "state": "NC",
+        "property_type": "Single-family home",
+        "year_built": 1958
+      },
+      "dwelling_coverage": 250000,
+      "contents_coverage": 125000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2025-05-14",
+      "location": {
+        "street": "214 Davis Terrace Apt. 433",
+        "city": "Raleigh",
+        "state": "NC",
+        "latitude": 35.7796,
+        "longitude": -78.6382
+      },
+      "description": "An outlet in the bedroom sparked and started a small fire. We put it out with an extinguisher and called an electrician.",
+      "damage": "Bedroom wall, carpet and furniture burned; wiring on that circuit replaced."
+    },
+    "claim_amount": 12736.72,
+    "supporting_documents": [
+      "Electrician report on the failed outlet",
+      "Photos of damage (8)",
+      "Repair estimate from Riggs Home Restoration"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0014",
+    "claim_type": "auto",
+    "filed_date": "2026-02-13",
+    "policyholder": {
+      "name": "David Wright",
+      "date_of_birth": "1994-02-03",
+      "phone": "387-434-7143x455",
+      "email": "jessebenson@example.net",
+      "address": {
+        "street": "317 Laurie Shores",
+        "city": "Las Vegas",
+        "state": "NV"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-4594297",
+      "start_date": "2023-07-15",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2022,
+        "make": "Kia",
+        "model": "Sorento",
+        "license_plate": "87X QN2",
+        "estimated_value": 16700.0
+      }
+    },
+    "incident": {
+      "date": "2026-02-10",
+      "location": {
+        "street": "Dodson Mills",
+        "city": "Las Vegas",
+        "state": "NV",
+        "latitude": 36.1699,
+        "longitude": -115.1398
+      },
+      "description": "I hit a deer that ran onto Dodson Mills around dusk. I pulled over and called the police non-emergency line.",
+      "damage": "Front grille, hood and driver-side headlight damaged; radiator leaking."
+    },
+    "claim_amount": 3850.49,
+    "supporting_documents": [
+      "Photos of damage (6)",
+      "Repair estimate from Manning Auto Body",
+      "Police incident number"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0015",
+    "claim_type": "property",
+    "filed_date": "2025-01-05",
+    "policyholder": {
+      "name": "Shannon Cannon",
+      "date_of_birth": "1976-08-01",
+      "phone": "805.946.6889x3734",
+      "email": "priceelizabeth@example.com",
+      "address": {
+        "street": "66587 Brown Village",
+        "city": "Houston",
+        "state": "TX"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-2626229",
+      "start_date": "2019-02-01",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "66587 Brown Village",
+        "city": "Houston",
+        "state": "TX",
+        "property_type": "Townhouse",
+        "year_built": 2002
+      },
+      "dwelling_coverage": 450000,
+      "contents_coverage": 225000,
+      "deductible": 1000
+    },
+    "incident": {
+      "date": "2025-01-05",
+      "location": {
+        "street": "66587 Brown Village",
+        "city": "Houston",
+        "state": "TX",
+        "latitude": 29.7604,
+        "longitude": -95.3698
+      },
+      "description": "Our home was broken into while we were away for the weekend. The back door had been forced open.",
+      "damage": "Stolen: laptop, TV, jewelry and a camera. Back door frame broken."
+    },
+    "claim_amount": 10774.53,
+    "supporting_documents": [
+      "Police report",
+      "Photos of forced back door",
+      "List of stolen items",
+      "Receipt: 65-inch TV, $1,899, dated 2025-01-11",
+      "Receipt: laptop, $1,349, dated 2024-05-19",
+      "Receipt: DSLR camera, $1,150, dated 2023-01-24"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "hard",
+      "signals": [
+        "document_inconsistency"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0016",
+    "claim_type": "property",
+    "filed_date": "2025-06-13",
+    "policyholder": {
+      "name": "Anthony Gray",
+      "date_of_birth": "1965-02-06",
+      "phone": "755.564.6417x080",
+      "email": "harringtondenise@example.org",
+      "address": {
+        "street": "2980 Vargas Shore",
+        "city": "Buffalo",
+        "state": "NY"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-4214348",
+      "start_date": "2022-03-21",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "2980 Vargas Shore",
+        "city": "Buffalo",
+        "state": "NY",
+        "property_type": "Single-family home",
+        "year_built": 2004
+      },
+      "dwelling_coverage": 600000,
+      "contents_coverage": 300000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2025-06-12",
+      "location": {
+        "street": "2980 Vargas Shore",
+        "city": "Buffalo",
+        "state": "NY",
+        "latitude": 42.8864,
+        "longitude": -78.8784
+      },
+      "description": "A pan of oil caught fire on the stove and spread to the cabinets. The fire department came and put it out.",
+      "damage": "Kitchen cabinets, countertops, range hood and ceiling destroyed; smoke damage to the living room."
+    },
+    "claim_amount": 25520.72,
+    "supporting_documents": [
+      "Fire department incident report",
+      "Photos of damage (15)",
+      "Repair estimate from Taylor Home Restoration",
+      "Hotel receipts while the home was unlivable",
+      "Independent adjuster's on-site inspection report"
+    ],
+    "prior_claims": [
+      {
+        "date": "2019-05-13",
+        "claim_type": "property",
+        "summary": "Slow leak under kitchen sink; cabinet base",
+        "amount": 1425.19,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "prior_claims_benign",
+        "high_amount_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0017",
+    "claim_type": "auto",
+    "filed_date": "2024-12-28",
+    "policyholder": {
+      "name": "Eric Byrd",
+      "date_of_birth": "1976-03-28",
+      "phone": "(831)793-1491x9058",
+      "email": "huntermatthew@example.com",
+      "address": {
+        "street": "09232 Caldwell Port",
+        "city": "Denver",
+        "state": "CO"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-4965789",
+      "start_date": "2022-01-09",
+      "coverage_history": [
+        {
+          "date": "2022-02-10",
+          "change": "Added a second named driver"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2020,
+        "make": "Hyundai",
+        "model": "Elantra",
+        "license_plate": "52-99124",
+        "estimated_value": 7900.0
+      }
+    },
+    "incident": {
+      "date": "2024-12-25",
+      "location": {
+        "street": "Steven Glens",
+        "city": "Minneapolis",
+        "state": "MN",
+        "latitude": 44.9778,
+        "longitude": -93.265
+      },
+      "description": "We were on a family road trip to Minneapolis. My car slid on black ice on Steven Glens after freezing overnight temperatures and hit a guardrail.",
+      "damage": "Front bumper, right headlight and right front quarter panel damaged."
+    },
+    "claim_amount": 4675.61,
+    "supporting_documents": [
+      "Photos of damage (7)",
+      "Repair estimate from Rodriguez Auto Body",
+      "Tow receipt",
+      "Hotel receipt (Minneapolis, MN) covering the incident date",
+      "Fuel receipts along the route"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "winter_weather_benign",
+        "far_location_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0018",
+    "claim_type": "property",
+    "filed_date": "2026-01-11",
+    "policyholder": {
+      "name": "David Michael",
+      "date_of_birth": "1969-09-05",
+      "phone": "537.799.6507x527",
+      "email": "matthew94@example.net",
+      "address": {
+        "street": "65726 Jessica Run Suite 987",
+        "city": "Detroit",
+        "state": "MI"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-8096887",
+      "start_date": "2019-06-20",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "65726 Jessica Run Suite 987",
+        "city": "Detroit",
+        "state": "MI",
+        "property_type": "Single-family home",
+        "year_built": 1987
+      },
+      "dwelling_coverage": 350000,
+      "contents_coverage": 175000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2026-01-07",
+      "location": {
+        "street": "65726 Jessica Run Suite 987",
+        "city": "Detroit",
+        "state": "MI",
+        "latitude": 42.3314,
+        "longitude": -83.0458
+      },
+      "description": "During a cold snap, a water pipe in an exterior wall froze and burst while we were at work. Water spread across the ground floor before we could shut off the main valve.",
+      "damage": "Ground-floor drywall, carpet and baseboards damaged; mold remediation needed."
+    },
+    "claim_amount": 17624.51,
+    "supporting_documents": [
+      "Plumber invoice",
+      "Water mitigation company invoice",
+      "Photos of damage (10)"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "winter_weather_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0019",
+    "claim_type": "auto",
+    "filed_date": "2025-08-22",
+    "policyholder": {
+      "name": "Elizabeth Perkins",
+      "date_of_birth": "1982-11-26",
+      "phone": "+1-685-668-5574",
+      "email": "davidlee@example.org",
+      "address": {
+        "street": "313 Freeman Trace",
+        "city": "Chicago",
+        "state": "IL"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-1959074",
+      "start_date": "2023-12-22",
+      "coverage_history": [
+        {
+          "date": "2024-10-07",
+          "change": "Added roadside assistance"
+        },
+        {
+          "date": "2025-08-13",
+          "change": "Added Comprehensive coverage (policy was previously Liability + Collision only)"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2020,
+        "make": "Kia",
+        "model": "Sorento",
+        "license_plate": "014-POZ",
+        "estimated_value": 12100.0
+      }
+    },
+    "incident": {
+      "date": "2025-08-18",
+      "location": {
+        "street": "Hannah Rue",
+        "city": "Chicago",
+        "state": "IL",
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "description": "My car was stolen overnight from outside my home on Hannah Rue. I noticed it was gone at 6am and called the police.",
+      "damage": "Vehicle stolen and not recovered."
+    },
+    "claim_amount": 12002.46,
+    "supporting_documents": [
+      "Police theft report",
+      "Both sets of keys handed to adjuster",
+      "Vehicle title copy"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "hard",
+      "signals": [
+        "recent_coverage_upgrade"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0020",
+    "claim_type": "property",
+    "filed_date": "2024-12-14",
+    "policyholder": {
+      "name": "Joseph Hill",
+      "date_of_birth": "1954-05-30",
+      "phone": "+1-942-971-0947",
+      "email": "jack04@example.com",
+      "address": {
+        "street": "37498 Hooper Village",
+        "city": "Phoenix",
+        "state": "AZ"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-2140194",
+      "start_date": "2021-03-18",
+      "coverage_history": [
+        {
+          "date": "2024-07-25",
+          "change": "Raised deductible to lower premium"
+        }
+      ],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "37498 Hooper Village",
+        "city": "Phoenix",
+        "state": "AZ",
+        "property_type": "Single-family home",
+        "year_built": 1981
+      },
+      "dwelling_coverage": 600000,
+      "contents_coverage": 300000,
+      "deductible": 2500
+    },
+    "incident": {
+      "date": "2024-12-10",
+      "location": {
+        "street": "37498 Hooper Village",
+        "city": "Phoenix",
+        "state": "AZ",
+        "latitude": 33.4484,
+        "longitude": -112.074
+      },
+      "description": "The supply hose on our washing machine split while we were asleep, and water spread through the laundry room and hallway.",
+      "damage": "Laminate flooring in the hallway and laundry room ruined; lower drywall damaged."
+    },
+    "claim_amount": 8161.63,
+    "supporting_documents": [
+      "Plumber invoice (replaced hose)",
+      "Photos of damage (9)",
+      "Repair estimate from White Home Restoration"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0021",
+    "claim_type": "auto",
+    "filed_date": "2025-04-30",
+    "policyholder": {
+      "name": "Joanna Ramos",
+      "date_of_birth": "1990-09-30",
+      "phone": "(349)490-9133x41232",
+      "email": "ortizhannah@example.com",
+      "address": {
+        "street": "67190 Edward Port",
+        "city": "Las Vegas",
+        "state": "NV"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-6271130",
+      "start_date": "2021-07-21",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 250,
+      "insured_vehicle": {
+        "year": 2019,
+        "make": "Nissan",
+        "model": "Altima",
+        "license_plate": "R99 9YN",
+        "estimated_value": 8300.0
+      }
+    },
+    "incident": {
+      "date": "2025-04-28",
+      "location": {
+        "street": "Miller Gateway",
+        "city": "Las Vegas",
+        "state": "NV",
+        "latitude": 36.1699,
+        "longitude": -115.1398
+      },
+      "description": "While reversing out of a parking space on Miller Gateway at walking speed, I bumped into a concrete post.",
+      "damage": "Scuffed and cracked rear bumper cover."
+    },
+    "claim_amount": 1438.86,
+    "supporting_documents": [
+      "Photos of damage (4)",
+      "Repair estimate from Perez Auto Body"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0022",
+    "claim_type": "auto",
+    "filed_date": "2025-01-20",
+    "policyholder": {
+      "name": "John Torres",
+      "date_of_birth": "1978-02-02",
+      "phone": "288-377-1906x594",
+      "email": "suzannehuff@example.net",
+      "address": {
+        "street": "34471 Sandra Turnpike Apt. 618",
+        "city": "Minneapolis",
+        "state": "MN"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-2677407",
+      "start_date": "2023-02-18",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2016,
+        "make": "Tesla",
+        "model": "Model 3",
+        "license_plate": "CB 2499",
+        "estimated_value": 8300.0
+      }
+    },
+    "incident": {
+      "date": "2025-01-18",
+      "location": {
+        "street": "Deborah Grove",
+        "city": "Minneapolis",
+        "state": "MN",
+        "latitude": 44.9778,
+        "longitude": -93.265
+      },
+      "description": "My car slid on black ice on Deborah Grove after freezing overnight temperatures and hit a guardrail.",
+      "damage": "Front bumper, right headlight and right front quarter panel damaged."
+    },
+    "claim_amount": 4958.6,
+    "supporting_documents": [
+      "Photos of damage (7)",
+      "Repair estimate from Morse Auto Body",
+      "Tow receipt"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "winter_weather_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0023",
+    "claim_type": "auto",
+    "filed_date": "2025-10-18",
+    "policyholder": {
+      "name": "Brian Martin",
+      "date_of_birth": "1978-09-17",
+      "phone": "001-874-268-0715x451",
+      "email": "mgutierrez@example.net",
+      "address": {
+        "street": "490 Thomas Run",
+        "city": "Miami",
+        "state": "FL"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-5781295",
+      "start_date": "2022-12-03",
+      "coverage_history": [
+        {
+          "date": "2025-07-01",
+          "change": "Added roadside assistance"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2021,
+        "make": "Jeep",
+        "model": "Grand Cherokee",
+        "license_plate": "7NU 175",
+        "estimated_value": 17700.0
+      }
+    },
+    "incident": {
+      "date": "2025-10-14",
+      "location": {
+        "street": "Moon Falls",
+        "city": "Denver",
+        "state": "CO",
+        "latitude": 39.7392,
+        "longitude": -104.9903
+      },
+      "description": "We were on a family road trip to Denver. I was stopped at a red light on Moon Falls when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details.",
+      "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
+    },
+    "claim_amount": 4012.59,
+    "supporting_documents": [
+      "Police report",
+      "Photos of damage (8)",
+      "Repair estimate from Ortiz Auto Body",
+      "Other driver's insurance details",
+      "Hotel receipt (Denver, CO) covering the incident date",
+      "Fuel receipts along the route"
+    ],
+    "prior_claims": [
+      {
+        "date": "2019-01-26",
+        "claim_type": "auto",
+        "summary": "Slid on ice into a guardrail; front-end damage",
+        "amount": 4069.73,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "prior_claims_benign",
+        "far_location_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0024",
+    "claim_type": "auto",
+    "filed_date": "2025-03-11",
+    "policyholder": {
+      "name": "Susan Murray MD",
+      "date_of_birth": "1961-03-05",
+      "phone": "448.346.7737x8263",
+      "email": "kendra65@example.net",
+      "address": {
+        "street": "770 Joseph Curve Suite 771",
+        "city": "San Diego",
+        "state": "CA"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-5569244",
+      "start_date": "2020-12-06",
+      "coverage_history": [
+        {
+          "date": "2021-09-29",
+          "change": "Raised deductible to lower premium"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2016,
+        "make": "Kia",
+        "model": "Sorento",
+        "license_plate": "4W 8086F",
+        "estimated_value": 6300.0
+      }
+    },
+    "incident": {
+      "date": "2025-03-09",
+      "location": {
+        "street": "Teresa Rest",
+        "city": "San Diego",
+        "state": "CA",
+        "latitude": 32.7157,
+        "longitude": -117.1611
+      },
+      "description": "I hit a deer that ran onto Teresa Rest around dusk. I pulled over and called the police non-emergency line.",
+      "damage": "Front grille, hood and driver-side headlight damaged; radiator leaking."
+    },
+    "claim_amount": 4200.08,
+    "supporting_documents": [
+      "Photos of damage (6)",
+      "Repair estimate from Davis Auto Body",
+      "Police incident number"
+    ],
+    "prior_claims": [
+      {
+        "date": "2020-08-21",
+        "claim_type": "auto",
+        "summary": "Rear-end collision; rear bumper and tail lights",
+        "amount": 2720.43,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      },
+      {
+        "date": "2021-09-02",
+        "claim_type": "auto",
+        "summary": "Slid on ice into a guardrail; front-end damage",
+        "amount": 6988.56,
+        "status": "Paid",
+        "insurer": "This policy"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "prior_claims_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0025",
+    "claim_type": "auto",
+    "filed_date": "2025-12-31",
+    "policyholder": {
+      "name": "Evan Kennedy",
+      "date_of_birth": "1976-08-22",
+      "phone": "(227)402-8951x7187",
+      "email": "jpitts@example.org",
+      "address": {
+        "street": "44997 Sean Orchard Suite 588",
+        "city": "Phoenix",
+        "state": "AZ"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-8175395",
+      "start_date": "2024-10-14",
+      "coverage_history": [
+        {
+          "date": "2025-05-21",
+          "change": "Updated mailing address"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2014,
+        "make": "Honda",
+        "model": "Civic",
+        "license_plate": "MWH 963",
+        "estimated_value": 3400.0
+      }
+    },
+    "incident": {
+      "date": "2025-12-27",
+      "location": {
+        "street": "Gibson Islands",
+        "city": "Phoenix",
+        "state": "AZ",
+        "latitude": 33.4484,
+        "longitude": -112.074
+      },
+      "description": "I was stopped at a red light on Gibson Islands when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details.",
+      "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
+    },
+    "claim_amount": 2380.0,
+    "supporting_documents": [
+      "Police report",
+      "Photos of damage (8)",
+      "Repair estimate from Chase Auto Body",
+      "Other driver's insurance details"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0026",
+    "claim_type": "auto",
+    "filed_date": "2025-02-09",
+    "policyholder": {
+      "name": "Stephanie Williams",
+      "date_of_birth": "1954-07-08",
+      "phone": "855-562-3869x2221",
+      "email": "jdurham@example.org",
+      "address": {
+        "street": "5961 Phelps Walks Suite 578",
+        "city": "Charlotte",
+        "state": "NC"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-1701771",
+      "start_date": "2020-07-22",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2013,
+        "make": "Subaru",
+        "model": "Outback",
+        "license_plate": "VJH-1611",
+        "estimated_value": 3700.0
+      }
+    },
+    "incident": {
+      "date": "2025-02-08",
+      "location": {
+        "street": "Christina Freeway",
+        "city": "Charlotte",
+        "state": "NC",
+        "latitude": 35.2271,
+        "longitude": -80.8431
+      },
+      "description": "I was stopped at a red light on Christina Freeway when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details.",
+      "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
+    },
+    "claim_amount": 2590.0,
+    "supporting_documents": [
+      "Police report",
+      "Photos of damage (8)",
+      "Repair estimate from Wallace Auto Body",
+      "Other driver's insurance details"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0027",
+    "claim_type": "auto",
+    "filed_date": "2026-04-27",
+    "policyholder": {
+      "name": "John Young",
+      "date_of_birth": "1989-08-14",
+      "phone": "(694)540-6409x097",
+      "email": "jeffery39@example.com",
+      "address": {
+        "street": "474 Rachel Mountain Suite 821",
+        "city": "Portland",
+        "state": "OR"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-7817881",
+      "start_date": "2026-04-16",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 250,
+      "insured_vehicle": {
+        "year": 2015,
+        "make": "Chevrolet",
+        "model": "Equinox",
+        "license_plate": "474 UNW",
+        "estimated_value": 4900.0
+      }
+    },
+    "incident": {
+      "date": "2026-04-27",
+      "location": {
+        "street": "Landry Radial",
+        "city": "Portland",
+        "state": "OR",
+        "latitude": 45.5152,
+        "longitude": -122.6784
+      },
+      "description": "My car was stolen overnight from outside my home on Landry Radial. I noticed it was gone at 6am and called the police.",
+      "damage": "Vehicle stolen and not recovered."
+    },
+    "claim_amount": 4841.89,
+    "supporting_documents": [
+      "Police theft report",
+      "Both sets of keys handed to adjuster",
+      "Vehicle title copy",
+      "Bill of sale: vehicle purchased 2026-04-15 (policy started with the purchase)",
+      "Neighbor's doorbell camera video showing the car being stolen"
+    ],
+    "prior_claims": [
+      {
+        "date": "2019-05-23",
+        "claim_type": "auto",
+        "summary": "Parked car hit in a parking lot; door and fender dents",
+        "amount": 1148.62,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      },
+      {
+        "date": "2021-10-29",
+        "claim_type": "auto",
+        "summary": "Slid on ice into a guardrail; front-end damage",
+        "amount": 4375.59,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "early_claim_benign",
+        "prior_claims_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0028",
+    "claim_type": "auto",
+    "filed_date": "2026-01-26",
+    "policyholder": {
+      "name": "Jonathan Nelson",
+      "date_of_birth": "1961-11-23",
+      "phone": "374-851-7123x685",
+      "email": "bakerdavid@example.com",
+      "address": {
+        "street": "104 Johnson Lakes",
+        "city": "Chicago",
+        "state": "IL"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-4731818",
+      "start_date": "2026-01-12",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2018,
+        "make": "Jeep",
+        "model": "Grand Cherokee",
+        "license_plate": "2328 XN",
+        "estimated_value": 10900.0
+      }
+    },
+    "incident": {
+      "date": "2026-01-25",
+      "location": {
+        "street": "Christopher Hill",
+        "city": "Chicago",
+        "state": "IL",
+        "latitude": 41.8781,
+        "longitude": -87.6298
+      },
+      "description": "A driver ran a red light on Christopher Hill and hit the driver's side of my car. The airbags deployed and the car was towed from the scene.",
+      "damage": "Driver-side doors crushed, airbags deployed, frame damage. Assessed as a total loss."
+    },
+    "claim_amount": 10704.38,
+    "supporting_documents": [
+      "Police report (other driver cited for running a red light)",
+      "Tow receipt",
+      "Photos of damage (12)",
+      "Total loss valuation report",
+      "Urgent care visit summary",
+      "Bill of sale: vehicle purchased 2026-01-11 (policy started with the purchase)",
+      "Letter from the other driver's insurer accepting fault",
+      "Written statement from an independent witness"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "early_claim_benign",
+        "high_amount_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0029",
+    "claim_type": "auto",
+    "filed_date": "2025-07-18",
+    "policyholder": {
+      "name": "David Medina",
+      "date_of_birth": "1977-02-22",
+      "phone": "258.769.2617x964",
+      "email": "scottsampson@example.com",
+      "address": {
+        "street": "651 Thomas River Suite 931",
+        "city": "Phoenix",
+        "state": "AZ"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-6507321",
+      "start_date": "2025-07-02",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2017,
+        "make": "Honda",
+        "model": "Civic",
+        "license_plate": "NDE 004",
+        "estimated_value": 5600.0
+      }
+    },
+    "incident": {
+      "date": "2025-07-15",
+      "location": {
+        "street": "Blankenship Hollow",
+        "city": "Phoenix",
+        "state": "AZ",
+        "latitude": 33.4484,
+        "longitude": -112.074
+      },
+      "description": "My car slid on black ice on Blankenship Hollow after freezing overnight temperatures and hit a guardrail.",
+      "damage": "Front bumper, right headlight and right front quarter panel damaged."
+    },
+    "claim_amount": 3920.0,
+    "supporting_documents": [
+      "Photos of damage (7)",
+      "Repair estimate from Ferrell Auto Body",
+      "Tow receipt"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "easy",
+      "signals": [
+        "weather_mismatch",
+        "early_claim"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0030",
+    "claim_type": "auto",
+    "filed_date": "2025-09-07",
+    "policyholder": {
+      "name": "Justin Jones",
+      "date_of_birth": "2002-10-08",
+      "phone": "+1-639-433-5290",
+      "email": "amberlindsey@example.org",
+      "address": {
+        "street": "585 Raymond Field",
+        "city": "San Diego",
+        "state": "CA"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-1463060",
+      "start_date": "2025-09-02",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2015,
+        "make": "Nissan",
+        "model": "Altima",
+        "license_plate": "39C\u2022005",
+        "estimated_value": 4400.0
+      }
+    },
+    "incident": {
+      "date": "2025-09-05",
+      "location": {
+        "street": "Stacy View",
+        "city": "San Diego",
+        "state": "CA",
+        "latitude": 32.7157,
+        "longitude": -117.1611
+      },
+      "description": "While reversing out of a parking space on Stacy View at walking speed, I bumped into a concrete post.",
+      "damage": "Rear bumper, tailgate, both rear quarter panels and parking sensors replaced; rear frame straightening required."
+    },
+    "claim_amount": 14758.82,
+    "supporting_documents": [
+      "Repair estimate from an independent mechanic (handwritten, cash payment requested)"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "easy",
+      "signals": [
+        "early_claim",
+        "severity_mismatch",
+        "document_gap"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0031",
+    "claim_type": "property",
+    "filed_date": "2025-09-22",
+    "policyholder": {
+      "name": "Jerome Cox",
+      "date_of_birth": "1991-02-05",
+      "phone": "278-239-0847",
+      "email": "bboone@example.net",
+      "address": {
+        "street": "05395 Grant Center",
+        "city": "Charlotte",
+        "state": "NC"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-6262632",
+      "start_date": "2025-09-13",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "05395 Grant Center",
+        "city": "Charlotte",
+        "state": "NC",
+        "property_type": "Townhouse",
+        "year_built": 1974
+      },
+      "dwelling_coverage": 250000,
+      "contents_coverage": 125000,
+      "deductible": 1000
+    },
+    "incident": {
+      "date": "2025-09-19",
+      "location": {
+        "street": "05395 Grant Center",
+        "city": "Charlotte",
+        "state": "NC",
+        "latitude": 35.2271,
+        "longitude": -80.8431
+      },
+      "description": "A pan of oil caught fire on the stove and spread to the cabinets. The fire department came and put it out.",
+      "damage": "Kitchen cabinets, countertops, range hood and ceiling destroyed; smoke damage to the living room."
+    },
+    "claim_amount": 19198.44,
+    "supporting_documents": [
+      "Fire department incident report",
+      "Photos of damage (15)",
+      "Repair estimate from Wilson Home Restoration",
+      "Hotel receipts while the home was unlivable",
+      "Independent adjuster's on-site inspection report",
+      "Home purchase closing documents dated 2025-09-13",
+      "Pre-purchase home inspection report"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "hard",
+      "signals": [
+        "high_amount_benign",
+        "early_claim_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0032",
+    "claim_type": "auto",
+    "filed_date": "2026-04-09",
+    "policyholder": {
+      "name": "Patricia Le",
+      "date_of_birth": "1965-05-01",
+      "phone": "(473)965-7661x56545",
+      "email": "davischristopher@example.com",
+      "address": {
+        "street": "7115 Cameron Harbor",
+        "city": "Sacramento",
+        "state": "CA"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-4305700",
+      "start_date": "2021-01-30",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 1000,
+      "insured_vehicle": {
+        "year": 2014,
+        "make": "Hyundai",
+        "model": "Elantra",
+        "license_plate": "JOQ 9611",
+        "estimated_value": 3000.0
+      }
+    },
+    "incident": {
+      "date": "2026-04-05",
+      "location": {
+        "street": "James Ranch",
+        "city": "Atlanta",
+        "state": "GA",
+        "latitude": 33.749,
+        "longitude": -84.388
+      },
+      "description": "We were on a family road trip to Atlanta. My parked car was hit in a grocery store parking lot on James Ranch. The other driver left a note with their phone number.",
+      "damage": "Dented front passenger door and scraped front fender."
+    },
+    "claim_amount": 2100.0,
+    "supporting_documents": [
+      "Photos of damage (5)",
+      "Repair estimate from Farrell Auto Body",
+      "Photo of the note left by the other driver",
+      "Hotel receipt (Atlanta, GA) covering the incident date",
+      "Fuel receipts along the route"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "ambiguous",
+      "signals": [
+        "far_location_benign"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0033",
+    "claim_type": "auto",
+    "filed_date": "2025-08-08",
+    "policyholder": {
+      "name": "Jordan Moore",
+      "date_of_birth": "1983-07-06",
+      "phone": "815.285.1493",
+      "email": "anthony44@example.com",
+      "address": {
+        "street": "528 Brenda Points",
+        "city": "Buffalo",
+        "state": "NY"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-9508103",
+      "start_date": "2025-07-30",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2018,
+        "make": "Hyundai",
+        "model": "Elantra",
+        "license_plate": "604 VY9",
+        "estimated_value": 5700.0
+      }
+    },
+    "incident": {
+      "date": "2025-08-04",
+      "location": {
+        "street": "Santiago Loop",
+        "city": "Buffalo",
+        "state": "NY",
+        "latitude": 42.8864,
+        "longitude": -78.8784
+      },
+      "description": "I hit a deer that ran onto Santiago Loop around dusk. I pulled over and called the police non-emergency line.",
+      "damage": "Front grille, hood and driver-side headlight damaged; radiator leaking."
+    },
+    "claim_amount": 3990.0,
+    "supporting_documents": [
+      "Photos of damage (6)",
+      "Repair estimate from Edwards Auto Body",
+      "Police incident number"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "ambiguous",
+      "signals": [
+        "early_claim"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0034",
+    "claim_type": "property",
+    "filed_date": "2025-12-08",
+    "policyholder": {
+      "name": "Paula Bradley",
+      "date_of_birth": "1956-06-24",
+      "phone": "9229901476",
+      "email": "wnelson@example.net",
+      "address": {
+        "street": "22961 Joyce Burgs Apt. 836",
+        "city": "Houston",
+        "state": "TX"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-7361002",
+      "start_date": "2022-11-19",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "22961 Joyce Burgs Apt. 836",
+        "city": "Houston",
+        "state": "TX",
+        "property_type": "Townhouse",
+        "year_built": 1950
+      },
+      "dwelling_coverage": 450000,
+      "contents_coverage": 225000,
+      "deductible": 1000
+    },
+    "incident": {
+      "date": "2025-12-05",
+      "location": {
+        "street": "22961 Joyce Burgs Apt. 836",
+        "city": "Houston",
+        "state": "TX",
+        "latitude": 29.7604,
+        "longitude": -95.3698
+      },
+      "description": "We noticed a slow leak under the kitchen sink.",
+      "damage": "Full kitchen replacement: all cabinets, countertops, hardwood floor and subfloor, plus dishwasher and refrigerator."
+    },
+    "claim_amount": 24286.07,
+    "supporting_documents": [
+      "Plumber invoice",
+      "Photos of damage (4)"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "ambiguous",
+      "signals": [
+        "severity_mismatch"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0035",
+    "claim_type": "property",
+    "filed_date": "2026-07-17",
+    "policyholder": {
+      "name": "Tony Saunders",
+      "date_of_birth": "2002-09-13",
+      "phone": "745-310-7622x683",
+      "email": "chensley@example.com",
+      "address": {
+        "street": "6149 Rose Inlet",
+        "city": "Miami",
+        "state": "FL"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-8418210",
+      "start_date": "2023-01-15",
+      "coverage_history": [
+        {
+          "date": "2024-06-09",
+          "change": "Raised deductible to lower premium"
+        }
+      ],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "6149 Rose Inlet",
+        "city": "Miami",
+        "state": "FL",
+        "property_type": "Single-family home",
+        "year_built": 1960
+      },
+      "dwelling_coverage": 600000,
+      "contents_coverage": 300000,
+      "deductible": 1000
+    },
+    "incident": {
+      "date": "2026-07-13",
+      "location": {
+        "street": "6149 Rose Inlet",
+        "city": "Miami",
+        "state": "FL",
+        "latitude": 25.7617,
+        "longitude": -80.1918
+      },
+      "description": "During a cold snap, a water pipe in an exterior wall froze and burst while we were at work. Water spread across the ground floor before we could shut off the main valve.",
+      "damage": "Ground-floor drywall, carpet and baseboards damaged; mold remediation needed."
+    },
+    "claim_amount": 12185.42,
+    "supporting_documents": [
+      "Plumber invoice",
+      "Water mitigation company invoice",
+      "Photos of damage (10)"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "ambiguous",
+      "signals": [
+        "weather_mismatch"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0036",
+    "claim_type": "auto",
+    "filed_date": "2025-04-22",
+    "policyholder": {
+      "name": "Jeffrey Morales",
+      "date_of_birth": "1956-01-19",
+      "phone": "(745)435-2181x8835",
+      "email": "curtisscott@example.org",
+      "address": {
+        "street": "1596 Mckinney Mall",
+        "city": "Miami",
+        "state": "FL"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-3472189",
+      "start_date": "2023-12-09",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 500,
+      "insured_vehicle": {
+        "year": 2016,
+        "make": "Toyota",
+        "model": "Camry",
+        "license_plate": "9751 FZ",
+        "estimated_value": 5300.0
+      }
+    },
+    "incident": {
+      "date": "2025-04-22",
+      "location": {
+        "street": "Wilson Brooks",
+        "city": "Miami",
+        "state": "FL",
+        "latitude": 25.7617,
+        "longitude": -80.1918
+      },
+      "description": "I hit a deer that ran onto Wilson Brooks around dusk. I pulled over and called the police non-emergency line.",
+      "damage": "Front grille, hood and driver-side headlight damaged; radiator leaking."
+    },
+    "claim_amount": 7758.43,
+    "supporting_documents": [
+      "Photos of damage (6)",
+      "Repair estimate from Kim Auto Body",
+      "Police incident number"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "hard",
+      "signals": [
+        "amount_exceeds_value"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0037",
+    "claim_type": "property",
+    "filed_date": "2025-04-18",
+    "policyholder": {
+      "name": "Mrs. Tricia Stewart",
+      "date_of_birth": "1980-08-16",
+      "phone": "377-644-9058",
+      "email": "dhayes@example.com",
+      "address": {
+        "street": "127 Webster Trace",
+        "city": "Raleigh",
+        "state": "NC"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-7442089",
+      "start_date": "2018-08-29",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "127 Webster Trace",
+        "city": "Raleigh",
+        "state": "NC",
+        "property_type": "Single-family home",
+        "year_built": 1968
+      },
+      "dwelling_coverage": 600000,
+      "contents_coverage": 300000,
+      "deductible": 2500
+    },
+    "incident": {
+      "date": "2025-04-18",
+      "location": {
+        "street": "19986 Carpenter Turnpike Apt. 793",
+        "city": "Raleigh",
+        "state": "NC",
+        "latitude": 35.7796,
+        "longitude": -78.6382
+      },
+      "description": "The supply hose on our washing machine split while we were asleep, and water spread through the laundry room and hallway.",
+      "damage": "Laminate flooring in the hallway and laundry room ruined; lower drywall damaged."
+    },
+    "claim_amount": 8813.36,
+    "supporting_documents": [
+      "Plumber invoice (replaced hose)",
+      "Photos of damage (9)",
+      "Repair estimate from Day Home Restoration"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "hard",
+      "signals": [
+        "location_mismatch"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0038",
+    "claim_type": "auto",
+    "filed_date": "2025-03-30",
+    "policyholder": {
+      "name": "Raymond Shelton",
+      "date_of_birth": "1954-04-06",
+      "phone": "+1-451-751-8644x9251",
+      "email": "tammy62@example.net",
+      "address": {
+        "street": "782 Shannon Valleys Suite 182",
+        "city": "Miami",
+        "state": "FL"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-9689889",
+      "start_date": "2018-12-10",
+      "coverage_history": [],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 250,
+      "insured_vehicle": {
+        "year": 2021,
+        "make": "Toyota",
+        "model": "Camry",
+        "license_plate": "89-Q255",
+        "estimated_value": 12000.0
+      }
+    },
+    "incident": {
+      "date": "2025-03-30",
+      "location": {
+        "street": "John Mill",
+        "city": "Miami",
+        "state": "FL",
+        "latitude": 25.7617,
+        "longitude": -80.1918
+      },
+      "description": "My parked car was hit in a grocery store parking lot on John Mill. The other driver left a note with their phone number.",
+      "damage": "Dented front passenger door and scraped front fender."
+    },
+    "claim_amount": 3010.18,
+    "supporting_documents": [
+      "Photos of damage (5)",
+      "Repair estimate from Hardin Auto Body",
+      "Photo of the note left by the other driver"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": false,
+      "difficulty": "easy",
+      "signals": []
+    }
+  },
+  {
+    "claim_id": "CLM-0039",
+    "claim_type": "property",
+    "filed_date": "2026-08-18",
+    "policyholder": {
+      "name": "Travis Tucker",
+      "date_of_birth": "1966-02-11",
+      "phone": "(721)441-8880",
+      "email": "lmoore@example.net",
+      "address": {
+        "street": "8652 Debbie Manors",
+        "city": "Nashville",
+        "state": "TN"
+      }
+    },
+    "policy": {
+      "policy_number": "HO-9910914",
+      "start_date": "2026-08-05",
+      "coverage_history": [],
+      "policy_type": "Homeowners (HO-3)",
+      "insured_property": {
+        "street": "8652 Debbie Manors",
+        "city": "Nashville",
+        "state": "TN",
+        "property_type": "Townhouse",
+        "year_built": 2007
+      },
+      "dwelling_coverage": 600000,
+      "contents_coverage": 300000,
+      "deductible": 500
+    },
+    "incident": {
+      "date": "2026-08-15",
+      "location": {
+        "street": "8652 Debbie Manors",
+        "city": "Nashville",
+        "state": "TN",
+        "latitude": 36.1627,
+        "longitude": -86.7816
+      },
+      "description": "The supply hose on our washing machine split while we were asleep, and water spread through the laundry room and hallway.",
+      "damage": "Laminate flooring in the hallway and laundry room ruined; lower drywall damaged."
+    },
+    "claim_amount": 9205.59,
+    "supporting_documents": [
+      "Plumber invoice (replaced hose)",
+      "Photos of damage (9)",
+      "Repair estimate from White Home Restoration"
+    ],
+    "prior_claims": [
+      {
+        "date": "2026-05-31",
+        "claim_type": "property",
+        "summary": "Washing machine hose split; floor water damage",
+        "amount": 9669.14,
+        "status": "Paid",
+        "insurer": "Previous insurer (industry claims database)"
+      }
+    ],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "easy",
+      "signals": [
+        "early_claim",
+        "duplicate_claim"
+      ]
+    }
+  },
+  {
+    "claim_id": "CLM-0040",
+    "claim_type": "auto",
+    "filed_date": "2026-03-19",
+    "policyholder": {
+      "name": "Stephanie Lee",
+      "date_of_birth": "1996-11-09",
+      "phone": "001-577-446-8862",
+      "email": "brett75@example.net",
+      "address": {
+        "street": "706 Rhodes Freeway",
+        "city": "Las Vegas",
+        "state": "NV"
+      }
+    },
+    "policy": {
+      "policy_number": "PA-9130188",
+      "start_date": "2022-06-08",
+      "coverage_history": [
+        {
+          "date": "2025-07-18",
+          "change": "Added roadside assistance"
+        }
+      ],
+      "policy_type": "Personal Auto",
+      "coverages": [
+        "Liability",
+        "Collision",
+        "Comprehensive"
+      ],
+      "deductible": 250,
+      "insured_vehicle": {
+        "year": 2020,
+        "make": "Nissan",
+        "model": "Altima",
+        "license_plate": "834-ZOH",
+        "estimated_value": 9800.0
+      }
+    },
+    "incident": {
+      "date": "2026-03-18",
+      "location": {
+        "street": "Bishop Terrace",
+        "city": "Seattle",
+        "state": "WA",
+        "latitude": 47.6062,
+        "longitude": -122.3321
+      },
+      "description": "I was stopped at a red light on Bishop Terrace when another vehicle hit the back of my car. The other driver stopped and we exchanged insurance details. This happened on my usual commute to work.",
+      "damage": "Rear bumper cover, trunk lid and both tail lights damaged; car still drivable."
+    },
+    "claim_amount": 6067.72,
+    "supporting_documents": [
+      "Police report",
+      "Photos of damage (8)",
+      "Repair estimate from Sheppard Auto Body",
+      "Other driver's insurance details"
+    ],
+    "prior_claims": [],
+    "ground_truth": {
+      "is_fraud": true,
+      "difficulty": "ambiguous",
+      "signals": [
+        "location_mismatch"
+      ]
+    }
+  }
+]
