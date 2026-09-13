@@ -2,14 +2,27 @@
 ClaimLens backend — FastAPI app entrypoint.
 
 Run from the `backend/` folder with:
-    uvicorn app.main:app --reload
+    .\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --reload
 
-Stage 1 only has a health check. Claim and analytics routes get added in later stages.
+Interactive API docs: http://localhost:8000/docs
 """
+
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-app = FastAPI(title="ClaimLens API")
+from app import db
+from app.routes import claims
+
+
+@asynccontextmanager
+async def lifespan(app):
+    db.init_db()  # create the SQLite table on startup
+    yield
+
+
+app = FastAPI(title="ClaimLens API", lifespan=lifespan)
+app.include_router(claims.router)
 
 
 @app.get("/health")
