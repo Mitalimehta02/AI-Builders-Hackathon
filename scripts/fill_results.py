@@ -5,7 +5,7 @@ Why this exists: copying numbers by hand into three documents under deadline pre
 number ends up on a slide. This script takes every figure from one place - the same computation the
 Analytics page shows (backend/app/routes/analytics.py) - and fills the markers in
 
-    README.md, DECK_CONTENT.md, VIDEO_SCRIPT.md    (repository root; a missing file is skipped with a warning)
+    README.md, docs/DECK_CONTENT.md, docs/VIDEO_SCRIPT.md    (from the repository root; a missing file is skipped with a warning)
 
 It enforces the PROJECT_PLAN.md Part 5b reporting rules itself, so a document cannot break them by accident:
 - Raw counts only. Every filled value is checked, and the script stops if any contains a percentage.
@@ -56,7 +56,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BACKEND_DIR = REPO_ROOT / "backend"
 SAMPLE_PATH = BACKEND_DIR / "data" / "stage11_sample.json"
-DOCUMENTS = ("README.md", "DECK_CONTENT.md", "VIDEO_SCRIPT.md")
+DOCUMENTS = ("README.md", "docs/DECK_CONTENT.md", "docs/VIDEO_SCRIPT.md")   # relative to the repository root
 SNAPSHOT_PATH = Path("backend") / "data" / "stage11_final_analytics.json"   # relative to the documents' folder
 
 SUGGESTIVE_ONLY_WITHIN = 2       # Part 5b: a gap of one or two claims is directionally suggestive at most
