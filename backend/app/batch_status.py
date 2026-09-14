@@ -1,12 +1,16 @@
 """
-Shared status of the Stage 11 batch run (backend/data/stage11_batch_status.json, gitignored).
+Shared status of the Stage 11 batch run (backend/data/stage11_batch_status.json, gitignored), and
+whether live claim submission is allowed right now.
 
-The batch script writes it on every step and at least once a minute while waiting for the daily
-token allowance to refill. The API reads it: while a batch is running, live claim submissions are
-switched off by default so they cannot use up the allowance the batch depends on.
+The batch script writes the status on every step and at least once a minute while waiting for the
+daily token allowance to refill. The API reads it: while a batch is running, live claim submissions
+are switched off by default so they cannot use up the allowance the batch depends on.
 
 If the batch process dies without saying so, its status goes stale and stops counting as running
 after STALE_AFTER_SECONDS.
+
+A deployment can also switch live submission off entirely with CLAIMLENS_LIVE_SUBMISSION=off, so
+public visitors can browse stored results without spending the model allowance.
 """
 
 import json
@@ -16,6 +20,13 @@ from pathlib import Path
 
 STATUS_PATH = Path(__file__).resolve().parents[1] / "data" / "stage11_batch_status.json"
 STALE_AFTER_SECONDS = 15 * 60  # the batch writes at least once a minute; model calls take at most a few minutes
+
+# "off" disables live submission on this deployment (for example the public demo).
+LIVE_SUBMISSION_ENV = "CLAIMLENS_LIVE_SUBMISSION"
+# Live submissions are refused while the batch runs, unless this environment variable is set to "1".
+LIVE_OVERRIDE_ENV = "CLAIMLENS_ALLOW_LIVE_DURING_BATCH"
+# Pipeline only (a live submission doesn't run the baseline): Prosecutor + Defender + 2 Judge calls.
+ESTIMATED_TOKENS_PER_LIVE_CLAIM = 17_000
 
 
 def read_status():
@@ -44,26 +55,29 @@ def batch_is_running(status=None):
     return age < STALE_AFTER_SECONDS
 
 
-# Live submissions are refused while the batch runs, unless this environment variable is set to "1".
-LIVE_OVERRIDE_ENV = "CLAIMLENS_ALLOW_LIVE_DURING_BATCH"
-# Pipeline only (a live submission doesn't run the baseline): Prosecutor + Defender + 2 Judge calls.
-ESTIMATED_TOKENS_PER_LIVE_CLAIM = 17_000
-
-
 def live_submission_state():
     """Whether POST /claims is allowed right now, and why not. Read by the API and the intake page."""
     status = read_status()
     running = batch_is_running(status)
+    switched_off = os.environ.get(LIVE_SUBMISSION_ENV, "on").strip().lower() == "off"
     override = os.environ.get(LIVE_OVERRIDE_ENV) == "1"
-    reason = None
-    if running:
-        reason = ("The Stage 11 evaluation batch is running. It depends on the same limited daily model "
-                  "allowance, so live submissions are switched off until it finishes.")
+
+    if switched_off:
+        enabled = False
+        reason = ("Live submission is switched off on this deployment to protect the shared daily model allowance. "
+                  "Stored samples and evaluation results are fully viewable.")
+    elif running:
+        enabled = override
+        reason = ("The Stage 11 evaluation batch is running. It depends on the same limited daily model allowance, "
+                  "so live submissions are switched off until it finishes.")
+    else:
+        enabled, reason = True, None
+
     return {
-        "live_submission_enabled": (not running) or override,
+        "live_submission_enabled": enabled,
         "batch_running": running,
-        "override_active": running and override,
-        "reason": reason,
+        "override_active": running and override and not switched_off,
+        "reason": None if enabled else reason,
         "estimated_tokens_per_live_claim": ESTIMATED_TOKENS_PER_LIVE_CLAIM,
         "batch": {
             key: status.get(key)

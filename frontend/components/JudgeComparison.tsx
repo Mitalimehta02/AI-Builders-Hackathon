@@ -30,7 +30,7 @@ export default function JudgeComparison({ first, second }: { first?: JudgeRuling
 function Ruling({ label, ruling }: { label: string; ruling: JudgeRuling }) {
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-zinc-300 bg-white p-5">
-      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{label}</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-600">{label}</p>
       <div className="flex items-center gap-3">
         <span className={`text-lg font-bold ${ruling.decision === "DENY" ? "text-rose-700" : "text-sky-800"}`}>{ruling.decision}</span>
         <span className={`rounded px-2 py-0.5 text-xs font-semibold ${TIER_STYLE[ruling.verbalized_confidence]}`}>

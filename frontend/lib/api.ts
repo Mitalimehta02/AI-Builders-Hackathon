@@ -253,10 +253,12 @@ export type QueueFilters = { status?: string; confidence_tier?: string; gate?: s
 
 export class ApiError extends Error {
   status: number;
+  unreachable: boolean; // true when the backend did not answer at all (down, or still waking up)
 
-  constructor(status: number, message: string) {
+  constructor(status: number, message: string, unreachable = false) {
     super(message);
     this.status = status;
+    this.unreachable = unreachable;
   }
 }
 
@@ -288,9 +290,13 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },
     });
   } catch {
-    throw new ApiError(0, "Could not reach the ClaimLens backend.");
+    throw new ApiError(0, "Could not reach the ClaimLens backend.", true);
   }
   const body: unknown = await response.json().catch(() => null);
+  // A non-JSON 5xx comes from the /api proxy when the backend itself isn't answering.
+  if (!response.ok && body === null && response.status >= 500) {
+    throw new ApiError(response.status, "The ClaimLens backend is not responding.", true);
+  }
   if (!response.ok) throw new ApiError(response.status, describeError(body, response.status));
   return body as T;
 }

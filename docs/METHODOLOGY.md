@@ -707,3 +707,24 @@ run is refill-limited: it should finish roughly 18–22 hours after starting, wi
   returns aggregate counts and never individual held-out claims or transcripts (a test enforces this).
 - **Frozen during the evaluation:** the cap rule, the tier rule, the gate, the prompts and all model
   settings. Stages 9 and 10 change only how stored results are displayed.
+
+### 2026-09-14 18:45 UTC — Batch runner ordering bug fixed; batch restarted (not because of any result)
+
+**Observed in the batch log.** At 18:42 UTC claim 10 of 15 (CLM-0026) had its first non-rate-limit
+failure ("prosecutor returned an empty summary" — a reply the existing output validation rejects).
+The runner recorded the failure and then went on to claim 11 (CLM-0028) instead of retrying CLM-0026.
+That contradicts the pre-registered stopping rule, which says claims are processed strictly in the
+recorded order. Left alone, CLM-0026 would only have been retried after claim 15, and any claims
+completed after it would have been excluded from a truncated report (the analytics count only the
+unbroken prefix), wasting their tokens.
+
+**Fixed.** After any failure the runner now starts its pass again, so the same claim is retried first;
+after 3 failures it is marked failed in its position and the batch moves on — exactly as the stopping
+rule already described. `backend/tests/test_batch_runner.py` checks this ordering. Nothing had been
+spent on CLM-0028 when the bug was noticed (its first call was waiting for the daily allowance).
+
+**Restart.** The running process had loaded the old code, so it was stopped while it was waiting for
+the allowance and started again from the saved results; CLM-0026 keeps its recorded failure count.
+This restart was made to fix the runner's ordering. It was not prompted by any result: no evaluation
+metric, decision or ground truth for held-out claims was looked at. Unchanged: the sample, the order,
+the prompts, the cap, the tier rule, the gate, the output validation and all model settings.

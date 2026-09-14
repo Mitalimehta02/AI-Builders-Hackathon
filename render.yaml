@@ -1,0 +1,24 @@
+# Render Blueprint for the ClaimLens API (the FastAPI app in backend/).
+# Step-by-step instructions: docs/DEPLOYMENT.md
+services:
+  - type: web
+    name: claimlens-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      # Your Groq key. Render asks for the value when you create the Blueprint; it is never in the repo.
+      - key: GROQ_API_KEY
+        sync: false
+      # The deployed frontend's URL, e.g. https://claimlens.vercel.app (comma-separate several).
+      - key: CLAIMLENS_CORS_ORIGINS
+        sync: false
+      # Public demo: visitors browse stored samples and results; nobody can spend the model allowance.
+      - key: CLAIMLENS_LIVE_SUBMISSION
+        value: "off"

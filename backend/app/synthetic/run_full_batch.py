@@ -135,10 +135,12 @@ class Batch:
                 except LLMError as error:
                     if error.rate_limited:
                         self.wait_for_refill(error)
-                        break  # start the pass again, so this claim resumes first
-                    self.record_failure(number, claim_id, error)
+                    else:
+                        self.record_failure(number, claim_id, error)
+                    break  # start the pass again: this claim is retried before any later claim (strict order)
                 except ValueError as error:  # a reply that was valid JSON but not a usable argument or ruling
                     self.record_failure(number, claim_id, error)
+                    break  # retry this claim first; after MAX_FAILURES_PER_CLAIM it is marked failed and the batch moves on
         tokens, requests = tokens_and_requests(self.naive, self.claimlens)
         failed = [c for c in self.sample["claim_ids"]
                   if "failed" in (self.naive["claims"][c]["status"], self.claimlens["claims"][c]["status"])]

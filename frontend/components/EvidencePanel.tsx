@@ -4,7 +4,14 @@ import { days, money } from "@/lib/labels";
 
 // The Stage 3 evidence object in readable form: neutral facts gathered by lookups and fixed rules.
 export default function EvidencePanel({ evidence }: { evidence: Evidence | null }) {
-  if (!evidence) return <p className="text-sm text-zinc-500">No evidence has been gathered yet.</p>;
+  if (!evidence) {
+    return (
+      <section className="rounded-lg border border-zinc-200 bg-white p-4 sm:p-5">
+        <h2 className="text-lg font-semibold text-zinc-900">Evidence</h2>
+        <p className="mt-1 text-sm text-zinc-600">No evidence has been gathered for this claim yet.</p>
+      </section>
+    );
+  }
   const { timeline, policy, claim_history: history, location, documents, weather } = evidence;
   const absent = documents?.documents_mentioned_but_absent ?? documents?.expected_but_not_found ?? [];
 
@@ -96,7 +103,7 @@ export default function EvidencePanel({ evidence }: { evidence: Evidence | null 
               <Fact label="Weather words in the description">
                 {weather.weather_terms_in_description?.length ? weather.weather_terms_in_description.join(", ") : "none"}
               </Fact>
-              <p className="text-xs text-zinc-500">Source: {weather.source}</p>
+              <p className="text-xs text-zinc-600">Source: {weather.source}</p>
             </>
           ) : (
             <Fact label="Status">Unavailable{weather?.reason ? ` — ${weather.reason}` : ""}</Fact>
@@ -120,16 +127,21 @@ function Card({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+// Label above the value on phones; side by side on wider screens.
 function Fact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="grid grid-cols-[minmax(0,11rem)_1fr] gap-2 text-sm">
-      <span className="text-zinc-500">{label}</span>
-      <span className="text-zinc-900">{children ?? "—"}</span>
+    <div className="flex flex-col gap-0.5 text-sm sm:grid sm:grid-cols-[11rem_1fr] sm:gap-2">
+      <span className="text-zinc-600">{label}</span>
+      <span className="text-zinc-900 [overflow-wrap:anywhere]">{children ?? "—"}</span>
     </div>
   );
 }
 
 function YesNo({ value }: { value: boolean | undefined }) {
   if (value === undefined) return <span>—</span>;
-  return <span className={`rounded px-2 py-0.5 text-xs font-semibold ${value ? "bg-zinc-100 text-zinc-800" : "bg-amber-100 text-amber-900"}`}>{value ? "Yes" : "No"}</span>;
+  return (
+    <span className={`rounded px-2 py-0.5 text-xs font-semibold ${value ? "bg-zinc-100 text-zinc-800" : "bg-amber-100 text-amber-900"}`}>
+      {value ? "Yes" : "No"}
+    </span>
+  );
 }

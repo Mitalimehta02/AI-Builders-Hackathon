@@ -33,7 +33,7 @@ export default function ResultSummary({ decision, confidence_tier, gate, cap_app
 function Badge({ label, value, className }: { label: string; value: string; className: string }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</span>
+      <span className="text-xs font-medium uppercase tracking-wide text-zinc-600">{label}</span>
       <span className={`rounded-md px-3 py-1 text-sm font-semibold ${className}`}>{value}</span>
     </div>
   );
