@@ -17,7 +17,7 @@ import uuid
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 
-from app import db
+from app import batch_status, db
 from app.agents.sanitize import sanitize_claim
 from app.models import PENDING, STATUSES, ClaimSubmission
 from app.pipeline import process_claim
@@ -29,6 +29,10 @@ router = APIRouter(prefix="/claims", tags=["claims"])
 @router.post("", status_code=202)
 def submit_claim(submission: ClaimSubmission, background_tasks: BackgroundTasks):
     """Store the claim and start processing it in the background."""
+    live = batch_status.live_submission_state()
+    if not live["live_submission_enabled"]:  # the evaluation batch needs the daily model allowance
+        raise HTTPException(status_code=423, detail=live["reason"])
+
     claim = sanitize_claim(submission.to_claim_dict())  # belt and braces: unknown fields are already dropped
     if "claim_id" in claim and is_held_out_claim(claim["claim_id"]):
         raise HTTPException(status_code=403, detail=f"{claim['claim_id']} is a held-out benchmark claim and cannot be processed before Stage 11")

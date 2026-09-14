@@ -21,7 +21,7 @@ import re
 import pytest
 from fastapi.testclient import TestClient
 
-from app import db, pipeline
+from app import batch_status, db, pipeline
 from app.agents.llm_client import LLMError
 from app.main import app
 from tests.test_calibration import FakeModel
@@ -34,6 +34,8 @@ HELD_OUT_CLAIM_ID = "CLM-0002"  # any benchmark id outside the development set
 @pytest.fixture
 def client(monkeypatch, tmp_path):
     monkeypatch.setattr(db, "DB_PATH", tmp_path / "test.db")
+    # Isolate from a real Stage 11 batch that may be running (its status would switch live submission off).
+    monkeypatch.setattr(batch_status, "STATUS_PATH", tmp_path / "batch_status.json")
     model = FakeModel()
     monkeypatch.setattr(pipeline, "call_llm", model)
     monkeypatch.setattr(pipeline, "get_historical_weather", fake_weather_lookup)

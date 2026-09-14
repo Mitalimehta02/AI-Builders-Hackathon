@@ -42,3 +42,31 @@ def batch_is_running(status=None):
         return False
     age = (datetime.now(timezone.utc) - datetime.fromisoformat(status["updated_at"])).total_seconds()
     return age < STALE_AFTER_SECONDS
+
+
+# Live submissions are refused while the batch runs, unless this environment variable is set to "1".
+LIVE_OVERRIDE_ENV = "CLAIMLENS_ALLOW_LIVE_DURING_BATCH"
+# Pipeline only (a live submission doesn't run the baseline): Prosecutor + Defender + 2 Judge calls.
+ESTIMATED_TOKENS_PER_LIVE_CLAIM = 17_000
+
+
+def live_submission_state():
+    """Whether POST /claims is allowed right now, and why not. Read by the API and the intake page."""
+    status = read_status()
+    running = batch_is_running(status)
+    override = os.environ.get(LIVE_OVERRIDE_ENV) == "1"
+    reason = None
+    if running:
+        reason = ("The Stage 11 evaluation batch is running. It depends on the same limited daily model "
+                  "allowance, so live submissions are switched off until it finishes.")
+    return {
+        "live_submission_enabled": (not running) or override,
+        "batch_running": running,
+        "override_active": running and override,
+        "reason": reason,
+        "estimated_tokens_per_live_claim": ESTIMATED_TOKENS_PER_LIVE_CLAIM,
+        "batch": {
+            key: status.get(key)
+            for key in ("claims_finished", "claims_total", "current_claim", "waiting_until", "updated_at")
+        } if status else None,
+    }

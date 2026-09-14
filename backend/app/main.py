@@ -12,7 +12,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app import db
-from app.routes import claims
+from app.routes import claims, samples, system
 
 
 @asynccontextmanager
@@ -23,6 +23,8 @@ async def lifespan(app):
 
 app = FastAPI(title="ClaimLens API", lifespan=lifespan)
 app.include_router(claims.router)
+app.include_router(samples.router)
+app.include_router(system.router)
 
 
 @app.get("/health")
