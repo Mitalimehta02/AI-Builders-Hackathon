@@ -694,3 +694,16 @@ run is refill-limited: it should finish roughly 18–22 hours after starting, wi
 - A claim the batch gives up on after 3 non-rate-limit failures stays in its position and is reported as
   failed, not dropped or replaced.
 - The reported subset is never chosen, reordered or trimmed after seeing any result.
+
+### 2026-09-14 — What the dashboard and analytics pages show while the batch runs (Stages 9 and 10)
+
+- **Analytics shows interim counts.** The analytics page computes the Part 5 metrics from the batch
+  results as they accumulate, labelled "N of 15 complete" and "interim". Because interim figures are
+  visible, the rule above matters: **the batch is never stopped, paused or restarted because of what the
+  analytics page shows.** It runs until it finishes or until results must be reported, and the reported
+  set is then determined by the stopping rule alone.
+- **Individual held-out results are not shown in the product UI during the evaluation.** The adjuster
+  dashboard lists live submissions and the stored development-set samples only; the analytics endpoint
+  returns aggregate counts and never individual held-out claims or transcripts (a test enforces this).
+- **Frozen during the evaluation:** the cap rule, the tier rule, the gate, the prompts and all model
+  settings. Stages 9 and 10 change only how stored results are displayed.

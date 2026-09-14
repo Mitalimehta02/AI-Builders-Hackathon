@@ -65,9 +65,11 @@ def list_samples():
             "claim_type": detail["claim"]["claim_type"],
             "claim_amount": detail["claim"]["claim_amount"],
             "description": detail["claim"]["incident"]["description"],
+            "status": detail["status"],
             "decision": detail["decision"],
             "confidence_tier": detail["confidence_tier"],
             "gate": detail["gate"],
+            "cap_applied": detail["cap_applied"],
             "source": detail["stored_sample"]["source"],
         }
         for detail in load_samples().values()

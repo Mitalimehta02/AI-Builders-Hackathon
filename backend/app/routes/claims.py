@@ -1,13 +1,14 @@
 """
-Claims API (Stage 7).
+Claims API (Stage 7; queue filters added in Stage 9).
 
     POST /claims              submit a claim; processing starts in the background, the id comes back at once
-    GET  /claims              the queue, newest first; optional ?status= filter
+    GET  /claims              the queue, newest first; filter with ?status=, ?confidence_tier=, ?gate=
     GET  /claims/{id}/status  lightweight progress check, meant for polling every 1-2 seconds
     GET  /claims/{id}         everything: claim, evidence, debate transcript, decision, confidence, gate
 
-Processing a claim costs roughly 24,000 model tokens from a limited daily allowance, so each
-submission is processed once and its stored result is served from then on.
+Processing a claim costs roughly 17,000 model tokens from a limited daily allowance, so each
+submission is processed once and its stored result is served from then on. While the Stage 11
+evaluation batch runs, new submissions are refused (HTTP 423) so they can't use up its allowance.
 
 Held-out benchmark claims are refused until Stage 11 (PROJECT_PLAN.md Part 5b), and a synthetic
 claim's answer sheet is never stored.
@@ -24,6 +25,9 @@ from app.pipeline import process_claim
 from app.synthetic.eval_split import is_held_out_claim
 
 router = APIRouter(prefix="/claims", tags=["claims"])
+
+TIERS = ("HIGH", "MEDIUM", "LOW")
+GATES = ("auto_resolved", "human_review")
 
 
 @router.post("", status_code=202)
@@ -44,11 +48,21 @@ def submit_claim(submission: ClaimSubmission, background_tasks: BackgroundTasks)
 
 
 @router.get("")
-def list_claims(status: str | None = None):
-    """The claim queue, newest first. Filter with ?status=pending|gathering_evidence|debating|calibrating|resolved|failed."""
-    if status is not None and status not in STATUSES:
-        raise HTTPException(status_code=422, detail=f"status must be one of {list(STATUSES)}")
-    return [_summary(record) for record in db.list_claims(status)]
+def list_claims(status: str | None = None, confidence_tier: str | None = None, gate: str | None = None):
+    """The claim queue, newest first.
+
+    Filters: ?status=pending|gathering_evidence|debating|calibrating|resolved|failed,
+    ?confidence_tier=HIGH|MEDIUM|LOW, ?gate=auto_resolved|human_review.
+    """
+    for name, value, allowed in (("status", status, STATUSES), ("confidence_tier", confidence_tier, TIERS), ("gate", gate, GATES)):
+        if value is not None and value not in allowed:
+            raise HTTPException(status_code=422, detail=f"{name} must be one of {list(allowed)}")
+    summaries = [_summary(record) for record in db.list_claims(status)]
+    return [
+        summary for summary in summaries
+        if (confidence_tier is None or summary["confidence_tier"] == confidence_tier)
+        and (gate is None or summary["gate"] == gate)
+    ]
 
 
 @router.get("/{record_id}/status")
@@ -108,6 +122,7 @@ def _summary(record):
         "decision": result.get("decision"),
         "confidence_tier": result.get("confidence_tier"),
         "gate": result.get("gate"),
+        "cap_applied": result.get("cap_applied"),
         "created_at": record["created_at"],
         "updated_at": record["updated_at"],
     }
