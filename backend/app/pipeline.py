@@ -5,8 +5,8 @@ Processing one submitted claim (Stage 7): the work POST /claims starts in the ba
                                                        (or failed, with the error stored)
 
 It runs exactly the Stage 3, 5 and 6 code used by the evaluation scripts: gather_evidence, then
-run_claimlens (Prosecutor, Defender, Prosecutor rebuttal, Judge, order-swapped Judge, confidence
-tier, rebuttal-accounting cap, auto-resolution gate), all through the shared model client.
+run_claimlens (Prosecutor, Defender, Judge, order-swapped Judge, confidence tier, point-accounting
+cap, auto-resolution gate), all through the shared model client.
 
 Each debate step is saved to the database as soon as it finishes, so the status endpoint can
 show progress, and a claim that fails part-way keeps the model output it already paid for.

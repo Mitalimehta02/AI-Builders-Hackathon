@@ -103,17 +103,20 @@ def test_gives_up_after_max_attempts(fake):
 
 def test_does_not_retry_bad_key(fake):
     client = fake([http_error(groq.AuthenticationError, 401)])
-    with pytest.raises(llm_client.LLMError):
+    with pytest.raises(llm_client.LLMError) as caught:
         llm_client.call_llm(MESSAGES, label="test")
     assert client.calls == 1
+    assert caught.value.rate_limited is False
 
 
 def test_stops_immediately_when_quota_reset_is_far_away(fake):
     # A retry-after longer than MAX_DELAY_SECONDS usually means the daily quota is used up.
     client = fake([http_error(groq.RateLimitError, 429, {"retry-after": "3600"})])
-    with pytest.raises(llm_client.LLMError):
+    with pytest.raises(llm_client.LLMError) as caught:
         llm_client.call_llm(MESSAGES, label="test")
     assert client.calls == 1
+    # The Stage 11 batch uses these to sleep until the daily allowance refills.
+    assert caught.value.rate_limited is True and caught.value.retry_after_seconds == 3600
 
 
 def test_invalid_output_is_retried_only_once(fake):

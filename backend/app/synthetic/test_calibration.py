@@ -1,6 +1,6 @@
 """
 Dev-set check: run the naive baseline AND the full ClaimLens pipeline (Prosecutor, Defender,
-Prosecutor rebuttal, two Judge orderings, confidence tier, rebuttal accounting cap, gate) on the
+two Judge orderings, confidence tier, point-accounting cap, gate) on the
 DEVELOPMENT SET ONLY (PROJECT_PLAN.md Part 5b), and compare with the previous Stage 6 dev run.
 
 Held-out claims are never kept in this script's working data, and require_dev_set() stops the
@@ -10,7 +10,7 @@ Baseline reuse: a baseline result from the previous dev run is reused only if th
 shows the baseline's input messages were byte-identical to what would be sent now. Otherwise
 the baseline is run again.
 
-Quota safety: progress is saved to backend/data/stage6_dev_results_v2.json after EVERY model
+Quota safety: progress is saved to backend/data/stage6_dev_results_v3.json after EVERY model
 call; a re-run resumes where it stopped. Raw requests/responses are in backend/data/llm_logs/.
 
 Run from the backend/ folder:
@@ -29,7 +29,7 @@ from app.synthetic.eval_split import DEV_SET_IDS, require_dev_set
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 CLAIMS_PATH = DATA_DIR / "synthetic_claims.json"
-RESULTS_PATH = DATA_DIR / "stage6_dev_results_v2.json"
+RESULTS_PATH = DATA_DIR / "stage6_dev_results_v3.json"  # v2 used the since-removed rebuttal round
 PREVIOUS_RESULTS_PATH = DATA_DIR / "stage6_dev_results.json"
 LOG_DIR = DATA_DIR / "llm_logs"
 
@@ -112,10 +112,6 @@ def print_details(claims_by_id, results):
         transcript = pipeline["transcript"]
         print("=" * 100)
         print(f"{claim_id}  (answer for reference only: is_fraud={claims_by_id[claim_id]['ground_truth']['is_fraud']})")
-        for rebuttal in transcript["prosecutor_rebuttal"]["rebuttals"]:
-            print(f"  rebuttal re {rebuttal['responds_to']}: {rebuttal['rebuttal']}")
-        if not transcript["prosecutor_rebuttal"]["rebuttals"]:
-            print("  rebuttal: none")
         for order in ("prosecutor_first", "defender_first"):
             ruling = transcript[f"judge_{order}"]
             print(f"  judge {order:<16} {ruling['decision']} / {ruling['verbalized_confidence']}   "

@@ -64,18 +64,18 @@ def test_claim_is_processed_end_to_end_and_the_answer_sheet_is_never_stored(clie
     # TestClient runs the background task before returning, so processing is already finished.
     status = client.get(f"/claims/{record_id}/status").json()
     assert status["status"] == "resolved" and status["error"] is None
-    assert status["steps_completed"] == ["prosecutor", "defender", "prosecutor_rebuttal", "judge", "judge_defender_first"]
+    assert status["steps_completed"] == ["prosecutor", "defender", "judge", "judge_defender_first"]
 
     detail = client.get(f"/claims/{record_id}").json()
     assert detail["evidence"]["claim_id"] == DEV_CLAIM_ID
-    assert set(detail["transcript"]) == {"prosecutor", "defender", "prosecutor_rebuttal", "judge_prosecutor_first", "judge_defender_first"}
+    assert set(detail["transcript"]) == {"prosecutor", "defender", "judge_prosecutor_first", "judge_defender_first"}
     assert detail["decision"] in ("APPROVE", "DENY")
     assert detail["confidence_tier"] in ("HIGH", "MEDIUM", "LOW")
     assert detail["gate"] in ("auto_resolved", "human_review") and isinstance(detail["auto_resolved"], bool)
 
     assert "ground_truth" not in db.get_claim(record_id)["claim"]
     assert "ground_truth" not in json.dumps(detail) and "is_fraud" not in json.dumps(detail)
-    assert len(client.model.calls) == 5
+    assert len(client.model.calls) == 4
     for _, messages in client.model.calls:
         for word in LABEL_WORDS:
             assert not re.search(rf"\b{re.escape(word)}\b", json.dumps(messages).lower()), word
@@ -100,7 +100,6 @@ def test_status_moves_through_every_stage_in_order(client, monkeypatch):
         ("weather", "gathering_evidence"),
         ("prosecutor", "debating"),
         ("defender", "debating"),
-        ("prosecutor_rebuttal", "debating"),
         ("judge", "debating"),
         ("judge_defender_first", "calibrating"),
     ]
@@ -150,7 +149,7 @@ def test_failure_is_recorded_and_completed_steps_are_kept(client, monkeypatch):
     status = client.get(f"/claims/{record_id}/status").json()
     assert status["status"] == "failed"
     assert "LLMError" in status["error"] and "simulated daily token limit" in status["error"]
-    assert status["steps_completed"] == ["prosecutor", "defender", "prosecutor_rebuttal"]
+    assert status["steps_completed"] == ["prosecutor", "defender"]
     assert client.get(f"/claims/{record_id}").json()["decision"] is None
 
 

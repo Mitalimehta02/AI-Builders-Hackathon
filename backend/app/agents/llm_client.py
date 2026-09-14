@@ -47,9 +47,10 @@ LOG_DIR = BACKEND_DIR / "data" / "llm_logs"
 MODEL = "openai/gpt-oss-120b"
 
 GENERATION_SETTINGS = {
-    # 1.0 is OpenAI's recommended sampling temperature for gpt-oss. It also matters for
-    # Stage 6: agreement between two runs is only informative if the runs are free to differ.
-    "temperature": 1.0,
+    # 0.2: low-variance sampling. Lowered from 1.0 before the Stage 11 run (no held-out claim had
+    # been run): at 1.0 a dev claim changed decision between runs, so the order-swap check could not
+    # tell genuine order-sensitivity from sampling noise. See docs/METHODOLOGY.md.
+    "temperature": 0.2,
     # gpt-oss is a reasoning model. "medium" leaves room to weigh evidence properly while
     # keeping reasoning tokens (which count against quota) under control.
     "reasoning_effort": "medium",
@@ -84,7 +85,16 @@ RATE_LIMIT_HEADERS = {
 
 
 class LLMError(Exception):
-    """A model call failed for good (non-retryable error, or retries exhausted)."""
+    """A model call failed for good (non-retryable error, or retries exhausted).
+
+    rate_limited is True when the last refusal was HTTP 429, and retry_after_seconds is how long
+    Groq said to wait, so a long-running batch can sleep until its allowance refills.
+    """
+
+    def __init__(self, message, rate_limited=False, retry_after_seconds=None):
+        super().__init__(message)
+        self.rate_limited = rate_limited
+        self.retry_after_seconds = retry_after_seconds
 
 
 class InvalidOutput(Exception):
@@ -122,6 +132,7 @@ def call_llm(messages, label):
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
         _wait_for_token_budget()
+        rate_limited, retry_after = False, None  # set below if the API refuses on a rate limit
         log_entry = {
             "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "label": label,
@@ -152,6 +163,8 @@ def call_llm(messages, label):
 
         except groq.APIStatusError as error:  # the API answered with an HTTP error
             problem = f"HTTP {error.status_code}: {error}"
+            rate_limited = error.status_code == 429
+            retry_after = _retry_after_seconds(error.response.headers)
             retryable, delay = _classify_status_error(error, attempt)
             if _error_code(error) == "json_validate_failed":  # model produced invalid JSON
                 retryable = invalid_output_retries < MAX_INVALID_OUTPUT_RETRIES
@@ -169,7 +182,8 @@ def call_llm(messages, label):
             _write_log(log_entry)
 
         if not retryable or attempt == MAX_ATTEMPTS:
-            raise LLMError(f"{label}: gave up after {attempt} attempt(s). Last problem: {problem}")
+            raise LLMError(f"{label}: gave up after {attempt} attempt(s). Last problem: {problem}",
+                           rate_limited=rate_limited, retry_after_seconds=retry_after)
         time.sleep(delay)
 
 

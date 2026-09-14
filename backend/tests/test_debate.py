@@ -3,8 +3,7 @@ Tests for the debate engine. Offline: a fake model returns canned replies, so no
 
 What they protect:
 - every role sees exactly the shared, sanitized case file, and nothing label-related
-- the roles run in order (Prosecutor, Defender, Prosecutor rebuttal, Judge) and each builds on
-  the previous arguments
+- the roles run in order (Prosecutor, Defender, Judge) and each builds on the previous arguments
 - an interrupted debate resumes without repeating finished calls
 - every role's reply is validated, and the Judge's HIGH level is the baseline's pre-registered band
 - baseline and debate prompts share the same case-file guide and review guidance
@@ -37,9 +36,6 @@ CANNED_REPLIES = {
                                 "evidence": "dated_documents"}],
                  "points": [{"id": "D1", "point": "Police report listed.", "evidence": "supporting_documents"}],
                  "summary": "Pay."},
-    "prosecutor_rebuttal": {"rebuttals": [{"responds_to": "D1", "rebuttal": "No report number is given.",
-                                           "evidence": "supporting_documents"}],
-                            "summary": "The response to P1 stands."},
     "judge": {"decision": "approve", "reasoning": "D1 answers P1.", "verbalized_confidence": "medium",
               "confidence_justification": "One point is not fully answered.", "point_assessments": ANSWERED_ALL},
 }
@@ -66,23 +62,21 @@ def test_roles_run_in_order_and_build_on_earlier_arguments():
     model = FakeModel()
     result = debate_agent.run_debate(claim, evidence, llm=model)
 
-    assert [role for role, _ in model.calls] == ["prosecutor", "defender", "prosecutor_rebuttal", "judge"]
+    assert debate_agent.ROLES == ("prosecutor", "defender", "judge")
+    assert [role for role, _ in model.calls] == ["prosecutor", "defender", "judge"]
     case_file = build_case_file(claim, evidence)
     user_messages = {role: messages[-1]["content"] for role, messages in model.calls}
     assert all(case_file in text for text in user_messages.values())
 
     prosecutor_json = compact_json(result["transcript"]["prosecutor"])
     defender_json = compact_json(result["transcript"]["defender"])
-    rebuttal_json = compact_json(result["transcript"]["prosecutor_rebuttal"])
     assert prosecutor_json not in user_messages["prosecutor"]
     assert prosecutor_json in user_messages["defender"] and defender_json not in user_messages["defender"]
-    assert prosecutor_json in user_messages["prosecutor_rebuttal"] and defender_json in user_messages["prosecutor_rebuttal"]
-    for argument in (prosecutor_json, defender_json, rebuttal_json):
-        assert argument in user_messages["judge"]
-    assert user_messages["judge"].index("PROSECUTOR'S REBUTTAL") > user_messages["judge"].index("DEFENDER'S ARGUMENT")
+    assert prosecutor_json in user_messages["judge"] and defender_json in user_messages["judge"]
+    assert "REBUTTAL" not in json.dumps([messages for _, messages in model.calls])
 
     assert result["decision"] == "APPROVE" and result["verbalized_confidence"] == "MEDIUM"
-    assert result["usage"]["total"]["total_tokens"] == 4 * USAGE["total_tokens"] and result["attempts"]["total"] == 4
+    assert result["usage"]["total"]["total_tokens"] == 3 * USAGE["total_tokens"] and result["attempts"]["total"] == 3
 
 
 def test_debate_sends_only_sanitized_content_for_every_claim():
@@ -113,7 +107,7 @@ def test_resume_skips_finished_steps():
     # Pretend the run died after the prosecutor: only that step was saved.
     resumed_model = FakeModel()
     debate_agent.run_debate(claim, evidence, llm=resumed_model, completed_steps={"prosecutor": saved["prosecutor"]})
-    assert [role for role, _ in resumed_model.calls] == ["defender", "prosecutor_rebuttal", "judge"]
+    assert [role for role, _ in resumed_model.calls] == ["defender", "judge"]
 
 
 def test_judge_reply_is_validated():
@@ -125,18 +119,14 @@ def test_judge_reply_is_validated():
                            ("point_assessments", [{"point_id": "P1", "significant": "maybe", "status": "unanswered"}])]:
         with pytest.raises(ValueError):
             debate_agent.parse_judge({**good, key: bad_value})
-    parsed = debate_agent.parse_judge({**good, "point_assessments": [{"point_id": "P1", "significant": "true", "status": "Unanswered"}]})
-    assert parsed["point_assessments"] == [{"point_id": "P1", "significant": True, "status": "unanswered"}]
+    parsed = debate_agent.parse_judge({**good, "point_assessments": [
+        {"point_id": "P1", "significant": "true", "status": "Unanswered"},
+        {"point_id": "P2", "significant": False, "status": "conceded"},
+    ]})
+    assert parsed["point_assessments"] == [{"point_id": "P1", "significant": True, "status": "unanswered"},
+                                           {"point_id": "P2", "significant": False, "status": "conceded"}]
     with pytest.raises(ValueError):
         debate_agent.parse_prosecutor({"points": [], "summary": "x"})
-
-
-def test_rebuttal_reply_is_validated():
-    assert debate_agent.parse_rebuttal({"rebuttals": [], "summary": "Nothing to dispute."})["rebuttals"] == []
-    with pytest.raises(ValueError):
-        debate_agent.parse_rebuttal({"rebuttals": "none", "summary": "x"})
-    with pytest.raises(ValueError):
-        debate_agent.parse_rebuttal({"rebuttals": [{"responds_to": "D1", "rebuttal": ""}], "summary": "x"})
 
 
 def test_judge_high_confidence_uses_the_preregistered_baseline_band():
@@ -152,8 +142,8 @@ def test_decision_is_defined_as_genuineness_not_payout():
 
 
 def test_baseline_and_every_debate_role_share_the_same_guide_and_review_guidance():
-    for prompt in (BASELINE_PROMPT, debate_agent.PROSECUTOR_SYSTEM_PROMPT, debate_agent.DEFENDER_SYSTEM_PROMPT,
-                   debate_agent.PROSECUTOR_REBUTTAL_SYSTEM_PROMPT, debate_agent.JUDGE_SYSTEM_PROMPT):
+    for prompt in (BASELINE_PROMPT, debate_agent.PROSECUTOR_SYSTEM_PROMPT,
+                   debate_agent.DEFENDER_SYSTEM_PROMPT, debate_agent.JUDGE_SYSTEM_PROMPT):
         assert CASE_FILE_GUIDE in prompt and REVIEW_GUIDANCE in prompt
 
 

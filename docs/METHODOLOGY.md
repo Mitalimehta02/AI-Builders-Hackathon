@@ -624,3 +624,73 @@ at about 8,300 tokens per hour, about 430,000 tokens are available before the de
 about 2,300 per claim plus pipeline about 21,900 per claim, the average of the three rebuttal-protocol
 claims measured so far), leaving a margin of roughly 67,000 tokens. Stages 8-10 must therefore not
 call the model; they should use stored results.
+
+### 2026-09-14 — Final configuration for the Stage 11 run (fixed before any held-out claim is run)
+
+Three changes and a stopping rule, all decided and committed before the first held-out model call.
+None is a response to a held-out result: no held-out claim has been run.
+
+**1. Prosecutor rebuttal round removed.** The rebuttal round added after Stage 6 was still active in
+the Stage 7 live run (`prosecutor_rebuttal` appears in both Stage 7 transcripts, and those claims cost
+about 22,000 tokens each). The protocol is now Prosecutor → Defender → Judge (Prosecutor first) →
+Judge (Defender first). Verified without model calls:
+- pipeline definition `STEPS` = `prosecutor, defender, judge, judge_defender_first`;
+- a dry run with a fake model executed exactly `prosecutor, defender, judge, judge_defender_first`;
+- `test_step_list_has_no_rebuttal_round_and_temperature_is_low` fails if a step is added back.
+
+Effect to be aware of: the Prosecutor never replies to the Defender's own points, so for a DENY
+ruling those points can only be answered by the Prosecutor's opening argument. The Judge is told to
+assess how "the other side's argument" dealt with each point, but DENY rulings may be capped more often
+than APPROVE rulings. This changes only confidence on DENY recommendations, which always go to a human.
+
+**2. Temperature lowered from 1.0 to 0.2** for every model call — baseline and pipeline alike, through
+the single `GENERATION_SETTINGS` in `llm_client.py`. Reason: dev claim CLM-0035 went from a correct DENY
+(Stage 6 dev run) to a wrong APPROVE (Stage 7 run) at temperature 1.0. With that much run-to-run
+variation, the order-swap check cannot tell genuine order-sensitivity from sampling noise, and a
+single run over 15 claims would partly measure noise. This is a pre-registration decision, made before
+any held-out claim was run. Temperature 0.2 reduces but does not eliminate variation.
+
+**All development-set figures recorded above (Stages 4–7) were measured at temperature 1.0 and are not
+comparable with results at 0.2.** Wherever they are shown later they must be labelled as such.
+
+**3. `conceded` added to the point accounting.** Point statuses are now `answered_with_case_file_fact`,
+`answered_by_assertion_only`, `conceded` and `unanswered`. In code, an opposing point counts as
+unresolved — and so triggers the HIGH → MEDIUM cap — if the Judge labels it `conceded`, or if the
+Defender's own response marked it conceded, whatever label or significance the Judge gave it. Validated
+offline with zero tokens against the stored Stage 7 CLM-0035 transcript
+(`test_conceded_point_in_stored_clm_0035_transcript_triggers_the_cap`): there the Judge had labelled the
+conceded weather point `answered_with_case_file_fact` and not significant; the new rule reports it as
+`conceded` and a HIGH tier is capped to MEDIUM. Part 5b test: a conceded point is by definition not
+answered; the rule names no field or pattern.
+
+**4. Budget and stopping rule.**
+
+Per-claim cost with the new configuration, estimated from stored measurements (the batch's own
+measurements will replace this):
+
+| Component | Tokens | Source |
+|---|---|---|
+| Baseline | 2,321 | 7 dev claims (Stage 6) |
+| Prosecutor | 3,088 | 10 dev runs |
+| Defender | 4,149 | 10 dev runs |
+| Judge, per call (×2) | 3,954 – 5,190 | 14 calls without point assessments – 6 calls with assessments and rebuttal text |
+| **Per claim** | **17,467 – 19,938** | |
+| **15 claims** | **262,000 – 299,000** (75 accepted requests) | |
+
+At 13:10 UTC about 116,000 tokens were estimated available, with refill at about 8,333 tokens per hour
+and 37.8 hours to the deadline (2026-09-16 03:00 UTC), giving about 431,000 tokens by the deadline. The
+run is refill-limited: it should finish roughly 18–22 hours after starting, with a margin of roughly
+130,000–170,000 tokens at the deadline.
+
+**Stopping rule (pre-registered).**
+- Claims are processed strictly in the order recorded in `backend/data/stage11_sample.json`, which is
+  ascending claim-ID order: CLM-0004, CLM-0007, CLM-0010, CLM-0011, CLM-0015, CLM-0017, CLM-0020,
+  CLM-0021, CLM-0022, CLM-0026, CLM-0028, CLM-0029, CLM-0037, CLM-0039, CLM-0040. (Claim IDs were
+  assigned by the generator's seeded shuffle; this order was fixed before any result existed.)
+- If the batch has not finished when results must be reported, the reported set is the first N claims
+  in that order that the batch has reached, N being the number reached. The truncation and N are
+  disclosed wherever results appear. A truncated prefix may not keep the sample's 5 : 10 fraud to
+  legitimate ratio; the actual ratio of the reported claims is disclosed too.
+- A claim the batch gives up on after 3 non-rate-limit failures stays in its position and is reported as
+  failed, not dropped or replaced.
+- The reported subset is never chosen, reordered or trimmed after seeing any result.
