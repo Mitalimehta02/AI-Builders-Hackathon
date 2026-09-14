@@ -2,8 +2,8 @@
 
 **An AI claims-investigation copilot that argues both sides of every claim — and admits when it isn't sure.**
 
-- **Live demo:** [[PLACEHOLDER: Vercel URL]]
-- **API:** [[PLACEHOLDER: Render URL]] (interactive docs at `/docs`)
+- **Live demo:** [[LIVE_URL:frontend]]
+- **API:** [[LIVE_URL:backend]] (interactive docs at `/docs`)
 - **Evaluation log:** [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) — every design decision, pre-registration and correction, written at the time it was made
 
 > The hosted API runs on a free instance that sleeps when idle. If the demo says it can't reach the backend,
@@ -226,21 +226,26 @@ difference of one or two claims between systems is described as **directionally 
 
 ### Results
 
-**Claims complete:** [[PLACEHOLDER: N]] of 15 ([[PLACEHOLDER: fraud]] fraud, [[PLACEHOLDER: legitimate]] legitimate)
-[[PLACEHOLDER: state here if the run was truncated under the stopping rule]]
+<!-- Filled by scripts/fill_results.py from the final /analytics output. Never type numbers here by hand. -->
 
-| Measure | Naive baseline | ClaimLens | Reference |
-|---|---|---|---|
-| Correct recommendations | [[PLACEHOLDER]] of N | [[PLACEHOLDER]] of N | Always approve: [[PLACEHOLDER]] of N (10 of 15 on the full sample) |
-| Confidently wrong (wrong among high-confidence answers) | [[PLACEHOLDER]] of [[PLACEHOLDER]] | [[PLACEHOLDER]] of [[PLACEHOLDER]] | — |
-| ClaimLens confidently wrong *before* the cap | — | [[PLACEHOLDER]] of [[PLACEHOLDER]] | — |
-| Auto-resolved without a human | — | [[PLACEHOLDER]] of N, of which fraud: [[PLACEHOLDER]] | — |
-| Legitimate claims recommended for denial | [[PLACEHOLDER]] of [[PLACEHOLDER]] | [[PLACEHOLDER]] of [[PLACEHOLDER]] | — |
-| Fraud claims recommended for approval | [[PLACEHOLDER]] of [[PLACEHOLDER]] | [[PLACEHOLDER]] of [[PLACEHOLDER]] | — |
-| Fraud dollars caught | [[PLACEHOLDER]] | [[PLACEHOLDER]] | of [[PLACEHOLDER]] claimed on fraud claims |
-| Adjuster time saved (auto-resolved × 22 minutes, an assumption) | — | [[PLACEHOLDER]] hours | — |
+[[PLACEHOLDER:sample_and_truncation_note]]
 
-[[PLACEHOLDER: one- or two-sentence plain reading of the comparison, applying the "within two claims" rule]]
+| Measure | Naive baseline | ClaimLens |
+|---|---|---|
+| Correct recommendations | [[PLACEHOLDER:baseline_accuracy]] | [[PLACEHOLDER:claimlens_accuracy]] |
+| Confidently wrong (baseline: confidence 80 or above; ClaimLens: final tier HIGH) | [[PLACEHOLDER:baseline_confidently_wrong]] | [[PLACEHOLDER:claimlens_confidently_wrong]] |
+| ClaimLens confidently wrong, tier before the cap | — | [[PLACEHOLDER:claimlens_confidently_wrong_before_cap]] |
+| Legitimate claims recommended for denial | [[PLACEHOLDER:baseline_legitimate_denied]] | [[PLACEHOLDER:claimlens_legitimate_denied]] |
+| Fraud claims recommended for approval | [[PLACEHOLDER:baseline_fraud_approved]] | [[PLACEHOLDER:claimlens_fraud_approved]] |
+| Fraud dollars caught (claimed amount of fraud claims recommended for denial) | [[PLACEHOLDER:baseline_fraud_dollars_caught]] | [[PLACEHOLDER:claimlens_fraud_dollars_caught]] |
+
+**How ClaimLens routed the claims.** Auto-resolved without a human: [[PLACEHOLDER:claimlens_auto_resolved]]
+(fraud among them: [[PLACEHOLDER:claimlens_auto_resolved_fraud]]). Sent to an adjuster:
+[[PLACEHOLDER:claimlens_human_review]]. Confidence tiers: [[PLACEHOLDER:claimlens_tier_counts]]. The cap lowered HIGH
+to MEDIUM on [[PLACEHOLDER:claimlens_cap_applied]]. The two Judge orderings reached different decisions on
+[[PLACEHOLDER:claimlens_orderings_disagreed]]. Estimated adjuster time saved: [[PLACEHOLDER:adjuster_hours_saved]].
+
+**Plain reading.** [[PLACEHOLDER:accuracy_reading]] [[PLACEHOLDER:confidently_wrong_reading]]
 
 ### What these numbers can and cannot show
 
@@ -271,7 +276,9 @@ cd backend
 
 It verifies the sample and data hashes before starting, saves after every model call, and resumes where it stopped.
 Results are written to `backend/data/results_naive.json` and `backend/data/results_claimlens.json`, and the figures
-above are computed from them by `GET /analytics` (`backend/app/routes/analytics.py`).
+above are computed from them by `GET /analytics` (`backend/app/routes/analytics.py`). `scripts/fill_results.py` fills
+the result markers in this README from that same computation, applying the reporting rules above, so no figure is
+copied by hand.
 
 ---
 
@@ -370,6 +377,8 @@ frontend/
 docs/
   METHODOLOGY.md             the dated evaluation log
   DEPLOYMENT.md              deployment steps
+scripts/
+  fill_results.py            fills the result markers in the documents from the final /analytics output
 render.yaml                  Render Blueprint for the backend
 ```
 
