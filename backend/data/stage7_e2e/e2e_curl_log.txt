@@ -1,0 +1,80 @@
+request bodies: CLM-0035.json, CLM-0027.json (dev-set claims exactly as in the benchmark file, answer sheet included)
+$ curl.exe -s localhost:8000/health
+{"status":"ok"}
+================================================================
+$ curl.exe -s -X POST localhost:8000/claims -H "Content-Type: application/json" --data @CLM-0035.json
+{"id":1,"claim_id":"CLM-0035","status":"pending","status_url":"/claims/1/status"}
+$ curl.exe -s localhost:8000/claims/1/status    (polled every 5 seconds; printed whenever the status changes)
+  [04:21:51 UTC] {"id":1,"claim_id":"CLM-0035","status":"debating","steps_completed":[],"error":null,"updated_at":"2026-09-14T04:21:50+00:00"}
+  [04:22:50 UTC] {"id":1,"claim_id":"CLM-0035","status":"calibrating","steps_completed":["prosecutor","defender","prosecutor_rebuttal","judge"],"error":null,"updated_at":"2026-09-14T04:22:49+00:00"}
+  [04:23:54 UTC] {"id":1,"claim_id":"CLM-0035","status":"resolved","steps_completed":["prosecutor","defender","prosecutor_rebuttal","judge","judge_defender_first"],"error":null,"updated_at":"2026-09-14T04:23:53+00:00"}
+$ curl.exe -s localhost:8000/claims/1
+  (full JSON response saved, 10185 bytes) summary:
+  status: resolved | error: None
+  evidence sections: ['claim_history', 'claim_id', 'documents', 'location', 'policy', 'timeline', 'weather']
+  transcript parts: ['defender', 'judge_defender_first', 'judge_prosecutor_first', 'prosecutor', 'prosecutor_rebuttal']
+  judge_prosecutor_first: APPROVE / MEDIUM
+  judge_defender_first: APPROVE / MEDIUM
+  prosecutor rebuttals: 3
+  decision: APPROVE | confidence_tier: MEDIUM | tier_before_cap: MEDIUM | cap_applied: False
+  gate: human_review | auto_resolved: False | orderings_agree: True
+  unresolved points against the decision: {'prosecutor_first': [{'point_id': 'P2', 'status': 'answered_by_assertion_only'}], 'defender_first': [{'point_id': 'P2', 'status': 'answered_by_assertion_only'}]}
+  tokens: {'prosecutor': 2603, 'defender': 3839, 'prosecutor_rebuttal': 3784, 'judge': 4693, 'judge_defender_first': 5026, 'total': 19945}
+  response contains 'ground_truth' or 'is_fraud': False
+  answer (reference only, never sent to the API's agents): is_fraud = True
+================================================================
+$ curl.exe -s -X POST localhost:8000/claims -H "Content-Type: application/json" --data @CLM-0027.json
+{"id":2,"claim_id":"CLM-0027","status":"pending","status_url":"/claims/2/status"}
+$ curl.exe -s localhost:8000/claims/2/status    (polled every 5 seconds; printed whenever the status changes)
+  [04:23:55 UTC] {"id":2,"claim_id":"CLM-0027","status":"debating","steps_completed":[],"error":null,"updated_at":"2026-09-14T04:23:55+00:00"}
+  [04:26:31 UTC] {"id":2,"claim_id":"CLM-0027","status":"calibrating","steps_completed":["prosecutor","defender","prosecutor_rebuttal","judge"],"error":null,"updated_at":"2026-09-14T04:26:27+00:00"}
+  [04:27:19 UTC] {"id":2,"claim_id":"CLM-0027","status":"resolved","steps_completed":["prosecutor","defender","prosecutor_rebuttal","judge","judge_defender_first"],"error":null,"updated_at":"2026-09-14T04:27:19+00:00"}
+$ curl.exe -s localhost:8000/claims/2
+  (full JSON response saved, 13855 bytes) summary:
+  status: resolved | error: None
+  evidence sections: ['claim_history', 'claim_id', 'documents', 'location', 'policy', 'timeline', 'weather']
+  transcript parts: ['defender', 'judge_defender_first', 'judge_prosecutor_first', 'prosecutor', 'prosecutor_rebuttal']
+  judge_prosecutor_first: APPROVE / HIGH
+  judge_defender_first: APPROVE / HIGH
+  prosecutor rebuttals: 1
+  decision: APPROVE | confidence_tier: MEDIUM | tier_before_cap: HIGH | cap_applied: True
+  gate: human_review | auto_resolved: False | orderings_agree: True
+  unresolved points against the decision: {'prosecutor_first': [{'point_id': 'P1', 'status': 'answered_by_assertion_only'}, {'point_id': 'P2', 'status': 'answered_by_assertion_only'}, {'point_id': 'P4', 'status': 'answered_by_assertion_only'}], 'defender_first': []}
+  tokens: {'prosecutor': 3380, 'defender': 4946, 'prosecutor_rebuttal': 4406, 'judge': 6231, 'judge_defender_first': 5377, 'total': 24340}
+  response contains 'ground_truth' or 'is_fraud': False
+  answer (reference only, never sent to the API's agents): is_fraud = False
+================================================================
+$ curl.exe -s localhost:8000/claims
+[{"id":2,"claim_id":"CLM-0027","claim_type":"auto","claim_amount":4841.89,"status":"resolved","decision":"APPROVE","confidence_tier":"MEDIUM","gate":"human_review","created_at":"2026-09-14T04:23:55+00:00","updated_at":"2026-09-14T04:27:19+00:00"},{"id":1,"claim_id":"CLM-0035","claim_type":"property","claim_amount":12185.42,"status":"resolved","decision":"APPROVE","confidence_tier":"MEDIUM","gate":"human_review","created_at":"2026-09-14T04:21:50+00:00","updated_at":"2026-09-14T04:23:53+00:00"}]
+$ curl.exe -s "localhost:8000/claims?status=resolved"
+[(2, 'CLM-0027', 'resolved', 'APPROVE', 'MEDIUM', 'human_review'), (1, 'CLM-0035', 'resolved', 'APPROVE', 'MEDIUM', 'human_review')]
+--- server log (last 25 lines) ---
+INFO:     127.0.0.1:64203 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49684 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49686 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49689 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63524 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63526 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63532 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63534 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64733 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54953 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54955 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54958 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54960 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54966 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53261 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53264 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53266 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53268 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53270 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53272 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53278 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53281 - "GET /claims/2/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53283 - "GET /claims/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53285 - "GET /claims HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53287 - "GET /claims?status=resolved HTTP/1.1" 200 OK
+--- ports 8000/3000 free? ---
+True
+
+[exited with code 0]

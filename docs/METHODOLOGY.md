@@ -577,3 +577,50 @@ pass result. None of them drove a change. The random draw did not take any of th
 Stage 11 wording to "7 development / 33 held-out" while its new sample paragraph used 27. The
 split itself never changed (it is enforced by `backend/app/synthetic/eval_split.py`), so the 13 / 27
 wording was restored.
+
+### 2026-09-14 — Stage 7 live end-to-end API test on two dev claims
+
+**What ran.** The API server was started and two development-set claims were submitted with
+`curl.exe` exactly as stored in the benchmark file (answer sheet included; the API drops it). Each
+was polled until resolved and its full result fetched. The command log and both full responses are
+committed in `backend/data/stage7_e2e/`. No held-out claim was submitted (the API refuses them).
+
+| Claim | Is fraud | Judge, Prosecutor first | Judge, Defender first | Tier before cap | Final tier | Gate | Tokens |
+|---|---|---|---|---|---|---|---|
+| CLM-0035 | yes | APPROVE / MEDIUM | APPROVE / MEDIUM | MEDIUM | MEDIUM | human review | 19,945 |
+| CLM-0027 | no | APPROVE / HIGH | APPROVE / HIGH | HIGH | **MEDIUM (cap applied)** | human review | 24,340 |
+
+10 accepted requests, 44,285 tokens; 5 further requests were rejected on tokens per minute and
+retried. Neither API response contains the answer sheet.
+
+**Observations, recorded without any change being made (agent iteration is closed):**
+
+- **CLM-0035 changed decision.** In the Stage 6 dev run it was DENY / MEDIUM; here it is APPROVE /
+  MEDIUM. The Defender *conceded* that the weather record contradicts the "frozen pipe" description,
+  then argued the water damage itself is documented; both Judge orderings accepted that a
+  mischaracterised cause does not make the claim materially misrepresented. The earlier protocol
+  had no rebuttal round and no point accounting, and sampling runs at temperature 1.0, so this one
+  flip cannot be attributed to a single cause.
+- **Gap in the point accounting.** The status list has no "conceded" value. On CLM-0035 the
+  Prosecutor-first Judge labelled the conceded weather point `answered_with_case_file_fact` and not
+  significant. A conceded point against the decision is therefore not treated as unresolved by the
+  cap. It made no difference here (the tier was already MEDIUM), but it is a known weakness of the
+  mechanism as built.
+- **The cap acted for the first time on CLM-0027**, a legitimate claim: both orderings said
+  APPROVE / HIGH, but the Prosecutor-first ruling marked three significant Prosecutor points as
+  answered by assertion only, so the tier became MEDIUM and the claim went to human review instead
+  of being auto-resolved. The two orderings disagreed on those assessments (the Defender-first
+  ruling marked none unresolved).
+- **API input is not byte-identical to the evaluation scripts' input.** The API validates claims
+  through `ClaimSubmission`, which keeps the same content but orders fields by its schema and writes
+  whole-number amounts as decimals (for example `1000` becomes `1000.0`). The case-file text the
+  agents see therefore differs slightly from the text built by the dev and Stage 11 scripts.
+  Stage 11 runs through the scripts, so evaluation inputs are unaffected; results from the API are
+  not directly comparable run-for-run with script results.
+
+**Budget after this test (estimate).** Roughly 43,000 tokens remained after the test; with refill
+at about 8,300 tokens per hour, about 430,000 tokens are available before the deadline (2026-09-16
+03:00 UTC). The pre-registered 15-claim Stage 11 run is estimated at about 363,000 tokens (baseline
+about 2,300 per claim plus pipeline about 21,900 per claim, the average of the three rebuttal-protocol
+claims measured so far), leaving a margin of roughly 67,000 tokens. Stages 8-10 must therefore not
+call the model; they should use stored results.
