@@ -1,0 +1,134 @@
+[2026-09-14 13:13:48 UTC] Stage 11 batch: 15 pre-registered claims; model openai/gpt-oss-120b; settings {'temperature': 0.2, 'reasoning_effort': 'medium', 'max_completion_tokens': 4096, 'response_format': {'type': 'json_object'}}
+[2026-09-14 13:13:48 UTC] already finished: 0 of 15
+[2026-09-14 13:13:53 UTC] claim 1 of 15 (CLM-0004): baseline APPROVE (80), 2,306 tokens
+[2026-09-14 13:13:57 UTC] claim 1 of 15 (CLM-0004): prosecutor done, 3,375 tokens
+[2026-09-14 13:14:02 UTC] claim 1 of 15 (CLM-0004): defender done, 4,848 tokens
+[2026-09-14 13:15:07 UTC] claim 1 of 15 (CLM-0004): judge done, 4,695 tokens
+[2026-09-14 13:15:50 UTC] claim 1 of 15 (CLM-0004): judge_defender_first done, 5,603 tokens
+[2026-09-14 13:15:50 UTC] claim 1 of 15 (CLM-0004): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 18,521 tokens
+[2026-09-14 13:15:50 UTC] PROGRESS: 1 of 15 claims finished; 5 accepted requests, 20,827 tokens so far
+[2026-09-14 13:16:37 UTC] claim 2 of 15 (CLM-0007): baseline APPROVE (85), 2,177 tokens
+[2026-09-14 13:16:41 UTC] claim 2 of 15 (CLM-0007): prosecutor done, 3,087 tokens
+[2026-09-14 13:17:35 UTC] claim 2 of 15 (CLM-0007): defender done, 4,647 tokens
+[2026-09-14 13:17:53 UTC] claim 2 of 15 (CLM-0007): judge done, 4,521 tokens
+[2026-09-14 13:18:57 UTC] claim 2 of 15 (CLM-0007): judge_defender_first done, 4,915 tokens
+[2026-09-14 13:18:57 UTC] claim 2 of 15 (CLM-0007): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 17,170 tokens
+[2026-09-14 13:18:57 UTC] PROGRESS: 2 of 15 claims finished; 11 accepted requests, 40,174 tokens so far
+[2026-09-14 13:19:04 UTC] claim 3 of 15 (CLM-0010): baseline APPROVE (85), 2,146 tokens
+[2026-09-14 13:20:07 UTC] claim 3 of 15 (CLM-0010): prosecutor done, 2,809 tokens
+[2026-09-14 13:20:09 UTC] claim 3 of 15 (CLM-0010): defender done, 3,061 tokens
+[2026-09-14 13:20:58 UTC] claim 3 of 15 (CLM-0010): judge done, 4,029 tokens
+[2026-09-14 13:21:44 UTC] claim 3 of 15 (CLM-0010): judge_defender_first done, 4,276 tokens
+[2026-09-14 13:21:44 UTC] claim 3 of 15 (CLM-0010): ClaimLens APPROVE, tier MEDIUM, human_review, 14,175 tokens
+[2026-09-14 13:21:44 UTC] PROGRESS: 3 of 15 claims finished; 17 accepted requests, 56,495 tokens so far
+[2026-09-14 13:22:27 UTC] claim 4 of 15 (CLM-0011): baseline APPROVE (85), 2,086 tokens
+[2026-09-14 13:22:29 UTC] claim 4 of 15 (CLM-0011): prosecutor done, 2,696 tokens
+[2026-09-14 13:22:33 UTC] claim 4 of 15 (CLM-0011): defender done, 3,591 tokens
+[2026-09-14 13:23:36 UTC] claim 4 of 15 (CLM-0011): judge done, 4,235 tokens
+[2026-09-14 13:23:40 UTC] claim 4 of 15 (CLM-0011): judge_defender_first done, 4,201 tokens
+[2026-09-14 13:23:40 UTC] claim 4 of 15 (CLM-0011): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 14,723 tokens
+[2026-09-14 13:23:40 UTC] PROGRESS: 4 of 15 claims finished; 22 accepted requests, 73,304 tokens so far
+[2026-09-14 13:24:40 UTC] claim 5 of 15 (CLM-0015): baseline APPROVE (70), 2,578 tokens
+[2026-09-14 13:24:44 UTC] claim 5 of 15 (CLM-0015): prosecutor done, 3,251 tokens
+[2026-09-14 13:25:31 UTC] claim 5 of 15 (CLM-0015): defender done, 4,663 tokens
+[2026-09-14 13:25:51 UTC] claim 5 of 15 (CLM-0015): judge done, 5,136 tokens
+[2026-09-14 13:26:46 UTC] claim 5 of 15 (CLM-0015): judge_defender_first done, 4,929 tokens
+[2026-09-14 13:26:46 UTC] claim 5 of 15 (CLM-0015): ClaimLens APPROVE, tier MEDIUM, human_review, 17,979 tokens
+[2026-09-14 13:26:46 UTC] PROGRESS: 5 of 15 claims finished; 29 accepted requests, 93,861 tokens so far
+[2026-09-14 13:26:49 UTC] claim 6 of 15 (CLM-0017): baseline APPROVE (85), 2,223 tokens
+[2026-09-14 13:27:50 UTC] claim 6 of 15 (CLM-0017): prosecutor done, 3,122 tokens
+[2026-09-14 13:27:53 UTC] claim 6 of 15 (CLM-0017): defender done, 3,559 tokens
+[2026-09-14 13:28:46 UTC] claim 6 of 15 (CLM-0017): judge done, 4,525 tokens
+[2026-09-14 13:29:28 UTC] claim 6 of 15 (CLM-0017): judge_defender_first done, 4,539 tokens
+[2026-09-14 13:29:28 UTC] claim 6 of 15 (CLM-0017): ClaimLens APPROVE, tier HIGH, auto_resolved, 15,745 tokens
+[2026-09-14 13:29:28 UTC] PROGRESS: 6 of 15 claims finished; 34 accepted requests, 111,829 tokens so far
+[2026-09-14 13:30:08 UTC] claim 7 of 15 (CLM-0020): baseline APPROVE (85), 2,109 tokens
+[2026-09-14 13:30:12 UTC] claim 7 of 15 (CLM-0020): prosecutor done, 3,256 tokens
+[2026-09-14 13:31:03 UTC] claim 7 of 15 (CLM-0020): defender done, 3,377 tokens
+[2026-09-14 13:31:04 UTC] token allowance used up; waiting 15.2 minutes, resuming at 13:46:17 UTC (debate_judge:CLM-0020: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss)
+[2026-09-14 17:05:31 UTC] claim 7 of 15 (CLM-0020): judge done, 4,299 tokens
+[2026-09-14 17:05:36 UTC] claim 7 of 15 (CLM-0020): judge_defender_first done, 4,681 tokens
+[2026-09-14 17:05:36 UTC] claim 7 of 15 (CLM-0020): ClaimLens APPROVE, tier MEDIUM, human_review, 15,613 tokens
+[2026-09-14 17:05:36 UTC] PROGRESS: 7 of 15 claims finished; 42 accepted requests, 129,551 tokens so far
+[2026-09-14 17:06:33 UTC] claim 8 of 15 (CLM-0021): baseline APPROVE (92), 2,164 tokens
+[2026-09-14 17:06:35 UTC] claim 8 of 15 (CLM-0021): prosecutor done, 2,708 tokens
+[2026-09-14 17:06:45 UTC] claim 8 of 15 (CLM-0021): defender done, 3,616 tokens
+[2026-09-14 17:07:42 UTC] claim 8 of 15 (CLM-0021): judge done, 4,269 tokens
+[2026-09-14 17:07:49 UTC] claim 8 of 15 (CLM-0021): judge_defender_first done, 4,265 tokens
+[2026-09-14 17:07:49 UTC] claim 8 of 15 (CLM-0021): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 14,858 tokens
+[2026-09-14 17:07:49 UTC] PROGRESS: 8 of 15 claims finished; 49 accepted requests, 146,573 tokens so far
+[2026-09-14 17:08:50 UTC] claim 9 of 15 (CLM-0022): baseline APPROVE (85), 2,211 tokens
+[2026-09-14 17:08:52 UTC] claim 9 of 15 (CLM-0022): prosecutor done, 2,815 tokens
+[2026-09-14 17:09:31 UTC] token allowance used up; waiting 11.3 minutes, resuming at 17:20:48 UTC (debate_defender:CLM-0022: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-)
+[2026-09-14 17:20:52 UTC] claim 9 of 15 (CLM-0022): defender done, 3,695 tokens
+[2026-09-14 17:20:52 UTC] token allowance used up; waiting 27.3 minutes, resuming at 17:48:08 UTC (debate_judge:CLM-0022: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss)
+[2026-09-14 18:06:40 UTC] claim 9 of 15 (CLM-0022): judge done, 4,483 tokens
+[2026-09-14 18:06:40 UTC] token allowance used up; waiting 13.7 minutes, resuming at 18:20:22 UTC (debate_judge_defender_first:CLM-0022: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model )
+[2026-09-14 18:20:48 UTC] claim 9 of 15 (CLM-0022): judge_defender_first done, 4,531 tokens
+[2026-09-14 18:20:48 UTC] claim 9 of 15 (CLM-0022): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 15,524 tokens
+[2026-09-14 18:20:48 UTC] PROGRESS: 9 of 15 claims finished; 57 accepted requests, 164,308 tokens so far
+[2026-09-14 18:20:50 UTC] token allowance used up; waiting 5.3 minutes, resuming at 18:26:11 UTC (naive_baseline:CLM-0026: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-o)
+[2026-09-14 18:26:13 UTC] claim 10 of 15 (CLM-0026): baseline APPROVE (85), 2,208 tokens
+[2026-09-14 18:26:13 UTC] token allowance used up; waiting 16.2 minutes, resuming at 18:42:27 UTC (debate_prosecutor:CLM-0026: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gp)
+[2026-09-14 18:42:46 UTC] claim 10 of 15 (CLM-0026): failure 1 of 3: prosecutor returned an empty summary
+[2026-09-14 18:43:18 UTC] token allowance used up; waiting 18.4 minutes, resuming at 19:01:39 UTC (naive_baseline:CLM-0028: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-o)
+batch process exited with code 127
+[2026-09-14 18:47:15 UTC] stopped by operator to apply the runner ordering fix (see docs/METHODOLOGY.md); restarting from saved results
+[2026-09-14 18:47:41 UTC] Stage 11 batch: 15 pre-registered claims; model openai/gpt-oss-120b; settings {'temperature': 0.2, 'reasoning_effort': 'medium', 'max_completion_tokens': 4096, 'response_format': {'type': 'json_object'}}
+[2026-09-14 18:47:41 UTC] already finished: 9 of 15
+[2026-09-14 18:47:44 UTC] token allowance used up; waiting 19.3 minutes, resuming at 19:07:02 UTC (debate_prosecutor:CLM-0026: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gp)
+[2026-09-14 19:07:07 UTC] claim 10 of 15 (CLM-0026): prosecutor done, 3,392 tokens
+[2026-09-14 19:07:07 UTC] token allowance used up; waiting 20.7 minutes, resuming at 19:27:48 UTC (debate_defender:CLM-0026: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-)
+[2026-09-15 04:33:09 UTC] claim 10 of 15 (CLM-0026): defender done, 3,514 tokens
+[2026-09-15 04:33:13 UTC] claim 10 of 15 (CLM-0026): judge done, 4,745 tokens
+[2026-09-15 04:34:13 UTC] claim 10 of 15 (CLM-0026): judge_defender_first done, 4,620 tokens
+[2026-09-15 04:34:13 UTC] claim 10 of 15 (CLM-0026): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 16,271 tokens
+[2026-09-15 04:34:13 UTC] PROGRESS: 10 of 15 claims finished; 66 accepted requests, 182,787 tokens so far
+[2026-09-15 04:34:14 UTC] claim 11 of 15 (CLM-0028): baseline APPROVE (92), 2,461 tokens
+[2026-09-15 04:35:10 UTC] claim 11 of 15 (CLM-0028): prosecutor done, 3,487 tokens
+[2026-09-15 04:35:14 UTC] claim 11 of 15 (CLM-0028): defender done, 4,336 tokens
+[2026-09-15 04:36:10 UTC] claim 11 of 15 (CLM-0028): judge done, 5,208 tokens
+[2026-09-15 04:36:32 UTC] claim 11 of 15 (CLM-0028): judge_defender_first done, 5,183 tokens
+[2026-09-15 04:36:32 UTC] claim 11 of 15 (CLM-0028): ClaimLens APPROVE, tier HIGH, auto_resolved, 18,214 tokens
+[2026-09-15 04:36:32 UTC] PROGRESS: 11 of 15 claims finished; 73 accepted requests, 203,462 tokens so far
+[2026-09-15 04:37:32 UTC] claim 12 of 15 (CLM-0029): baseline DENY (75), 2,137 tokens
+[2026-09-15 04:37:35 UTC] claim 12 of 15 (CLM-0029): prosecutor done, 2,961 tokens
+[2026-09-15 04:38:22 UTC] claim 12 of 15 (CLM-0029): defender done, 4,828 tokens
+[2026-09-15 04:38:32 UTC] claim 12 of 15 (CLM-0029): judge done, 5,018 tokens
+[2026-09-15 04:39:31 UTC] claim 12 of 15 (CLM-0029): judge_defender_first done, 4,935 tokens
+[2026-09-15 04:39:31 UTC] claim 12 of 15 (CLM-0029): ClaimLens APPROVE, tier MEDIUM, human_review, 17,742 tokens
+[2026-09-15 04:39:31 UTC] PROGRESS: 12 of 15 claims finished; 80 accepted requests, 223,341 tokens so far
+[2026-09-15 04:40:18 UTC] claim 13 of 15 (CLM-0037): baseline DENY (85), 2,244 tokens
+[2026-09-15 04:40:22 UTC] claim 13 of 15 (CLM-0037): prosecutor done, 3,358 tokens
+[2026-09-15 04:41:15 UTC] claim 13 of 15 (CLM-0037): failure 1 of 3: defender returned an empty summary
+[2026-09-15 04:41:50 UTC] claim 13 of 15 (CLM-0037): defender done, 4,475 tokens
+[2026-09-15 04:42:05 UTC] claim 13 of 15 (CLM-0037): judge done, 4,770 tokens
+[2026-09-15 04:43:07 UTC] claim 13 of 15 (CLM-0037): judge_defender_first done, 4,666 tokens
+[2026-09-15 04:43:07 UTC] claim 13 of 15 (CLM-0037): ClaimLens DENY, tier HIGH, human_review, 17,269 tokens
+[2026-09-15 04:43:07 UTC] PROGRESS: 13 of 15 claims finished; 86 accepted requests, 242,854 tokens so far
+[2026-09-15 04:43:48 UTC] claim 14 of 15 (CLM-0039): baseline APPROVE (70), 2,676 tokens
+[2026-09-15 04:43:48 UTC] token allowance used up; waiting 8.6 minutes, resuming at 04:52:21 UTC (debate_prosecutor:CLM-0039: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gp)
+[2026-09-15 04:52:25 UTC] claim 14 of 15 (CLM-0039): prosecutor done, 3,472 tokens
+[2026-09-15 04:52:25 UTC] token allowance used up; waiting 17.0 minutes, resuming at 05:09:25 UTC (debate_defender:CLM-0039: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-)
+[2026-09-15 05:09:31 UTC] claim 14 of 15 (CLM-0039): defender done, 4,315 tokens
+[2026-09-15 05:09:31 UTC] token allowance used up; waiting 29.9 minutes, resuming at 05:39:24 UTC (debate_judge:CLM-0039: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss)
+[2026-09-15 05:39:29 UTC] claim 14 of 15 (CLM-0039): judge done, 5,967 tokens
+[2026-09-15 05:39:30 UTC] token allowance used up; waiting 30.0 minutes, resuming at 06:09:31 UTC (debate_judge_defender_first:CLM-0039: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model )
+[2026-09-15 06:17:23 UTC] Stage 11 batch: 15 pre-registered claims; model openai/gpt-oss-120b; settings {'temperature': 0.2, 'reasoning_effort': 'medium', 'max_completion_tokens': 4096, 'response_format': {'type': 'json_object'}}
+[2026-09-15 06:17:23 UTC] already finished: 13 of 15
+[2026-09-15 06:17:27 UTC] claim 14 of 15 (CLM-0039): judge_defender_first done, 5,027 tokens
+[2026-09-15 06:17:27 UTC] claim 14 of 15 (CLM-0039): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 18,781 tokens
+[2026-09-15 06:17:27 UTC] PROGRESS: 14 of 15 claims finished; 91 accepted requests, 264,311 tokens so far
+[2026-09-15 06:17:28 UTC] token allowance used up; waiting 15.1 minutes, resuming at 06:32:35 UTC (naive_baseline:CLM-0040: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-o)
+[2026-09-15 06:32:37 UTC] claim 15 of 15 (CLM-0040): baseline APPROVE (92), 2,317 tokens
+[2026-09-15 06:32:37 UTC] token allowance used up; waiting 16.5 minutes, resuming at 06:49:06 UTC (debate_prosecutor:CLM-0040: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gp)
+[2026-09-15 06:49:09 UTC] claim 15 of 15 (CLM-0040): prosecutor done, 3,255 tokens
+[2026-09-15 06:49:09 UTC] token allowance used up; waiting 21.2 minutes, resuming at 07:10:20 UTC (debate_defender:CLM-0040: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-)
+[2026-09-15 07:10:25 UTC] claim 15 of 15 (CLM-0040): defender done, 4,346 tokens
+[2026-09-15 07:10:25 UTC] token allowance used up; waiting 28.6 minutes, resuming at 07:38:59 UTC (debate_judge:CLM-0040: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss)
+[2026-09-15 07:39:02 UTC] claim 15 of 15 (CLM-0040): judge done, 4,916 tokens
+[2026-09-15 07:39:03 UTC] token allowance used up; waiting 28.5 minutes, resuming at 08:07:31 UTC (debate_judge_defender_first:CLM-0040: gave up after 1 attempt(s). Last problem: HTTP 429: Error code: 429 - {'error': {'message': 'Rate limit reached for model )
+[2026-09-15 08:07:34 UTC] claim 15 of 15 (CLM-0040): judge_defender_first done, 4,739 tokens
+[2026-09-15 08:07:34 UTC] claim 15 of 15 (CLM-0040): ClaimLens APPROVE, tier MEDIUM (capped from HIGH), human_review, 17,256 tokens
+[2026-09-15 08:07:34 UTC] PROGRESS: 15 of 15 claims finished; 96 accepted requests, 283,884 tokens so far
+[2026-09-15 08:07:34 UTC] BATCH COMPLETE: 15 claims, 96 accepted requests, 283,884 tokens; failed claims: none

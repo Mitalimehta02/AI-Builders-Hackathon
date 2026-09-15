@@ -1,0 +1,1163 @@
+{
+  "meta": {
+    "model": "openai/gpt-oss-120b",
+    "settings": {
+      "temperature": 0.2,
+      "reasoning_effort": "medium",
+      "max_completion_tokens": 4096,
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "sample_claim_ids_sha256": "bbcdf0fd5693fd7a1be43ee4516dd7c99ef71fbb238e696c6c190dc108d5b49a",
+    "started_at": "2026-09-14T13:13:47+00:00"
+  },
+  "claims": {
+    "CLM-0004": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0004",
+        "timeline": {
+          "incident_date": "2025-02-03",
+          "filed_date": "2025-02-04",
+          "policy_start_date": "2025-01-10",
+          "days_incident_to_filing": 1,
+          "days_policy_start_to_incident": 24,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Single-family home, built 1990",
+          "dwelling_coverage": 350000,
+          "contents_coverage": 175000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Denver, CO",
+          "policyholder_home": "Denver, CO",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 5,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": [
+            {
+              "document": "Home purchase closing documents dated 2025-01-10",
+              "days_relative_to_incident": -24
+            }
+          ]
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "API returned HTTP 500: Something went wrong.",
+          "weather_terms_in_description": [
+            "cold snap",
+            "froze"
+          ]
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0004",
+        "decision": "APPROVE",
+        "confidence": 80,
+        "reasoning": "The policy was in force (started 2025-01-10) 24 days before the February 3 incident, and the loss occurred at the insured address, matching the policy\u2019s dwelling coverage. Supporting documents (plumber and mitigation invoices, photos, closing and inspection reports) substantiate the pipe burst and repair costs, and no required documents are missing. There are no prior claims, and the $9,212.89 claim is well within the $350,000 dwelling limit. No contradictory evidence (e.g., weather data, location mismatch) is present, so the loss appears genuine.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1892,
+          "completion_tokens": 414,
+          "reasoning_tokens": 269,
+          "total_tokens": 2306
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "999",
+          "requests_reset_in": "1m26.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "5664",
+          "tokens_reset_in": "17.52s"
+        }
+      }
+    },
+    "CLM-0007": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0007",
+        "timeline": {
+          "incident_date": "2026-07-05",
+          "filed_date": "2026-07-09",
+          "policy_start_date": "2026-06-21",
+          "days_incident_to_filing": 4,
+          "days_policy_start_to_incident": 14,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Townhouse, built 1998",
+          "dwelling_coverage": 250000,
+          "contents_coverage": 125000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Denver, CO",
+          "policyholder_home": "Denver, CO",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 6,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": [
+            {
+              "document": "Home purchase closing documents dated 2026-06-21",
+              "days_relative_to_incident": -14
+            }
+          ]
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "request failed (ReadTimeout: The read operation timed out)",
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0007",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The policy was in force (started 14 days before the July\u202f5 incident) and covers the insured townhouse; the burglary occurred at the insured address, and the claim amount ($11,965.09) is well below both dwelling and contents limits. The claimant supplied a police report, photos, receipts, a list of stolen items, and relevant home purchase documents, with no required documents noted as missing. There are no prior claims and the filing was timely (4 days after the loss). No contradictions appear in the description, timeline, or evidence, so the loss appears genuine.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1867,
+          "completion_tokens": 310,
+          "reasoning_tokens": 169,
+          "total_tokens": 2177
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "994",
+          "requests_reset_in": "8m38.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4675",
+          "tokens_reset_in": "24.937s"
+        }
+      }
+    },
+    "CLM-0010": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0010",
+        "timeline": {
+          "incident_date": "2025-08-28",
+          "filed_date": "2025-09-01",
+          "policy_start_date": "2024-05-06",
+          "days_incident_to_filing": 4,
+          "days_policy_start_to_incident": 479,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Townhouse, built 1989",
+          "dwelling_coverage": 250000,
+          "contents_coverage": 125000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 1,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": [
+            {
+              "days_before_incident": 2090,
+              "claim_type": "property",
+              "summary": "Burglary; electronics and jewelry stolen",
+              "amount": 10344.21,
+              "insurer": "Previous insurer (industry claims database)",
+              "words_shared_with_this_claim": []
+            }
+          ]
+        },
+        "location": {
+          "incident_location": "Kansas City, MO",
+          "policyholder_home": "Kansas City, MO",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 3,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "API returned HTTP 500: Something went wrong.",
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0010",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The claim describes a plausible water\u2011damage incident at the insured townhouse, with the incident occurring on the policy and the claim filed promptly (4 days). The address matches the insured property, the policy was active, and there are appropriate supporting documents (plumber invoice, photos, repair estimate). No contradictory evidence, missing documents, or prior recent claims suggest fraud, and the claimed amount is reasonable for flooring and drywall repairs.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1876,
+          "completion_tokens": 270,
+          "reasoning_tokens": 162,
+          "total_tokens": 2146
+        },
+        "attempts": 2,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "989",
+          "requests_reset_in": "15m50.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "55",
+          "tokens_reset_in": "59.587s"
+        }
+      }
+    },
+    "CLM-0011": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0011",
+        "timeline": {
+          "incident_date": "2025-02-09",
+          "filed_date": "2025-02-10",
+          "policy_start_date": "2018-09-08",
+          "days_incident_to_filing": 1,
+          "days_policy_start_to_incident": 2346,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Townhouse, built 2017",
+          "dwelling_coverage": 350000,
+          "contents_coverage": 175000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "San Diego, CA",
+          "policyholder_home": "San Diego, CA",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 4,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "API returned HTTP 500: Something went wrong.",
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0011",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The burglary claim aligns with the policy and evidence: the incident occurred at the insured address, was reported promptly (1 day), the claim amount ($6,808.24) is well below both dwelling and contents limits, the deductible is $2,500 (which will be applied later), and the file includes all expected documents (police report, photos, receipts, item list) with no missing or contradictory information. No prior claims or policy changes raise concerns, and there are no inconsistencies in the timeline or location. Hence the loss appears genuine.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1825,
+          "completion_tokens": 261,
+          "reasoning_tokens": 126,
+          "total_tokens": 2086
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "984",
+          "requests_reset_in": "23m2.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4776",
+          "tokens_reset_in": "24.18s"
+        }
+      }
+    },
+    "CLM-0015": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0015",
+        "timeline": {
+          "incident_date": "2025-01-05",
+          "filed_date": "2025-01-05",
+          "policy_start_date": "2019-02-01",
+          "days_incident_to_filing": 0,
+          "days_policy_start_to_incident": 2165,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Townhouse, built 2002",
+          "dwelling_coverage": 450000,
+          "contents_coverage": 225000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Houston, TX",
+          "policyholder_home": "Houston, TX",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 6,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": [
+            {
+              "document": "Receipt: 65-inch TV, $1,899, dated 2025-01-11",
+              "days_relative_to_incident": 6
+            },
+            {
+              "document": "Receipt: laptop, $1,349, dated 2024-05-19",
+              "days_relative_to_incident": -231
+            },
+            {
+              "document": "Receipt: DSLR camera, $1,150, dated 2023-01-24",
+              "days_relative_to_incident": -712
+            }
+          ]
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "API returned HTTP 500: Something went wrong.",
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0015",
+        "decision": "APPROVE",
+        "confidence": 70,
+        "reasoning": "The claim details are consistent with a burglary at the insured townhouse (same address as policy), supported by a police report, photos of forced entry, and receipts for the stolen laptop and camera that predate the incident. The policy was active at the time, there are no prior claims, and the incident was reported on the same day it occurred. The only minor inconsistency is the TV receipt dated six days after the theft, which could be a clerical error or a replacement receipt, but there is no evidence of fraud, so the claim is likely genuine.",
+        "high_confidence": false,
+        "usage": {
+          "prompt_tokens": 1963,
+          "completion_tokens": 615,
+          "reasoning_tokens": 479,
+          "total_tokens": 2578
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "979",
+          "requests_reset_in": "30m14.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "3599",
+          "tokens_reset_in": "33.007s"
+        }
+      }
+    },
+    "CLM-0017": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0017",
+        "timeline": {
+          "incident_date": "2024-12-25",
+          "filed_date": "2024-12-28",
+          "policy_start_date": "2022-01-09",
+          "days_incident_to_filing": 3,
+          "days_policy_start_to_incident": 1081,
+          "days_last_policy_change_to_incident": 1049
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2020 Hyundai Elantra",
+          "vehicle_estimated_value": 11000.0,
+          "claim_amount_pct_of_vehicle_value": 42.5,
+          "changes": [
+            {
+              "days_before_incident": 1049,
+              "change": "Added a second named driver"
+            }
+          ]
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Minneapolis, MN",
+          "policyholder_home": "Denver, CO",
+          "same_city_as_home": false,
+          "same_state_as_home": false
+        },
+        "documents": {
+          "documents_provided": 5,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "API returned HTTP 500: Something went wrong.",
+          "weather_terms_in_description": [
+            "black ice",
+            "freezing"
+          ]
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0017",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The claim amount ($4,675.61) is a reasonable 42.5% of the vehicle's estimated value and matches the described front\u2011end damage; the policy includes Collision coverage, the incident occurred within the policy period, and the claim was filed promptly (3 days). Supporting documents (photos, repair estimate, tow receipt, hotel receipt) substantiate the loss, and there are no missing required documents or contradictory evidence. The incident location (Minneapolis) is covered by the auto policy despite being away from the policyholder\u2019s home, and no prior claims or policy changes suggest fraud. Hence the loss appears genuine.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1865,
+          "completion_tokens": 358,
+          "reasoning_tokens": 208,
+          "total_tokens": 2223
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "974",
+          "requests_reset_in": "37m26.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "377",
+          "tokens_reset_in": "57.172s"
+        }
+      }
+    },
+    "CLM-0020": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0020",
+        "timeline": {
+          "incident_date": "2024-12-10",
+          "filed_date": "2024-12-14",
+          "policy_start_date": "2021-03-18",
+          "days_incident_to_filing": 4,
+          "days_policy_start_to_incident": 1363,
+          "days_last_policy_change_to_incident": 138
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Single-family home, built 1981",
+          "dwelling_coverage": 600000,
+          "contents_coverage": 300000,
+          "changes": [
+            {
+              "days_before_incident": 138,
+              "change": "Raised deductible to lower premium"
+            }
+          ]
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Phoenix, AZ",
+          "policyholder_home": "Phoenix, AZ",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 3,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "unavailable",
+          "reason": "API returned HTTP 500: Something went wrong.",
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0020",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The claim describes a plausible water\u2011damage incident at the insured home, with a reasonable repair cost of $8,161.63 relative to the high dwelling coverage. The incident occurred on the policy\u2019s premises, the policy was active, and the only recent change (deductible increase) does not affect the loss description. Supporting documents (plumber invoice, photos, repair estimate) are provided and no required documents are missing. There are no prior claims, no timeline inconsistencies, and no contradictory weather or location evidence, indicating the loss is genuine.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1844,
+          "completion_tokens": 265,
+          "reasoning_tokens": 130,
+          "total_tokens": 2109
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "969",
+          "requests_reset_in": "44m38.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4482",
+          "tokens_reset_in": "26.384s"
+        }
+      }
+    },
+    "CLM-0021": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0021",
+        "timeline": {
+          "incident_date": "2025-04-28",
+          "filed_date": "2025-04-30",
+          "policy_start_date": "2021-07-21",
+          "days_incident_to_filing": 2,
+          "days_policy_start_to_incident": 1377,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2019 Nissan Altima",
+          "vehicle_estimated_value": 9800.0,
+          "claim_amount_pct_of_vehicle_value": 14.7,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Las Vegas, NV",
+          "policyholder_home": "Las Vegas, NV",
+          "same_city_as_home": true,
+          "same_state_as_home": true
+        },
+        "documents": {
+          "documents_provided": 2,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2025-04-26 to 2025-04-28",
+          "lowest_temp_c": 9.3,
+          "highest_temp_c": 24.9,
+          "days_with_low_below_freezing": 0,
+          "total_precipitation_mm": 0.0,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0021",
+        "decision": "APPROVE",
+        "confidence": 92,
+        "reasoning": "The claim describes a minor collision (rear bumper scuff) consistent with the $1,438.86 repair estimate, which is only 14.7% of the vehicle's $9,800 ACV\u2014reasonable for bumper work. The policy includes Collision coverage with a $250 deductible, and the claimant provided photos and a repair estimate, satisfying documentation requirements. The incident occurred two days before filing, well within the policy period, and both incident and home are in Las Vegas, NV, matching the policyholder\u2019s address. No prior claims or contradictory evidence (weather, missing documents) appear, indicating a genuine loss.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1866,
+          "completion_tokens": 298,
+          "reasoning_tokens": 149,
+          "total_tokens": 2164
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "997",
+          "requests_reset_in": "4m19.2s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4085",
+          "tokens_reset_in": "29.362s"
+        }
+      }
+    },
+    "CLM-0022": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0022",
+        "timeline": {
+          "incident_date": "2025-01-18",
+          "filed_date": "2025-01-20",
+          "policy_start_date": "2023-02-18",
+          "days_incident_to_filing": 2,
+          "days_policy_start_to_incident": 700,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2016 Tesla Model 3",
+          "vehicle_estimated_value": 9700.0,
+          "claim_amount_pct_of_vehicle_value": 51.1,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Minneapolis, MN",
+          "policyholder_home": "Minneapolis, MN",
+          "same_city_as_home": true,
+          "same_state_as_home": true
+        },
+        "documents": {
+          "documents_provided": 3,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2025-01-16 to 2025-01-18",
+          "lowest_temp_c": -20.0,
+          "highest_temp_c": 3.3,
+          "days_with_low_below_freezing": 3,
+          "total_precipitation_mm": 0.0,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": [
+            "black ice",
+            "freezing"
+          ]
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0022",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The claim details are consistent: the incident occurred on a cold day with documented sub\u2011freezing temperatures supporting the black\u2011ice explanation; the damage described (front bumper, headlight, quarter panel) aligns with the claimed amount of $4,958.6, which is about 51% of the vehicle's estimated value of $9,700, a reasonable proportion for such damage. The policy was active (started 2023\u201102\u201118) with Collision coverage in force, no prior claims exist, and the required documents (photos, repair estimate, tow receipt) are provided with no missing items. No contradictions appear in the timeline, location, or documentation, indicating a genuine loss.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1885,
+          "completion_tokens": 326,
+          "reasoning_tokens": 162,
+          "total_tokens": 2211
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "992",
+          "requests_reset_in": "11m31.2s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4930",
+          "tokens_reset_in": "23.025s"
+        }
+      }
+    },
+    "CLM-0026": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0026",
+        "timeline": {
+          "incident_date": "2025-02-08",
+          "filed_date": "2025-02-09",
+          "policy_start_date": "2020-07-22",
+          "days_incident_to_filing": 1,
+          "days_policy_start_to_incident": 1662,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2013 Subaru Outback",
+          "vehicle_estimated_value": 4400.0,
+          "claim_amount_pct_of_vehicle_value": 70.0,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Charlotte, NC",
+          "policyholder_home": "Charlotte, NC",
+          "same_city_as_home": true,
+          "same_state_as_home": true
+        },
+        "documents": {
+          "documents_provided": 4,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2025-02-06 to 2025-02-08",
+          "lowest_temp_c": 5.5,
+          "highest_temp_c": 21.2,
+          "days_with_low_below_freezing": 0,
+          "total_precipitation_mm": 0.8,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0026",
+        "decision": "APPROVE",
+        "confidence": 85,
+        "reasoning": "The claim describes a typical rear\u2011end collision with damage (rear bumper, trunk lid, tail lights) that plausibly costs $3080, which is 70% of the vehicle's estimated value of $4400. The incident occurred one day before filing, the policy was active and unchanged, and the accident location matches the policyholder's home city. Supporting documents (police report, photos, repair estimate, other driver\u2019s insurance) are all provided, and there are no prior claims or contradictory weather information. These facts together indicate a genuine loss.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1896,
+          "completion_tokens": 312,
+          "reasoning_tokens": 176,
+          "total_tokens": 2208
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "999",
+          "requests_reset_in": "1m26.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "5681",
+          "tokens_reset_in": "17.392s"
+        }
+      }
+    },
+    "CLM-0028": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0028",
+        "timeline": {
+          "incident_date": "2026-01-25",
+          "filed_date": "2026-01-26",
+          "policy_start_date": "2026-01-12",
+          "days_incident_to_filing": 1,
+          "days_policy_start_to_incident": 13,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2018 Jeep Grand Cherokee",
+          "vehicle_estimated_value": 10900.0,
+          "claim_amount_pct_of_vehicle_value": 98.2,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Chicago, IL",
+          "policyholder_home": "Chicago, IL",
+          "same_city_as_home": true,
+          "same_state_as_home": true
+        },
+        "documents": {
+          "documents_provided": 8,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": [
+            {
+              "document": "Bill of sale: vehicle purchased 2026-01-11 (policy started with the purchase)",
+              "days_relative_to_incident": -14
+            }
+          ]
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2026-01-23 to 2026-01-25",
+          "lowest_temp_c": -23.0,
+          "highest_temp_c": -7.1,
+          "days_with_low_below_freezing": 3,
+          "total_precipitation_mm": 7.8,
+          "total_snowfall_cm": 5.5,
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0028",
+        "decision": "APPROVE",
+        "confidence": 92,
+        "reasoning": "The incident description (red\u2011light crash, driver\u2011side total loss) aligns with the damage and the claim amount ($10,704.38), which is 98% of the vehicle\u2019s estimated value ($10,900) \u2013 a reasonable total\u2011loss figure before the $500 deductible. The policy was in force (started 13\u202fdays before the crash) and covers collision/comprehensive. All expected documents are present (police report, tow receipt, photos, valuation, bill of sale, other driver\u2019s insurer letter, witness statement). No prior claims, the incident occurred in the same city as the insured\u2019s home, and weather data does not contradict the description. No material inconsistencies are found, indicating a genuine loss.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1970,
+          "completion_tokens": 491,
+          "reasoning_tokens": 319,
+          "total_tokens": 2461
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "996",
+          "requests_reset_in": "5m45.6s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "1227",
+          "tokens_reset_in": "50.797s"
+        }
+      }
+    },
+    "CLM-0029": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0029",
+        "timeline": {
+          "incident_date": "2025-07-15",
+          "filed_date": "2025-07-18",
+          "policy_start_date": "2025-07-02",
+          "days_incident_to_filing": 3,
+          "days_policy_start_to_incident": 13,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2017 Honda Civic",
+          "vehicle_estimated_value": 6500.0,
+          "claim_amount_pct_of_vehicle_value": 70.0,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Phoenix, AZ",
+          "policyholder_home": "Phoenix, AZ",
+          "same_city_as_home": true,
+          "same_state_as_home": true
+        },
+        "documents": {
+          "documents_provided": 3,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2025-07-13 to 2025-07-15",
+          "lowest_temp_c": 29.3,
+          "highest_temp_c": 42.6,
+          "days_with_low_below_freezing": 0,
+          "total_precipitation_mm": 0.0,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": [
+            "black ice",
+            "freezing"
+          ]
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0029",
+        "decision": "DENY",
+        "confidence": 75,
+        "reasoning": "The incident description claims the car slid on black ice after freezing temperatures, yet the weather data for July 13\u201115 shows highs of 42.6\u202f\u00b0C, lows of 29.3\u202f\u00b0C, no freezing temperatures, precipitation, or snowfall, directly contradicting the claim of icy conditions; this material inconsistency suggests the loss was misrepresented.",
+        "high_confidence": false,
+        "usage": {
+          "prompt_tokens": 1876,
+          "completion_tokens": 261,
+          "reasoning_tokens": 166,
+          "total_tokens": 2137
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "991",
+          "requests_reset_in": "12m57.599s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4632",
+          "tokens_reset_in": "25.259s"
+        }
+      }
+    },
+    "CLM-0037": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0037",
+        "timeline": {
+          "incident_date": "2025-04-18",
+          "filed_date": "2025-04-18",
+          "policy_start_date": "2018-08-29",
+          "days_incident_to_filing": 0,
+          "days_policy_start_to_incident": 2424,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Single-family home, built 1968",
+          "dwelling_coverage": 600000,
+          "contents_coverage": 300000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Raleigh, NC",
+          "policyholder_home": "Raleigh, NC",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": false
+        },
+        "documents": {
+          "documents_provided": 3,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2025-04-16 to 2025-04-18",
+          "lowest_temp_c": 7.1,
+          "highest_temp_c": 26.3,
+          "days_with_low_below_freezing": 0,
+          "total_precipitation_mm": 0.0,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0037",
+        "decision": "DENY",
+        "confidence": 85,
+        "reasoning": "The incident occurred at 19986 Carpenter Turnpike Apt. 793, which does not match the insured property address (127 Webster Trace). The policy only covers the insured home, and there is no evidence of coverage for the separate address, making the loss outside the policy scope.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1894,
+          "completion_tokens": 350,
+          "reasoning_tokens": 270,
+          "total_tokens": 2244
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "986",
+          "requests_reset_in": "20m9.6s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4599",
+          "tokens_reset_in": "25.507s"
+        }
+      }
+    },
+    "CLM-0039": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0039",
+        "timeline": {
+          "incident_date": "2026-08-15",
+          "filed_date": "2026-08-18",
+          "policy_start_date": "2026-08-05",
+          "days_incident_to_filing": 3,
+          "days_policy_start_to_incident": 10,
+          "days_last_policy_change_to_incident": null
+        },
+        "policy": {
+          "type": "Homeowners (HO-3)",
+          "property": "Townhouse, built 2007",
+          "dwelling_coverage": 600000,
+          "contents_coverage": 300000,
+          "changes": []
+        },
+        "claim_history": {
+          "prior_claims_count": 1,
+          "prior_claims_last_24_months": 1,
+          "prior_claims": [
+            {
+              "days_before_incident": 76,
+              "claim_type": "property",
+              "summary": "Washing machine hose split; floor water damage",
+              "amount": 9669.14,
+              "insurer": "Previous insurer (industry claims database)",
+              "words_shared_with_this_claim": [
+                "floor",
+                "hose",
+                "machine",
+                "split",
+                "washing",
+                "water"
+              ]
+            }
+          ]
+        },
+        "location": {
+          "incident_location": "Nashville, TN",
+          "policyholder_home": "Nashville, TN",
+          "same_city_as_home": true,
+          "same_state_as_home": true,
+          "incident_address_matches_insured_property": true
+        },
+        "documents": {
+          "documents_provided": 3,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2026-08-13 to 2026-08-15",
+          "lowest_temp_c": 24.6,
+          "highest_temp_c": 36.8,
+          "days_with_low_below_freezing": 0,
+          "total_precipitation_mm": 10.2,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0039",
+        "decision": "APPROVE",
+        "confidence": 70,
+        "reasoning": "The policy was in force on the incident date (policy started 2026-08-05, incident 2026-08-15) and covers water damage to the dwelling; the claim amount ($9,205.59) is well within the dwelling coverage limit. Supporting documents (plumber invoice, photos, repair estimate) substantiate the loss, and the incident location matches the insured property. The prior claim 76 days earlier was with a different insurer and, while similar in cause, does not prove the current loss is duplicated; there is no evidence of misrepresentation or missing required documents. Therefore the loss appears genuine.",
+        "high_confidence": false,
+        "usage": {
+          "prompt_tokens": 1956,
+          "completion_tokens": 720,
+          "reasoning_tokens": 569,
+          "total_tokens": 2676
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "980",
+          "requests_reset_in": "28m48s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "4010",
+          "tokens_reset_in": "29.925s"
+        }
+      }
+    },
+    "CLM-0040": {
+      "status": "complete",
+      "evidence": {
+        "claim_id": "CLM-0040",
+        "timeline": {
+          "incident_date": "2026-03-18",
+          "filed_date": "2026-03-19",
+          "policy_start_date": "2022-06-08",
+          "days_incident_to_filing": 1,
+          "days_policy_start_to_incident": 1379,
+          "days_last_policy_change_to_incident": 243
+        },
+        "policy": {
+          "type": "Personal Auto",
+          "coverages": [
+            "Liability",
+            "Collision",
+            "Comprehensive"
+          ],
+          "vehicle": "2020 Nissan Altima",
+          "vehicle_estimated_value": 9800.0,
+          "claim_amount_pct_of_vehicle_value": 61.9,
+          "changes": [
+            {
+              "days_before_incident": 243,
+              "change": "Added roadside assistance"
+            }
+          ]
+        },
+        "claim_history": {
+          "prior_claims_count": 0,
+          "prior_claims_last_24_months": 0,
+          "prior_claims": []
+        },
+        "location": {
+          "incident_location": "Seattle, WA",
+          "policyholder_home": "Las Vegas, NV",
+          "same_city_as_home": false,
+          "same_state_as_home": false
+        },
+        "documents": {
+          "documents_provided": 4,
+          "documents_mentioned_but_absent": [],
+          "listed_as_not_yet_provided": [],
+          "dated_documents": []
+        },
+        "weather": {
+          "status": "ok",
+          "source": "Open-Meteo historical archive",
+          "dates_checked": "2026-03-16 to 2026-03-18",
+          "lowest_temp_c": 6.4,
+          "highest_temp_c": 14.6,
+          "days_with_low_below_freezing": 0,
+          "total_precipitation_mm": 43.3,
+          "total_snowfall_cm": 0.0,
+          "weather_terms_in_description": []
+        }
+      },
+      "result": {
+        "claim_id": "CLM-0040",
+        "decision": "APPROVE",
+        "confidence": 92,
+        "reasoning": "The claim describes a rear\u2011end collision covered by the policy's Collision coverage; the incident occurred while the vehicle was in use (commute) and the damage (rear bumper, trunk lid, tail lights) reasonably aligns with the claimed amount ($6,067.72, 61.9% of the vehicle's $9,800 value). The policy was active (started 2022\u201106\u201108, no lapse) and the claim was filed promptly (1 day). Supporting documents (police report, photos, repair estimate, other driver\u2019s insurance) are present, and there are no missing or contradictory documents. The incident location (Seattle, WA) is permissible under personal auto coverage despite the policyholder\u2019s home being in Las Vegas, NV. No prior claims or other red flags exist, so the loss appears genuine.",
+        "high_confidence": true,
+        "usage": {
+          "prompt_tokens": 1913,
+          "completion_tokens": 404,
+          "reasoning_tokens": 212,
+          "total_tokens": 2317
+        },
+        "attempts": 1,
+        "rate_limit": {
+          "requests_per_day_limit": "1000",
+          "requests_remaining_today": "999",
+          "requests_reset_in": "1m26.4s",
+          "tokens_per_minute_limit": "8000",
+          "tokens_remaining_this_minute": "5766",
+          "tokens_reset_in": "16.754s"
+        }
+      }
+    }
+  }
+}
