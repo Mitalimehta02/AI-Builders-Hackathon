@@ -22,6 +22,23 @@ All commands run from the repository root, `C:\Users\HP\Desktop\AI Builders Hack
 - **Step 3 is a hard stop**: the real fill (step 4) happens only after Mitali has seen the numbers and
   said to go ahead.
 
+## Update, 2026-09-15 06:19 UTC
+
+- **Crash and restart.** The laptop shut down uncleanly at about 05:42 UTC, and Windows Update restarted it
+  four times while installing updates. No further reboot is pending, and the power settings survived.
+  The batch was restarted at 06:17 UTC with the step 0 command below (logged in `docs/METHODOLOGY.md`).
+  It is now **14 of 15**, 264,311 tokens used, runner pid 29448. It is waiting for the token refill
+  before CLM-0040, the last claim.
+- **Deployed:**
+  - frontend https://ai-builders-hackathon.vercel.app
+  - backend https://claimlens-api.onrender.com
+
+  Both verified: `/health`, `/samples` and `/analytics` return 200; the frontend and its `/api` proxy
+  reach the backend; CORS allows the Vercel origin and rejects unrelated ones; live submission is off.
+  `preflight.py` with both URLs passes frontend, backend and endpoints.
+- **Use the short production domain `ai-builders-hackathon.vercel.app` everywhere:** README, Devpost,
+  CORS, command arguments. Never use a deployment-specific hashed Vercel URL; it changes on every push.
+
 ## State when this runbook was written (2026-09-15 05:23 UTC)
 
 - Batch: running as pid 29068. **13 of 15** claims finished (the 13th at 04:43 UTC); 253,317 tokens used
@@ -59,11 +76,19 @@ powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE | Select-String "Current AC
 
 - **Still running:** wait. The runner sleeps through refills by itself.
 - **Process gone and no `BATCH COMPLETE`:** restart it. The runner resumes from saved results and never
-  repeats a finished call. Use Git Bash, so the log is appended in the same encoding:
-  ```bash
-  cd "/c/Users/HP/Desktop/AI Builders Hackathon/backend" && nohup .venv/Scripts/python.exe -u -m app.synthetic.run_full_batch >> data/stage11_batch_output.log 2>&1 &
+  repeats a finished call. This exact command was used successfully after the 05:42 UTC crash on Sep 15.
+  It runs as its own hidden process, independent of any terminal or session, and appends to the log:
+  ```powershell
+  $backend = 'C:\Users\HP\Desktop\AI Builders Hackathon\backend'
+  if (Get-CimInstance Win32_Process -Filter "Name='python.exe'" | Where-Object { $_.CommandLine -match 'run_full_batch' }) { 'already running' } else {
+    Start-Process -FilePath cmd.exe -ArgumentList '/c', 'set PYTHONIOENCODING=utf-8&& .venv\Scripts\python.exe -u -m app.synthetic.run_full_batch >> data\stage11_batch_output.log 2>&1' -WorkingDirectory $backend -WindowStyle Hidden
+  }
   ```
-  The runner refuses to start if the status file shows another live run.
+  The runner refuses to start while the status file shows a live run (a heartbeat within the last
+  15 minutes). After a crash, wait until the heartbeat is older than that. Then record the restart in
+  `docs/METHODOLOGY.md`: when, why, and that it wasn't prompted by any result.
+- **Windows Update can restart the machine** outside active hours, which are 08:00–02:00 IST, so a
+  restart is possible 02:00–08:00 IST (20:30–02:30 UTC). After any reboot, run the checks above again.
 - **Not finished and the documents must be finalised now:** this is Mitali's decision. Stop the batch
   (`Stop-Process -Id 29068`) and report under the pre-registered stopping rule: the first N claims in
   ascending-ID order. Steps 3 and 4 then need `--truncated-at-deadline`. The fill script adds the
@@ -149,7 +174,7 @@ markers in any document, and Mitali has approved in writing.
 **Depends on:** step 3 approval, and both deployed URLs.
 
 ```powershell
-backend\.venv\Scripts\python.exe scripts\fill_results.py --frontend-url https://<vercel-site> --backend-url https://<render-api>
+backend\.venv\Scripts\python.exe scripts\fill_results.py --frontend-url https://ai-builders-hackathon.vercel.app --backend-url https://claimlens-api.onrender.com
 git diff --stat
 ```
 
@@ -237,7 +262,7 @@ and both deployments show the new commit as live.
 **Depends on:** step 6 deployed.
 
 ```powershell
-backend\.venv\Scripts\python.exe scripts\preflight.py --frontend-url https://<vercel-site> --backend-url https://<render-api>
+backend\.venv\Scripts\python.exe scripts\preflight.py --frontend-url https://ai-builders-hackathon.vercel.app --backend-url https://claimlens-api.onrender.com
 "exit code: $LASTEXITCODE"
 ```
 

@@ -732,3 +732,17 @@ the prompts, the cap, the tier rule, the gate, the output validation and all mod
 ### 2026-09-15 04:36 UTC — Disclosure: one interim held-out result seen in a log line
 
 While checking batch progress, an unfiltered tail of the batch log showed CLM-0028's baseline decision and stated confidence (claim 11 of 15); no change of any kind was made in response, and all later reads of the batch log were filtered to wait, progress and failure lines only.
+
+### 2026-09-15 06:17 UTC — Batch restarted after the laptop crashed (not because of any result)
+
+**What happened.** The batch process stopped at about 05:42 UTC, when the laptop shut down uncleanly
+(Windows Kernel-Power event 41). Windows Update then restarted the machine four more times, between 05:45
+and 05:48 UTC, while installing the September security update. At that point 13 of 15 claims were
+finished, and the completed debate steps of claim 14 (CLM-0039) were saved.
+
+**Restart.** The runner was started again at 06:17 UTC from the saved results, as its design and the
+stopping rule allow. Finished claims and finished debate steps were not re-run, the processing order is
+unchanged, and CLM-0039 continued from its last saved step.
+
+No evaluation metric, decision or ground truth for held-out claims was looked at. Unchanged: the sample,
+the order, the prompts, the cap, the tier rule, the gate and all model settings.
