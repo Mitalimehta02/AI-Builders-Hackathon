@@ -728,3 +728,7 @@ the allowance and started again from the saved results; CLM-0026 keeps its recor
 This restart was made to fix the runner's ordering. It was not prompted by any result: no evaluation
 metric, decision or ground truth for held-out claims was looked at. Unchanged: the sample, the order,
 the prompts, the cap, the tier rule, the gate, the output validation and all model settings.
+
+### 2026-09-15 04:36 UTC — Disclosure: one interim held-out result seen in a log line
+
+While checking batch progress, an unfiltered tail of the batch log showed CLM-0028's baseline decision and stated confidence (claim 11 of 15); no change of any kind was made in response, and all later reads of the batch log were filtered to wait, progress and failure lines only.
