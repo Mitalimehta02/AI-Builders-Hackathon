@@ -89,6 +89,36 @@ powercfg /query SCHEME_CURRENT SUB_SLEEP STANDBYIDLE | Select-String "Current AC
   `docs/METHODOLOGY.md`: when, why, and that it wasn't prompted by any result.
 - **Windows Update can restart the machine** outside active hours, which are 08:00–02:00 IST, so a
   restart is possible 02:00–08:00 IST (20:30–02:30 UTC). After any reboot, run the checks above again.
+
+### Re-arm the batch monitor (after any reboot, crash or new session)
+
+The monitor follows a **runner** restart by itself: it reads the runner's pid from the status file every
+minute. It does **not** survive a reboot or the end of the session that started it. After either, re-arm it.
+
+- **In Claude Code:** ask for a persistent Monitor running
+  ```bash
+  bash "/c/Users/HP/Desktop/AI Builders Hackathon/scripts/monitor_batch.sh"
+  ```
+- **Without Claude,** the same command in a Git Bash window prints the same alerts there.
+
+It prints only progress, failure and completion lines, a dead runner, a stale heartbeat and power
+changes. It exits by itself on `BATCH COMPLETE`.
+
+### Token budget for a live demo run
+
+- **The allowance refills continuously,** at about 139 tokens a minute (~8,300 an hour), up to
+  200,000. Measured from Groq's rate-limit messages on Sep 15: every wait matched that rate. The batch
+  spends it as fast as it refills, so **the allowance is at about zero when `BATCH COMPLETE` appears.**
+- **Groq's replies don't show the daily allowance** (only per-minute tokens and daily requests), and
+  checking it with a model call would spend it. Estimate instead: tokens available ≈ 8,300 × hours since
+  `BATCH COMPLETE`, as long as nothing else has called the model.
+- **One live run costs about 17,000–20,000 tokens** (Prosecutor, Defender, two Judges). The client
+  won't wait more than 60 seconds on a rate limit, so the tokens must be available **before** starting,
+  or the run fails partway. That means **about 2.5 hours after `BATCH COMPLETE` for one run**, and about
+  5 hours for a rehearsal plus a take.
+- **Live submission is off on the deployed site** (`CLAIMLENS_LIVE_SUBMISSION=off` on Render). To film
+  a live run, either run ClaimLens locally, or switch it on in Render only for the recording and
+  straight back off. The Render key draws on the same allowance.
 - **Not finished and the documents must be finalised now:** this is Mitali's decision. Stop the batch
   (`Stop-Process -Id 29068`) and report under the pre-registered stopping rule: the first N claims in
   ascending-ID order. Steps 3 and 4 then need `--truncated-at-deadline`. The fill script adds the
