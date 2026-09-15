@@ -19,7 +19,7 @@ Render backend (see `frontend/next.config.ts`), so the frontend needs just one s
 
 ## What the public deployment shows
 
-- Dashboard and case views for the stored development-set samples.
+- Dashboard and case views for the 15 stored Stage 11 evaluation results (shown only once the run has finished).
 - Analytics from `backend/data/results_naive.json` and `results_claimlens.json`. **These files must be
   committed and pushed** (at Stage 11) before the deployed analytics page has results; until then it
   shows 0 of 15.
@@ -72,7 +72,7 @@ Render backend (see `frontend/next.config.ts`), so the frontend needs just one s
 8. Check in your browser:
    - `https://YOUR-RENDER-URL/health` → `{"status":"ok"}`
    - `https://YOUR-RENDER-URL/config` → `"live_submission_enabled": false`
-   - `https://YOUR-RENDER-URL/samples` → a list of 6 stored samples
+   - `https://YOUR-RENDER-URL/samples` → a list of 15 stored Stage 11 results
 
 ## Step 3 — Deploy the frontend on Vercel
 
@@ -99,9 +99,9 @@ Render backend (see `frontend/next.config.ts`), so the frontend needs just one s
 
 Open your Vercel URL and check:
 
-- [ ] **Dashboard** lists 6 stored samples. (If you see "Can't reach the ClaimLens backend", wait a
+- [ ] **Dashboard** lists 15 stored samples. (If you see "Can't reach the ClaimLens backend", wait a
       minute for Render to wake up and click **Try again**.)
-- [ ] Click **CLM-0027** → the case view shows the red **"Confidence cap applied: HIGH → MEDIUM"** card.
+- [ ] Click **CLM-0004** → the case view shows the red **"Confidence cap applied: HIGH → MEDIUM"** card.
 - [ ] **Analytics** shows the "N of 15 complete" banner and the pre-registration statement.
 - [ ] **Intake** says live submission is switched off on this deployment; loading a sample still works.
 - [ ] On your phone, the same pages are readable without sideways scrolling.

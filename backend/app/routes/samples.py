@@ -1,7 +1,7 @@
 """
 Stored sample results (Stage 8). Zero model calls: everything here is read from files.
 
-    GET /samples             stored development-set results available to load on the intake page
+    GET /samples             stored Stage 11 evaluation results available to load on the intake page
     GET /samples/{claim_id}  one stored result, in the same shape as GET /claims/{id}
 """
 

@@ -1,7 +1,7 @@
 "use client";
 
 // Adjuster case view (Stage 9).
-// /cases/sample/CLM-0035 shows a stored development-set sample; /cases/claim/12 shows a live submission.
+// /cases/sample/CLM-0040 shows a stored Stage 11 evaluation result; /cases/claim/12 shows a live submission.
 
 import Link from "next/link";
 import { useParams } from "next/navigation";

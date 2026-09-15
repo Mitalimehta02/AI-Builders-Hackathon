@@ -1,61 +1,62 @@
 """
-Stored sample results for the intake page's "load a sample claim" (Stage 8).
+Stored sample results for the intake page's "load a sample claim" and the dashboard.
 
-These are real ClaimLens results for DEVELOPMENT-SET claims, saved from earlier runs and served
-without any model call. They predate the final Stage 11 configuration, so each one is labelled with
-the protocol and temperature it was produced under (see docs/METHODOLOGY.md).
+These are the Stage 11 evaluation results: the pre-registered held-out sample, run through the final
+configuration (temperature 0.2, no rebuttal round). They are read from the committed results file and
+served without any model call, each labelled with the run that produced it.
 
-Left out on purpose:
-- CLM-0030: its data was repaired after its stored run, so that result no longer matches the claim.
-- claims whose only stored result is incomplete.
-Held-out claims are never included.
+Served only once the run has finished: while the batch is running, or while any pre-registered claim
+is still unfinished, nothing is served, so no individual held-out result is visible before the run is
+complete. A claim that failed in the run has no result to show and is left out.
+
+The earlier development-set samples (produced under temperature 1.0, some with the since-removed
+rebuttal round) are no longer shown, because they are not comparable with the final run
+(docs/METHODOLOGY.md).
 """
 
-from functools import lru_cache
 import json
 from pathlib import Path
 
+from app import batch_status
 from app.agents.sanitize import sanitize_claim
-from app.synthetic.eval_split import is_dev_claim
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 CLAIMS_PATH = DATA_DIR / "synthetic_claims.json"
+SAMPLE_PATH = DATA_DIR / "stage11_sample.json"
+RESULTS_PATH = DATA_DIR / "results_claimlens.json"
 
-STAGE6_V1 = "Stage 6 dev run, 2026-09-13: order swap, no point accounting, temperature 1.0"
-STAGE6_V2 = "Stage 6 dev re-run, 2026-09-13: with the since-removed rebuttal round, temperature 1.0"
-STAGE7_API = "Stage 7 live API run, 2026-09-14: with the since-removed rebuttal round, temperature 1.0"
+SOURCE = ("Stage 11 evaluation run, 2026-09-14/15: final configuration (temperature 0.2, no rebuttal round), "
+          "pre-registered held-out sample")
+NOTE = "Stored result from the pre-registered Stage 11 evaluation run. No model call was made to show it."
+FINISHED = ("complete", "failed")
 
-# (claim id, stored file, file format, label)
-SAMPLE_SOURCES = [
-    ("CLM-0001", "stage6_dev_results_v2.json", "dev_results", STAGE6_V2),
-    ("CLM-0006", "stage6_dev_results.json", "dev_results", STAGE6_V1),
-    ("CLM-0019", "stage6_dev_results.json", "dev_results", STAGE6_V1),
-    ("CLM-0027", "stage7_e2e/claim_2_CLM-0027_detail.json", "api_detail", STAGE7_API),
-    ("CLM-0034", "stage6_dev_results.json", "dev_results", STAGE6_V1),
-    ("CLM-0035", "stage7_e2e/claim_1_CLM-0035_detail.json", "api_detail", STAGE7_API),
-]
-
-NOTE = ("Stored result for a development-set claim, produced before the final evaluation settings. "
-        "No model call was made to show it.")
+_cache = {"key": None, "samples": {}}
 
 
-@lru_cache(maxsize=1)
 def load_samples():
-    """{claim_id: case detail in the same shape as GET /claims/{id}}."""
+    """{claim_id: case detail in the same shape as GET /claims/{id}}; empty until the run has finished."""
+    if batch_status.batch_is_running() or not RESULTS_PATH.exists():
+        return {}
+    stat = RESULTS_PATH.stat()
+    key = (stat.st_mtime_ns, stat.st_size)   # rebuild only when the results file changes
+    if _cache["key"] != key:
+        _cache.update(key=key, samples=_build_samples())
+    return _cache["samples"]
+
+
+def _build_samples():
+    sample_ids = json.loads(SAMPLE_PATH.read_text(encoding="utf-8"))["claim_ids"]
+    results = json.loads(RESULTS_PATH.read_text(encoding="utf-8"))["claims"]
+    if any(results.get(claim_id, {}).get("status") not in FINISHED for claim_id in sample_ids):
+        return {}   # the run is not finished: show nothing rather than a partial set
     with open(CLAIMS_PATH, encoding="utf-8") as f:
         claims = {c["claim_id"]: c for c in json.load(f)}
-
-    samples = {}
-    for claim_id, file_name, file_format, label in SAMPLE_SOURCES:
-        if not is_dev_claim(claim_id):
-            raise ValueError(f"{claim_id} is not a development-set claim and must not be shown as a sample")
-        stored = json.loads((DATA_DIR / file_name).read_text(encoding="utf-8"))
-        if file_format == "dev_results":
-            evidence, result = stored[claim_id]["evidence"], stored[claim_id]["claimlens"]
-        else:
-            evidence, result = stored["evidence"], stored
-        samples[claim_id] = _case_detail(claim_id, sanitize_claim(claims[claim_id]), evidence, result, label)
-    return samples
+    return {
+        claim_id: _case_detail(claim_id, sanitize_claim(claims[claim_id]), results[claim_id]["evidence"],
+                               results[claim_id]["result"])
+        for claim_id in sample_ids   # the pre-registered processing order
+        if results[claim_id]["status"] == "complete"
+    }
 
 
 def list_samples():
@@ -80,7 +81,7 @@ def get_sample(claim_id):
     return load_samples().get(claim_id)
 
 
-def _case_detail(claim_id, claim, evidence, result, label):
+def _case_detail(claim_id, claim, evidence, result):
     return {
         "id": None,
         "claim_id": claim_id,
@@ -98,5 +99,5 @@ def _case_detail(claim_id, claim, evidence, result, label):
         "unresolved_points": result.get("unresolved_points"),
         "transcript": result.get("transcript"),
         "usage": result.get("usage"),
-        "stored_sample": {"source": label, "note": NOTE},
+        "stored_sample": {"source": SOURCE, "note": NOTE},
     }

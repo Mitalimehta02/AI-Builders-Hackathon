@@ -746,3 +746,16 @@ unchanged, and CLM-0039 continued from its last saved step.
 
 No evaluation metric, decision or ground truth for held-out claims was looked at. Unchanged: the sample,
 the order, the prompts, the cap, the tier rule, the gate and all model settings.
+
+### 2026-09-15 — Sample loader shows the Stage 11 results (after the run finished)
+
+**Before.** The intake page's "load a sample claim" and the dashboard showed six development-set
+results. They were produced under temperature 1.0, some with the since-removed rebuttal round, which
+this log marks as not comparable with the final run.
+
+**Now.** They show the 15 pre-registered Stage 11 results, each labelled with the run that produced it.
+The change was made after `BATCH COMPLETE` (08:07 UTC) and after the results were committed. The loader
+serves nothing while a batch is running or any pre-registered claim is unfinished.
+
+**Unchanged.** No result, prompt, rule or setting changed. `POST /claims` still refuses held-out claim
+IDs: showing a stored result is not the same as re-running a claim.

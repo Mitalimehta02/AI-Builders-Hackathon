@@ -3,7 +3,8 @@ Stage 8 backend tests: stored samples, the live-submission switch, and the batch
 Offline: fake model, temporary database and status file, so no quota is used.
 
 What they protect:
-- "load a sample claim" serves stored development-set results only, with no model call and no labels
+- "load a sample claim" serves the stored Stage 11 results only once the run has finished, with no model
+  call and no labels
 - live submission is refused (HTTP 423) while the Stage 11 batch is running, unless explicitly overridden
 - a stale batch status (a crashed batch) no longer blocks live submission
 """
@@ -15,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 import pytest
 from fastapi.testclient import TestClient
 
-from app import batch_status, db, pipeline
+from app import batch_status, db, pipeline, samples
 from app.main import app
 from app.synthetic.eval_split import is_dev_claim
 from tests.test_calibration import FakeModel
@@ -49,26 +50,29 @@ def dev_claim():
 
 # ----- stored samples -----
 
-def test_samples_are_stored_dev_results_served_without_model_calls(client):
+def test_samples_are_stage11_results_served_without_model_calls(client):
     listed = client.get("/samples").json()
     ids = [s["claim_id"] for s in listed]
-    assert ids == ["CLM-0001", "CLM-0006", "CLM-0019", "CLM-0027", "CLM-0034", "CLM-0035"]
-    assert all(is_dev_claim(claim_id) for claim_id in ids)
-    assert "CLM-0030" not in ids  # its data changed after the stored run
-    assert all(s["source"] and s["decision"] in ("APPROVE", "DENY") for s in listed)
+    registered = json.loads(samples.SAMPLE_PATH.read_text(encoding="utf-8"))["claim_ids"]
+    assert ids == registered  # every pre-registered claim completed; shown in the pre-registered order
+    assert not any(is_dev_claim(claim_id) for claim_id in ids)
+    assert all("Stage 11 evaluation run" in s["source"] and s["decision"] in ("APPROVE", "DENY") for s in listed)
 
-    detail = client.get("/samples/CLM-0035").json()
-    assert detail["status"] == "resolved" and detail["claim"]["claim_id"] == "CLM-0035"
+    detail = client.get("/samples/CLM-0040").json()
+    assert detail["status"] == "resolved" and detail["claim"]["claim_id"] == "CLM-0040"
     assert {"judge_prosecutor_first", "judge_defender_first"} <= set(detail["transcript"])
-    assert detail["evidence"]["weather"]["status"] == "ok"
-    assert "temperature 1.0" in detail["stored_sample"]["source"]
+    assert "prosecutor_rebuttal" not in detail["transcript"]  # the final configuration has no rebuttal round
+    assert "temperature 0.2" in detail["stored_sample"]["source"]
     assert "ground_truth" not in json.dumps(detail) and "is_fraud" not in json.dumps(detail)
     assert client.model.calls == []
 
 
-def test_unknown_or_held_out_sample_is_not_found(client):
-    assert client.get("/samples/CLM-0002").status_code == 404
-    assert client.get("/samples/CLM-0030").status_code == 404
+def test_samples_hidden_while_a_batch_runs_and_unknown_ids_not_found(client):
+    assert client.get("/samples/CLM-0002").status_code == 404  # held-out, but not in the evaluation sample
+    assert client.get("/samples/CLM-0035").status_code == 404  # development-set claim: no longer a sample
+    write_batch_status(running=True)
+    assert client.get("/samples").json() == []  # no individual result is shown while a batch runs
+    assert client.get("/samples/CLM-0040").status_code == 404
 
 
 # ----- live-submission switch -----

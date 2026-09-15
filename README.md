@@ -2,8 +2,8 @@
 
 **An AI claims-investigation copilot that argues both sides of every claim — and admits when it isn't sure.**
 
-- **Live demo:** [[LIVE_URL:frontend]]
-- **API:** [[LIVE_URL:backend]] (interactive docs at `/docs`)
+- **Live demo:** https://ai-builders-hackathon.vercel.app
+- **API:** https://claimlens-api.onrender.com (interactive docs at `/docs`)
 - **Evaluation log:** [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) — every design decision, pre-registration and correction, written at the time it was made
 
 > The hosted API runs on a free instance that sleeps when idle. If the demo says it can't reach the backend,
@@ -228,24 +228,24 @@ difference of one or two claims between systems is described as **directionally 
 
 <!-- Filled by scripts/fill_results.py from the final /analytics output. Never type numbers here by hand. -->
 
-[[PLACEHOLDER:sample_and_truncation_note]]
+These figures cover 15 completed claims (5 fraud, 10 legitimate) from a stratified random sample of 15 of the 27 held-out claims, pre-registered on 2026-09-14 (seed 20260914) before any held-out claim was run. With a sample this small, results are raw counts. All 15 pre-registered claims completed; nothing was truncated.
 
 | Measure | Naive baseline | ClaimLens |
 |---|---|---|
-| Correct recommendations | [[PLACEHOLDER:baseline_accuracy]] | [[PLACEHOLDER:claimlens_accuracy]] |
-| Confidently wrong (baseline: confidence 80 or above; ClaimLens: final tier HIGH) | [[PLACEHOLDER:baseline_confidently_wrong]] | [[PLACEHOLDER:claimlens_confidently_wrong]] |
-| ClaimLens confidently wrong, tier before the cap | — | [[PLACEHOLDER:claimlens_confidently_wrong_before_cap]] |
-| Legitimate claims recommended for denial | [[PLACEHOLDER:baseline_legitimate_denied]] | [[PLACEHOLDER:claimlens_legitimate_denied]] |
-| Fraud claims recommended for approval | [[PLACEHOLDER:baseline_fraud_approved]] | [[PLACEHOLDER:claimlens_fraud_approved]] |
-| Fraud dollars caught (claimed amount of fraud claims recommended for denial) | [[PLACEHOLDER:baseline_fraud_dollars_caught]] | [[PLACEHOLDER:claimlens_fraud_dollars_caught]] |
+| Correct recommendations | 12 of 15 correct (always approve: 10 of 15) | 11 of 15 correct (always approve: 10 of 15) |
+| Confidently wrong (baseline: confidence 80 or above; ClaimLens: final tier HIGH) | 1 of 12 high-confidence answers wrong | 0 of 3 high-confidence answers wrong |
+| ClaimLens confidently wrong, tier before the cap | — | 2 of 11 high-confidence answers wrong |
+| Legitimate claims recommended for denial | 0 of 10 legitimate claims | 0 of 10 legitimate claims |
+| Fraud claims recommended for approval | 3 of 5 fraud claims | 4 of 5 fraud claims |
+| Fraud dollars caught (claimed amount of fraud claims recommended for denial) | $13,363 of $39,411 | $8,813 of $39,411 |
 
-**How ClaimLens routed the claims.** Auto-resolved without a human: [[PLACEHOLDER:claimlens_auto_resolved]]
-(fraud among them: [[PLACEHOLDER:claimlens_auto_resolved_fraud]]). Sent to an adjuster:
-[[PLACEHOLDER:claimlens_human_review]]. Confidence tiers: [[PLACEHOLDER:claimlens_tier_counts]]. The cap lowered HIGH
-to MEDIUM on [[PLACEHOLDER:claimlens_cap_applied]]. The two Judge orderings reached different decisions on
-[[PLACEHOLDER:claimlens_orderings_disagreed]]. Estimated adjuster time saved: [[PLACEHOLDER:adjuster_hours_saved]].
+**How ClaimLens routed the claims.** Auto-resolved without a human: 2 of 15 claims
+(fraud among them: 0 of 2). Sent to an adjuster:
+13 of 15 claims. Confidence tiers: HIGH 3, MEDIUM 12, LOW 0. The cap lowered HIGH
+to MEDIUM on 8 of 15 claims (2 of them with a wrong decision). The two Judge orderings reached different decisions on
+0 of 15 claims. Estimated adjuster time saved: 0.7 hours (2 auto-resolved claims at an assumed 22 minutes of manual review each).
 
-**Plain reading.** [[PLACEHOLDER:accuracy_reading]] [[PLACEHOLDER:confidently_wrong_reading]]
+**Plain reading.** Correct recommendations on 15 claims: ClaimLens 11, baseline 12, always approve 10. Against always approving, ClaimLens is 1 claim above it, and the baseline is 2 claims above it. ClaimLens has 1 fewer correct recommendation than the baseline: a difference within two claims, so directionally suggestive at most. Confidently wrong answers: ClaimLens 0 of 3 HIGH-tier answers, baseline 1 of 12 answers at confidence 80 or above. ClaimLens has 1 fewer confidently wrong answer than the baseline: a difference within two claims, so directionally suggestive at most. Before the point-accounting cap, ClaimLens had 2 wrong of 11 HIGH-tier answers.
 
 ### What these numbers can and cannot show
 
@@ -295,9 +295,9 @@ copied by hand.
 - **Live submission is switched off on the public demo.** Each processed claim spends roughly 16,000–19,000 model
   tokens of a shared daily allowance, so the hosted site shows stored results only. Run ClaimLens locally with your own
   Groq key to submit claims live.
-- **The stored sample cases predate the final configuration.** The six development-set cases you can open on the demo
-  were produced during development (some with temperature 1.0 and a since-removed rebuttal round). Each case page says
-  exactly how it was produced.
+- **The stored sample cases are the Stage 11 evaluation results.** The 15 cases you can open on the demo are the
+  pre-registered held-out claims, produced by the evaluation run with the final settings. Each case page says how it
+  was produced. They are shown only because the run has finished; while a batch is running, none are served.
 
 ---
 

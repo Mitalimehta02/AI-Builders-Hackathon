@@ -104,7 +104,7 @@ export default function IntakePage() {
         {/* ---- Samples ---- */}
         <aside className="flex flex-col gap-3">
           <h2 className="text-lg font-semibold text-zinc-900">Load a sample claim</h2>
-          <p className="text-sm text-zinc-600">Stored results for development-set claims. Opening one makes no model call.</p>
+          <p className="text-sm text-zinc-600">Stored results from the pre-registered Stage 11 evaluation run (held-out claims, final settings). Opening one makes no model call.</p>
           {samples.loading && !samples.data && <LoadingState label="Loading samples…" />}
           {samples.error && !samples.data && <ErrorState error={samples.error} onRetry={samples.reload} />}
           {sampleError && <ErrorState error={sampleError} title="Could not open that sample" />}

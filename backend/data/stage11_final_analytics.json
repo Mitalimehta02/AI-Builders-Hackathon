@@ -1,0 +1,89 @@
+{
+  "filled_at": "2026-09-15T08:49:42+00:00",
+  "source": "backend/data results files via compute_analytics()",
+  "documents": [
+    "README.md",
+    "DECK_CONTENT.md",
+    "VIDEO_SCRIPT.md",
+    "DEVPOST_SUBMISSION.md"
+  ],
+  "analytics": {
+    "evaluation": {
+      "sample_size": 15,
+      "held_out_size": 27,
+      "registered_on": "2026-09-14",
+      "seed": 20260914,
+      "claim_ids_sha256": "bbcdf0fd5693fd7a1be43ee4516dd7c99ef71fbb238e696c6c190dc108d5b49a",
+      "processing_order": "ascending claim ID, as pre-registered",
+      "model": "openai/gpt-oss-120b",
+      "settings": {
+        "temperature": 0.2,
+        "reasoning_effort": "medium",
+        "max_completion_tokens": 4096,
+        "response_format": {
+          "type": "json_object"
+        }
+      }
+    },
+    "progress": {
+      "total": 15,
+      "complete": 15,
+      "failed": 0,
+      "in_progress": 0,
+      "not_started": 0,
+      "reported": 15,
+      "is_final": true,
+      "batch_running": false,
+      "waiting_until": null
+    },
+    "composition": {
+      "fraud": 5,
+      "legitimate": 10
+    },
+    "reference": {
+      "always_approve_correct": 10,
+      "out_of": 15,
+      "full_sample_always_approve_correct": 10,
+      "full_sample_size": 15
+    },
+    "baseline": {
+      "correct": 12,
+      "high_confidence": 12,
+      "high_confidence_wrong": 1,
+      "false_positives": 0,
+      "false_negatives": 3,
+      "fraud_amount_caught": 13363.36,
+      "fraud_amount_total": 39411.2,
+      "high_confidence_rule": "confidence of 80 or more (pre-registered at Stage 4)"
+    },
+    "claimlens": {
+      "correct": 11,
+      "high_confidence": 3,
+      "high_confidence_wrong": 0,
+      "false_positives": 0,
+      "false_negatives": 4,
+      "fraud_amount_caught": 8813.36,
+      "fraud_amount_total": 39411.2,
+      "high_confidence_rule": "final confidence tier HIGH",
+      "auto_resolved": 2,
+      "auto_resolved_fraud": 0,
+      "human_review": 13,
+      "tier_counts": {
+        "HIGH": 3,
+        "MEDIUM": 12,
+        "LOW": 0
+      },
+      "tier_before_cap_high": 11,
+      "tier_before_cap_high_wrong": 2,
+      "cap_applied": 8,
+      "cap_applied_on_wrong_decisions": 2,
+      "orderings_disagreed": 0,
+      "manual_review_minutes_assumed": 22,
+      "adjuster_hours_saved": 0.7
+    },
+    "notes": [
+      "Accuracy differs by 1 claim(s) between the systems: within two claims, so at most directionally suggestive.",
+      "Confidently wrong answers differ by 1 claim(s): within two claims, so at most directionally suggestive."
+    ]
+  }
+}

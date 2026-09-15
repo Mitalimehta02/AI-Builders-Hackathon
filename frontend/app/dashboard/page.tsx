@@ -1,7 +1,7 @@
 "use client";
 
 // Adjuster dashboard (Stage 9): the case queue, filterable by status, confidence tier and outcome.
-// Lists live submissions (GET /claims) and the stored development-set samples, clearly labelled.
+// Lists live submissions (GET /claims) and the stored Stage 11 evaluation results, clearly labelled.
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -144,8 +144,8 @@ export default function DashboardPage() {
       )}
 
       <p className="text-xs text-zinc-600">
-        Stored samples are development-set claims processed under earlier settings (see each case for details). The held-out claims in
-        the evaluation batch are not listed individually; their aggregate results are on the Analytics page.
+        Stored samples are the 15 pre-registered held-out claims from the Stage 11 evaluation run, processed with the final settings
+        (see each case for details). The aggregate comparison with the baseline is on the Analytics page.
       </p>
     </Page>
   );
