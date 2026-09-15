@@ -91,19 +91,25 @@ def last_lines(text, count=6):
 # ---------------------------------------------------------------- checks
 
 def check_documents(args):
-    problems = []
+    missing, markers = [], {}
     for name in DOCUMENTS:
         path = REPO_ROOT / name
         if not path.exists():
-            problems.append(f"{name} is missing")
+            missing.append(name)
             continue
-        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-            for match in MARKER.finditer(line):
-                problems.append(f"{name}:{number} {match.group(0)}")
-    if not problems:
-        return PASS, f"no unfilled markers in {len(DOCUMENTS)} documents"
-    shown = problems[:12] + ([f"... and {len(problems) - 12} more"] if len(problems) > 12 else [])
-    return FAIL, f"{len(problems)} problem(s):\n" + "\n".join(f"      {p}" for p in shown)
+        found = [f"{name}:{number} {match.group(0)}"
+                 for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1)
+                 for match in MARKER.finditer(line)]
+        if found:
+            markers[name] = found
+    if not missing and not markers:
+        return PASS, f"all {len(DOCUMENTS)} documents present, no unfilled markers"
+    # Summary first (missing documents, then a count per document), then the individual markers.
+    summary = [f"MISSING {name}" for name in missing]
+    summary += [f"{name}: {len(found)} unfilled marker(s)" for name, found in markers.items()]
+    details = [item for found in markers.values() for item in found]
+    shown = details[:12] + ([f"... and {len(details) - 12} more markers"] if len(details) > 12 else [])
+    return FAIL, "; ".join(summary) + ("\n" + "\n".join(f"      {item}" for item in shown) if shown else "")
 
 
 def check_git(args):
