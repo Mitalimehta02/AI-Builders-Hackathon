@@ -20,7 +20,7 @@ differentiator — most entries will show a demo, very few will show a held-out 
 ## Slide 1 — Title
 **ClaimLens — the claims AI that knows when it doesn't know**
 Subtitle: Adversarial debate + calibrated confidence for insurance claims triage
-Team names · AI Builders Hackathon 2026
+Mitali Mehta · AI Builders Hackathon 2026
 
 ---
 

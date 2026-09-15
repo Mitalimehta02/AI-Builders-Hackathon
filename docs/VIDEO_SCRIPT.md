@@ -8,11 +8,10 @@ README's key spellings where they already exist):
 `baseline_accuracy`, `claimlens_accuracy`, `sample_and_truncation_note` (shown as an on-screen
 caption, not spoken).
 
-**Before recording:** repoint the sample loader at the Stage 11 results (the stored dev samples
-were produced with the old rebuttal round at temperature 1.0 and are documented as
-non-comparable — don't demo output the current system wouldn't produce). Have the batch finished
-and the analytics page showing final numbers. Reserve ~20k tokens so one live submission can run
-on camera. Do a silent dry run first; the live call takes ~60-90 seconds.
+**Before recording:** the intake and dashboard samples already show the Stage 11 results, and the
+analytics page shows the final numbers. Reserve ~20k tokens so one live submission can run on
+camera; live submission is off on the deployed site, so film it locally or switch it on in Render
+only for the take. Do a silent dry run first; the live call takes ~60-90 seconds.
 
 ---
 
@@ -92,7 +91,7 @@ on camera. Do a silent dry run first; the live call takes ~60-90 seconds.
 > And it didn't beat the baseline. 12 of 15 correct (always approve: 10 of 15) against 11 of 15 correct (always approve: 10 of 15), where always-approve scores ten of fifteen. We're telling you that because we pre-registered it — and we weren't going to un-pre-register it when the number came back.
 >
 > What the architecture did buy is narrower: none of ClaimLens's high-confidence answers were
-> wrong, and it auto-approved no fraud at all. The same model without the gate would have
+> wrong, and it auto-approved no fraud at all. The same model given that same gate would have
 > auto-approved eleven claims, one of them fraudulent.
 
 *Delivery note: say only the leading score for each system ("... of fifteen") and skip the
@@ -124,5 +123,3 @@ These figures cover 15 completed claims (5 fraud, 10 legitimate) from a stratifi
 - The cap card at ~2:40 is the moment the product earns its keep — slow down there.
 - Don't apologise for the sample size; state it flatly and move on. Confidence about limitations
   reads as rigour, hedging reads as doubt.
-- Record the 0:00–1:45 and 3:30–5:00 sections now if the batch is still running — only the live
-  demo segment needs final results.

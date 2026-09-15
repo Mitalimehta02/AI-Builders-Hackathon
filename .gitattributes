@@ -1,2 +1,5 @@
 # Shell scripts must keep LF line endings: with CRLF, bash fails on a fresh Windows checkout.
 *.sh text eol=lf
+# Deck files are binary: never convert line endings in them.
+*.pdf binary
+*.pptx binary
